@@ -12,9 +12,9 @@ import org.simulation.vue.VueFourmiliere;
 
 
 public class Terrain {
-	protected Point pos;
-	protected Dimension dim;
-	Fourmiliere fourmiliere;
+	private Point pos;
+	private Dimension dim;
+	private Fourmiliere fourmiliere;
 
 	
 	public Point getPos() {
