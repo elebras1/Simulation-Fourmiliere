@@ -10,6 +10,7 @@ import org.simulation.fourmiliere.Fourmiliere;
 import org.simulation.roles.IndividuSexue;
 import org.simulation.roles.Reine;
 import org.simulation.vue.ContexteDeSimulation;
+import org.simulation.vue.Saisons;
 
 
 public class Terrain {
@@ -33,7 +34,7 @@ public class Terrain {
 	}
 		
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
-		contexte.getSimulation().setNbTimer(contexte.getSimulation().getNbTimer()+1);
+		contexte.getSimulation().getSaisons().incrementeHeure();
 		if (fourmiliere == null) {
 			Point p = new Point(this.pos.x + this.dim.width/2 - 30, this.pos.y + this.dim.height/2 - 30);
 			fourmiliere = new Fourmiliere(p);
@@ -41,7 +42,7 @@ public class Terrain {
 			Fourmi laReine = new Fourmi(posReine);
 
 			laReine.setAge(30);
-			laReine.setDureeDeVie(1000);
+			laReine.setDureeDeVie(547);
 			laReine.setPoids(2);
 			laReine.setEtat(new Adulte(new Reine()));
 			contexte.getSimulation().nouvelIndividu(laReine);
@@ -56,13 +57,27 @@ public class Terrain {
 			Adulte adulte = (Adulte) fourmi.getEtat();
 			adulte.setRole(new IndividuSexue());
 
-			fourmi.setDureeDeVie(500);
+			fourmi.setAge(30);
+			fourmi.setDureeDeVie(547);
+			fourmi.setPoids(2);
 			this.fourmiliere.ponte(fourmi);
 			contexte.getSimulation().nouvelIndividu(fourmi);
 		}
-		if(contexte.getSimulation().getNbTimer()==2190){
-			contexte.getSimulation().setNbTimer(0);
-			contexte.getSimulation().setSaisonActual((contexte.getSimulation().getSaisonActual()+1)%4);
+		if(contexte.getSimulation().getSaisons().getHeure()==2190){
+			switch (contexte.getSimulation().getSaisons()) {
+				case AUTOMNE:
+					contexte.getSimulation().setSaisons(Saisons.HIVER);
+					break;
+				case HIVER:
+					contexte.getSimulation().setSaisons(Saisons.PRINTEMPS);
+					break;
+				case PRINTEMPS:
+					contexte.getSimulation().setSaisons(Saisons.ETE);
+					break;
+				case ETE:
+					contexte.getSimulation().setSaisons(Saisons.AUTOMNE);
+					break;
+			}
 		}
 
 		fourmiliere.etapeDeSimulation(contexte);

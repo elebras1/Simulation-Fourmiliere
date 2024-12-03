@@ -47,10 +47,10 @@ public class Fourmiliere {
 			fourmi.etapeDeSimulation(contexte);
 		}
 
-		this.afficherTrace();
+		this.afficherTrace(contexte);
 	}
 
-	public void afficherTrace() {
+	public void afficherTrace(ContexteDeSimulation contexte) {
 		int nombreOeufs = 0;
 		int nombreLarves = 0;
 		int nombreNymphes = 0;
@@ -77,7 +77,9 @@ public class Fourmiliere {
 			}
 		}
 
-		System.out.println("Total fourmis : " + this.population.size() +
+		System.out.println(
+				"Saision : " + contexte.getSimulation().getSaisons() +
+				", Total fourmis : " + this.population.size() +
 				", fourmis en vie : " + (this.population.size() - nombreMorts) +
 				", nombre d'oeufs : " + nombreOeufs +
 				", nombre de larves : " + nombreLarves +
