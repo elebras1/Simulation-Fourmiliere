@@ -20,4 +20,6 @@ public class Proie  extends Individu {
     public void initialise(VueIndividu vue) {
         this.etat.initialise(vue);
     }
+
+
 }
