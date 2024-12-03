@@ -12,13 +12,19 @@ import org.simulation.etresVivants.Individu;
 import org.simulation.fourmiliere.Fourmiliere;
 import org.simulation.terrain.Terrain;
 
-public class Simulation {
+public class Simulation implements ActionListener {
 	private NiSpace space = new NiSpace("Simulation Fourmis", new Dimension(800, 800));
 	private Terrain terrain = new Terrain(new Point(10,10), new Dimension(700,700));
 	private final int niveauFourmiliere = 1;
 	private final int niveauIndividu = 2;
-	
-	
+	private final String[] saisons = {"Automne", "Hiver","Printemps", "Ete"};
+	private int saisonActual = 0;
+	private int nbTimer = 0;
+
+	public void setNbTimer(int nbTimer) {
+		this.nbTimer = nbTimer;
+	}
+
 	public Simulation() {
 		space.setDoubleBuffered(true);
 		space.openInWindow();
@@ -49,36 +55,42 @@ public class Simulation {
 		this.space.add(v,this.niveauIndividu,0);
 		this.space.repaint();
 	}
-	
-	public void startGraphicAnimation() {
-		GraphicAnimation animation = new GraphicAnimation();
-		animation.start();
-	}
 
-	class GraphicAnimation implements ActionListener {
-		final int graphicAnimationDelay = 10;
+    public String[] getSaisons() {
+        return saisons;
+    }
 
-		public void actionPerformed(ActionEvent e) {
-			Component[] views =  Simulation.this.space.getComponents();
-			for (int i = 0; i < views.length; i++) {
-				Component c = views[i];
-				if (c instanceof VueElement) {
-					VueElement next = (VueElement) c;
-					next.mettreAJourVue();
-				}
+    public int getSaisonActual() {
+        return saisonActual;
+    }
+
+    public void setSaisonActual(int saisonActual) {
+        this.saisonActual = saisonActual;
+    }
+
+    public int getNbTimer() {
+        return nbTimer;
+    }
+	final int graphicAnimationDelay = 10;
+	public void actionPerformed(ActionEvent e) {
+		Component[] views =  Simulation.this.space.getComponents();
+		for (int i = 0; i < views.length; i++) {
+			Component c = views[i];
+			if (c instanceof VueElement) {
+				VueElement next = (VueElement) c;
+				next.mettreAJourVue();
 			}
-			terrain.etapeDeSimulation(new ContexteDeSimulation(Simulation.this));
 		}
-
-		public void start() {
-			Timer animation = new Timer(0, this);
-			animation.setDelay(this.graphicAnimationDelay);
-			animation.start();
-		}
+		terrain.etapeDeSimulation(new ContexteDeSimulation(Simulation.this));
+	}
+	public void start() {
+		Timer animation = new Timer(0, this);
+		animation.setDelay(this.graphicAnimationDelay);
+		animation.start();
 	}
 	
 	public static void main(String args[]) {
 		Simulation simulation = new Simulation();
-		simulation.startGraphicAnimation();
+		simulation.start();
 	}
 }
