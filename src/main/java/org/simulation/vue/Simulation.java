@@ -7,9 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
+import lib.Nicellipse.src.nicellipse.component.NiSpace;
 import org.simulation.etresVivants.Individu;
 import org.simulation.fourmiliere.Fourmiliere;
-import org.simulation.nicellipse.component.NiSpace;
 import org.simulation.terrain.Terrain;
 
 public class Simulation {
