@@ -19,6 +19,7 @@ public class Ouvriere extends Role {
 		int pos;
 		Random rand = new Random();
 		pos = rand.nextInt(4);
+
 		switch (pos) {
 			case 0: {
 				y = y + 1;
