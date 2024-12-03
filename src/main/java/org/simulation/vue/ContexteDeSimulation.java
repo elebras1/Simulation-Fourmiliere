@@ -5,9 +5,9 @@ import org.simulation.fourmiliere.Fourmiliere;
 import org.simulation.terrain.Terrain;
 
 public class ContexteDeSimulation {
-	Simulation sim;
-	Fourmiliere fourmiliere;
-	Individu individu;
+	private Simulation sim;
+	private Fourmiliere fourmiliere;
+	private Individu individu;
 	
 	public ContexteDeSimulation(Simulation sim) {
 		this.sim = sim;

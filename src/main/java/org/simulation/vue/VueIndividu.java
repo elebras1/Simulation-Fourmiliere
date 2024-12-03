@@ -4,7 +4,7 @@ import org.simulation.etresVivants.Individu;
 
 public class VueIndividu extends VueElement implements VuObserver {
 	private static final long serialVersionUID = 8010266472160477056L;
-	Individu individu;
+	private Individu individu;
 	
 	public Individu getIndividu() {
 		return individu;

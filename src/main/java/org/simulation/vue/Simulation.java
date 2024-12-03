@@ -13,10 +13,10 @@ import org.simulation.fourmiliere.Fourmiliere;
 import org.simulation.terrain.Terrain;
 
 public class Simulation {
-	NiSpace space = new NiSpace("Simulation Fourmis", new Dimension(800, 800));
-	Terrain terrain = new Terrain(new Point(10,10), new Dimension(700,700));
-    final int niveau_fourmiliere = 1;
-    final int niveau_individu = 2;
+	private NiSpace space = new NiSpace("Simulation Fourmis", new Dimension(800, 800));
+	private Terrain terrain = new Terrain(new Point(10,10), new Dimension(700,700));
+	private final int niveauFourmiliere = 1;
+	private final int niveauIndividu = 2;
 	
 	
 	public Simulation() {
@@ -39,14 +39,14 @@ public class Simulation {
 	public void nouvelleFourmiliere(Fourmiliere fourmiliere) {
 		VueFourmiliere v = new VueFourmiliere(fourmiliere);
 		// Ajoute l'individu au dessus du terrain
-		this.space.add(v,this.niveau_fourmiliere,0);
+		this.space.add(v,this.niveauFourmiliere,0);
 		this.space.repaint();
 	}
 	
 	public void nouvelIndividu(Individu individu) {
 		VueIndividu v = new VueIndividu(individu);
 		// Ajoute l'individu au dessus de la fourmiliere
-		this.space.add(v,this.niveau_individu,0);		
+		this.space.add(v,this.niveauIndividu,0);
 		this.space.repaint();
 	}
 	

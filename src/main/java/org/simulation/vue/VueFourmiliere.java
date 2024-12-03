@@ -9,7 +9,7 @@ import org.simulation.fourmiliere.Fourmiliere;
 
 public class VueFourmiliere extends VueElement {
 	private static final long serialVersionUID = -1082764165537478273L;
-	Fourmiliere fourmiliere;
+	private Fourmiliere fourmiliere;
 
 	public Color defaultBorderColor() {
 		return Color.red;
