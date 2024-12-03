@@ -71,7 +71,7 @@ public class Fourmi extends Individu {
 				break;
 		}
 
-		if (this.age == this.dureeDeVie) {
+		if (this.age > this.dureeDeVie) {
 			this.etat = new Mort();
 			this.getVuObserver().notifyVu();
 			this.setPoids(0);
