@@ -81,6 +81,6 @@ public class Fourmiliere {
 				", nombre de morts : " + nombreMorts +
 				", nombre d'ouvrières : " + nombreOuvriere +
 				", nombre de soldats : " + nombreSoldats +
-				", nombre d'individus sexuels : " + nombreIndividuSexue);
+				", nombre d'individus sexues : " + nombreIndividuSexue);
 	}
 }
