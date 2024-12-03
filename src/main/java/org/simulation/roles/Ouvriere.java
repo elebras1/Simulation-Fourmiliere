@@ -5,6 +5,7 @@ import java.util.Random;
 
 
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.terrain.Pheromone;
 import org.simulation.vue.ContexteDeSimulation;
 
 public class Ouvriere extends Role {
@@ -26,6 +27,9 @@ public class Ouvriere extends Role {
 			case 2 -> y--;
 			case 3 -> x--;
 		}
+
+		Pheromone pheromone = contexte.getTerrain().getPheromone();
+		pheromone.deposerPheromone(x, y);
 		fourmi.setPos(new Point(x,y));
 	}
 

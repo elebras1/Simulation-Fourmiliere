@@ -13,23 +13,26 @@ public class VuePheromone extends VueElement {
         this.pheromone = pheromone;
         this.setBounds(position.x, position.y, this.pheromone.getPheromones()[0].length, this.pheromone.getPheromones().length);
         this.buffer = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-        this.updateBuffer();
+        this.setBackground(new Color(0, 0, 0, 0));
     }
 
     private void updateBuffer() {
         int[][] pheromones = this.pheromone.getPheromones();
-        for (int y = 0; y < pheromones.length; y++) {
-            for (int x = 0; x < pheromones[0].length; x++) {
-                int gradient = Math.min(255, pheromones[y][x]);
+        Graphics2D g2d = this.buffer.createGraphics();
 
-                if(gradient == 0) {
-                    this.buffer.setRGB(x, y, 0x00000000);
-                } else {
-                    int color = new Color(gradient, 0, 0).getRGB();
-                    this.buffer.setRGB(x, y, color);
+        for (int x = 0; x < pheromones.length; x++) {
+            for (int y = 0; y < pheromones[0].length; y++) {
+                int gradient = Math.min(255, pheromones[x][y]);
+                if (gradient != 0) {
+                    int green = (int)(gradient * 0.5);
+                    int blue = (int)(gradient * 0.75);
+                    int color = (0xFF << 24) | (gradient << 16) | (green << 8) | blue;
+                    g2d.setColor(new Color(color, true));
+                    g2d.fillRect(x, y, 1, 1);
                 }
             }
         }
+        g2d.dispose();
     }
 
     @Override

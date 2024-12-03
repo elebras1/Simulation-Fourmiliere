@@ -13,12 +13,14 @@ public class Pheromone {
         return this.pheromones;
     }
 
-    public void incrementerPheromone(int x, int y) {
+    public void deposerPheromone(int x, int y) {
         this.pheromones[x][y] += 3;
     }
 
-    public void decrementerPheromone(int x, int y) {
-        this.pheromones[x][y]--;
+    public void reduirePheromone(int x, int y) {
+        if(this.pheromones[x][y] > 0) {
+            this.pheromones[x][y]--;
+        }
     }
 
     public int getPheromone(int x, int y) {

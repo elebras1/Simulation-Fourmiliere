@@ -49,7 +49,7 @@ public class Terrain {
 
 			this.fourmiliere.setReine(laReine);
 			contexte.getSimulation().nouvelleFourmiliere(this.fourmiliere);
-			//contexte.getSimulation().nouveauPheromone(this.pheromone);
+			contexte.getSimulation().nouveauPheromone(this.pheromone);
 
 		}
 		this.fourmiliere.etapeDeSimulation(contexte);
