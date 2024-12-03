@@ -9,7 +9,7 @@ import javax.swing.BorderFactory;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
 
-public class Mort extends etats.Etat {
+public class Mort extends Etat {
 
 	@Override
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
