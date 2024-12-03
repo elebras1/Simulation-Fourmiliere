@@ -8,7 +8,6 @@ import org.simulation.etresVivants.Fourmi;
 import org.simulation.fourmiliere.Fourmiliere;
 import org.simulation.roles.Reine;
 import org.simulation.vue.ContexteDeSimulation;
-import org.simulation.vue.VueFourmiliere;
 
 
 public class Terrain {
@@ -25,6 +24,10 @@ public class Terrain {
 		return this.dim;
 	}
 
+	public Pheromone getPheromone() {
+		return this.pheromone;
+	}
+
 	public Terrain(Point pos, Dimension dim) {
 		this.pos = pos;
 		this.dim = dim;
@@ -32,10 +35,10 @@ public class Terrain {
 	}
 		
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
-		if (fourmiliere == null) {
-			Point p = new Point(this.pos.x + this.dim.width/2 - 30, this.pos.y + this.dim.height/2 - 30);
-			fourmiliere = new Fourmiliere(p);
-			Point posReine = new Point(p.x + 15, p.y + 15);
+		if (this.fourmiliere == null) {
+			Point position = new Point(this.pos.x + this.dim.width/2 - 30, this.pos.y + this.dim.height/2 - 30);
+			this.fourmiliere = new Fourmiliere(position);
+			Point posReine = new Point(position.x + 15, position.y + 15);
 			Fourmi laReine = new Fourmi(posReine);
 
 			laReine.setAge(30);
@@ -43,12 +46,13 @@ public class Terrain {
 			laReine.setPoids(2);
 			laReine.setEtat(new Adulte(new Reine()));
 			contexte.getSimulation().nouvelIndividu(laReine);
-			
-			fourmiliere.setReine(laReine);
-			contexte.getSimulation().nouvelleFourmiliere(fourmiliere);
+
+			this.fourmiliere.setReine(laReine);
+			contexte.getSimulation().nouvelleFourmiliere(this.fourmiliere);
+			//contexte.getSimulation().nouveauPheromone(this.pheromone);
 
 		}
-		fourmiliere.etapeDeSimulation(contexte);
+		this.fourmiliere.etapeDeSimulation(contexte);
 	}
 
 }

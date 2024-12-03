@@ -3,10 +3,14 @@ package org.simulation.terrain;
 import java.awt.*;
 
 public class Pheromone {
-    private int[][] pheromones;
+    private final int[][] pheromones;
 
     public Pheromone(Dimension dimension) {
         this.pheromones = new int[dimension.height][dimension.width];
+    }
+
+    public int[][] getPheromones() {
+        return this.pheromones;
     }
 
     public void incrementerPheromone(int x, int y) {

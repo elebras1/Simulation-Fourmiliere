@@ -10,13 +10,15 @@ import javax.swing.Timer;
 import lib.Nicellipse.src.nicellipse.component.NiSpace;
 import org.simulation.etresVivants.Individu;
 import org.simulation.fourmiliere.Fourmiliere;
+import org.simulation.terrain.Pheromone;
 import org.simulation.terrain.Terrain;
 
 public class Simulation {
 	private final NiSpace space = new NiSpace("Simulation Fourmis", new Dimension(800, 800));
 	private final Terrain terrain = new Terrain(new Point(10,10), new Dimension(700,700));
 	private final int niveauFourmiliere = 1;
-	private final int niveauIndividu = 2;
+	private final int niveauPheromone = 2;
+	private final int niveauIndividu = 3;
 	
 	
 	public Simulation() {
@@ -40,6 +42,12 @@ public class Simulation {
 		VueFourmiliere vue = new VueFourmiliere(fourmiliere);
 		// Ajoute l'individu au dessus du terrain
 		this.space.add(vue,this.niveauFourmiliere,0);
+		this.space.repaint();
+	}
+
+	public void nouveauPheromone(Pheromone pheromone) {
+		VuePheromone vue = new VuePheromone(pheromone, this.terrain.getPos());
+		this.space.add(vue, this.niveauPheromone, 0);
 		this.space.repaint();
 	}
 	
