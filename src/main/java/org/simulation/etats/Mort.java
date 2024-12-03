@@ -16,7 +16,7 @@ public class Mort extends Etat {
 	}
 	
 	public void initialise(VueIndividu vue ) {
-		vue.setBackground(Color.white);
+		vue.setBackground(Color.black);
 		vue.setDimension(new Dimension(3, 3));
 		vue.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 	}

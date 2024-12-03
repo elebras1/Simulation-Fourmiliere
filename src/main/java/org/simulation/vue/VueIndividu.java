@@ -1,11 +1,8 @@
 package org.simulation.vue;
 
-import java.awt.Color;
-import java.awt.Dimension;
-
 import org.simulation.etresVivants.Individu;
 
-public class VueIndividu extends VueElement {
+public class VueIndividu extends VueElement implements VuObserver {
 	private static final long serialVersionUID = 8010266472160477056L;
 	Individu individu;
 	
@@ -15,6 +12,7 @@ public class VueIndividu extends VueElement {
 
 	public VueIndividu(Individu individu) {
 		this.individu = individu;
+		this.individu.setVuObserver(this);
 		individu.initialise(this);
 		this.setLocation(this.individu.getPos());
 	}
@@ -22,6 +20,11 @@ public class VueIndividu extends VueElement {
 	@Override
 	public void redessine() {
 		this.setLocation(this.individu.getPos());
+	}
+
+	@Override
+	public void notifyVu() {
+		this.individu.initialise(this);
 	}
 }
 

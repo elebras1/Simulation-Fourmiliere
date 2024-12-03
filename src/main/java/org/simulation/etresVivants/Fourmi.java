@@ -56,20 +56,24 @@ public class Fourmi extends Individu {
 		switch (this.age) {
 			case 3: 
 				this.etat = new Larve();
+				this.getVuObserver().notifyVu();
 				this.setPoids(6);
 				break;
 			case 10: 
 				this.etat = new Nymphe();
+				this.getVuObserver().notifyVu();
 				this.setPoids(0);
 				break;
 			case 20: 
 				this.etat = new Adulte();
+				this.getVuObserver().notifyVu();
 				this.setPoids(2);
 				break;
 		}
 
 		if (this.age == this.dureeDeVie) {
 			this.etat = new Mort();
+			this.getVuObserver().notifyVu();
 			this.setPoids(0);
 		}
 	}

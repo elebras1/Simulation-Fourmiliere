@@ -62,6 +62,7 @@ public class Fourmiliere {
 				case "Oeuf" -> nombreOeufs++;
 				case "Larve" -> nombreLarves++;
 				case "Nymphe" -> nombreNymphes++;
+				case "Mort" -> nombreMorts++;
 				case "Adulte" -> {
 					Adulte fourmiAdulte = (Adulte) fourmi.getEtat();
 					switch (fourmiAdulte.getRole().getClass().getSimpleName()) {
