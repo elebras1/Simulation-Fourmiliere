@@ -55,4 +55,9 @@ public class Terrain {
 		this.fourmiliere.etapeDeSimulation(contexte);
 	}
 
+	public Point convertirEnCoordonneesLocales(Point globale) {
+		return new Point(globale.x - this.pos.x, globale.y - this.pos.y);
+	}
+
+
 }

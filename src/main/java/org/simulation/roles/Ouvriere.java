@@ -29,7 +29,9 @@ public class Ouvriere extends Role {
 		}
 
 		Pheromone pheromone = contexte.getTerrain().getPheromone();
-		pheromone.deposerPheromone(x, y);
+		Point locale = contexte.getTerrain().convertirEnCoordonneesLocales(new Point(x, y));
+		pheromone.deposerPheromone(locale.x, locale.y);
+
 		fourmi.setPos(new Point(x,y));
 	}
 
