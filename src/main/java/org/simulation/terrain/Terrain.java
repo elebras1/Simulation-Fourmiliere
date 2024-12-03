@@ -15,7 +15,7 @@ public class Terrain {
 	private Point pos;
 	private Dimension dim;
 	private Fourmiliere fourmiliere;
-
+	private Pheromone pheromone;
 	
 	public Point getPos() {
 		return this.pos;
@@ -25,10 +25,10 @@ public class Terrain {
 		return this.dim;
 	}
 
-
 	public Terrain(Point pos, Dimension dim) {
 		this.pos = pos;
 		this.dim = dim;
+		this.pheromone = new Pheromone(this.dim);
 	}
 		
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
