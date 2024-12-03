@@ -8,7 +8,7 @@ import org.simulation.terrain.Terrain;
 
 class VueTerrain extends VueElement {
 	private static final long serialVersionUID = -1082764165537478273L;
-	Terrain terrain;
+	private Terrain terrain;
 
 	public Terrain getTerrain() {
 		return terrain;
