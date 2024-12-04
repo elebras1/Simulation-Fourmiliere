@@ -23,12 +23,24 @@ public class Ouvriere extends Role {
 		int gradientRight = pheromone.getPheromone(x + 1, y);
 		int gradientDown = pheromone.getPheromone(x, y + 1);
 
-		Point newPosition = mouvement(x, y, gradientUp, gradientLeft, gradientRight, gradientDown);
+		int i=0;
+		switch (contexte.getSimulation().getGraphicAnimationDelay()) {
+			case 100: {
+				i = 1;
+				break;
+			}
+			case 10: {
+				i = 10;
+				break;
+			}
+		}
+		for (int j=0;j<i;j++) {
+			Point newPosition = mouvement(x, y, gradientUp, gradientLeft, gradientRight, gradientDown);
+			Point locale = contexte.getTerrain().convertirEnCoordonneesLocales(newPosition);
+			pheromone.deposerPheromone(locale.x, locale.y);
+			fourmi.setPos(newPosition);
+		}
 
-		Point locale = contexte.getTerrain().convertirEnCoordonneesLocales(newPosition);
-		pheromone.deposerPheromone(locale.x, locale.y);
-
-		fourmi.setPos(newPosition);
 	}
 
 	public Point mouvement(int x, int y, int gradientUp, int gradientLeft, int gradientRight, int gradientDown) {
