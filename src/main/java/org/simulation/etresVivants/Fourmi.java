@@ -26,7 +26,7 @@ public class Fourmi extends Individu {
 		this.setAge(0);
 		this.setEtat(new Oeuf());
 		this.setPos(point);
-		this.setAction(Action.SUIVRE);
+		this.setAction(Action.DECOUVERTE);
 	}
 
 	public int getDureeDeVie() {
