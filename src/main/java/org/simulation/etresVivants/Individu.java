@@ -13,7 +13,8 @@ public abstract class Individu {
 	protected Point pos;
 	private int dureeDeVie;
 	private VuObserver vuObserver;
-	
+	private VueIndividu vue;
+
 
 	public int getDureeDeVie() {
 		return dureeDeVie;
@@ -25,6 +26,13 @@ public abstract class Individu {
 
 	public Point getPos() {
 		return pos;
+	}
+
+	public void setVue(VueIndividu vueIndividu) {
+		this.vue = vueIndividu;
+	}
+	public VueIndividu getVue() {
+		return vue;
 	}
 
 	public void setPos(Point pos) {
@@ -56,4 +64,6 @@ public abstract class Individu {
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		contexte.setIndividu(this);
 	}
+
+
 }

@@ -14,7 +14,7 @@ public class Proie  extends Individu {
     private static final double POIDS_MAX = 10.0;
     private Etat etat;
     private List<Fourmi> fourmisSurProie = new ArrayList<>();
-    private int tempsAttente;
+    private int tempsAttente=0;
     private static final int TEMPS_ATTENTE_MAX = 180;
 
     public Proie(Point point) {
@@ -46,14 +46,23 @@ public class Proie  extends Individu {
     }
 
     public void estAttaquer() {
-        if(this.fourmisSurProie.isEmpty()){return;}
+        if(this.fourmisSurProie.isEmpty()){
+            this.tempsAttente=0;
+            return;}
         boolean fourmisNecessaires = getNombreFourmisNecessaires();
         if (!fourmisNecessaires) {
             attendre();
         } else{
+            this.fourmisSurProie.get(0).setPortProie(this.getPoids());
             this.setEtat(new ProieMort());
             this.getVuObserver().notifyVu();
         }
+        for(int i=0;i<this.fourmisSurProie.size();i++){
+            if(this.fourmisSurProie.get(i).getEtat().getClass().getSimpleName().contains("Mort")){
+                this.fourmisSurProie.remove(i);
+            }
+        }
+
     }
     public void attendre() {
         this.tempsAttente++;
@@ -66,7 +75,7 @@ public class Proie  extends Individu {
     public void attaquerPar(Fourmi fourmi) {
         if (!(this.etat instanceof ProieVivant)) {return;}
         double distance =this.getPos().distance(fourmi.getPos());
-        if (distance<=5 && !this.fourmisSurProie.contains(fourmi)) {
+        if (distance<=5 && !this.fourmisSurProie.contains(fourmi) && fourmi.getPortProie()==0) {
             this.fourmisSurProie.add(fourmi);
         }
     }
@@ -80,20 +89,21 @@ public class Proie  extends Individu {
         super.etapeDeSimulation(contexte);
         this.estAttaquer();
         this.etat.etapeDeSimulation(contexte);
-        List<Proie> proiesPlusLa = new ArrayList<>();
-        for (Proie proie : contexte.getTerrain().getProies()) {
-            for (Fourmi fourmi : contexte.getFourmiliere().getPopulation()) {
-                proie.attaquerPar(fourmi);
-            }
-            if(!(proie.getEtat() instanceof ProieVivant)){
-                proiesPlusLa.add(proie);
-                if(proie.getEtat() instanceof ProieMort){
-                  contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()+proie.getPoids());
 
-                }
+
+
+        for (Fourmi fourmi : contexte.getFourmiliere().getPopulation()) {
+            this.attaquerPar(fourmi);
+        }
+        if(!(this.getEtat() instanceof ProieVivant)){
+            if(this.getEtat() instanceof ProieMort){
+
+            }else {
+                contexte.getSimulation().retirerIndividu(this.getVue());
             }
+            contexte.getTerrain().getProies().remove(this);
 
         }
-        contexte.getTerrain().getProies().removeAll(proiesPlusLa);
+
     }
 }

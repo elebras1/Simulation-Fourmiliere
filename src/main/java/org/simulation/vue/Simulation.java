@@ -49,7 +49,10 @@ public class Simulation {
 		this.space.add(v,this.niveauIndividu,0);
 		this.space.repaint();
 	}
-	
+	public void retirerIndividu(VueIndividu individu) {
+		this.space.remove(individu);
+		this.space.repaint();
+	}
 	public void startGraphicAnimation() {
 		GraphicAnimation animation = new GraphicAnimation();
 		animation.start();
