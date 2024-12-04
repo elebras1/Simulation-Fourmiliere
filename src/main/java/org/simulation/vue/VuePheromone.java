@@ -20,13 +20,16 @@ public class VuePheromone extends VueElement {
         int[][] pheromones = this.pheromone.getPheromones();
         Graphics2D g2d = this.buffer.createGraphics();
 
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f));
+        g2d.fillRect(0, 0, this.buffer.getWidth(), this.buffer.getHeight());
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+
+        // Dessin des phéromones
         for (int x = 0; x < pheromones.length; x++) {
             for (int y = 0; y < pheromones[0].length; y++) {
-                int gradient = Math.min(255, pheromones[x][y]);
+                int gradient = Math.min(255, pheromones[x][y] * 10);
                 if (gradient != 0) {
-                    int green = (int)(gradient * 0.5);
-                    int blue = (int)(gradient * 0.75);
-                    int color = (0xFF << 24) | (gradient << 16) | (green << 8) | blue;
+                    int color = (gradient << 24) | (255 << 16) | (0 << 8) | 0;
                     g2d.setColor(new Color(color, true));
                     g2d.fillRect(x, y, 1, 1);
                 }
@@ -34,6 +37,7 @@ public class VuePheromone extends VueElement {
         }
         g2d.dispose();
     }
+
 
     @Override
     public void redessine() {

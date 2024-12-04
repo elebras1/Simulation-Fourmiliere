@@ -14,7 +14,9 @@ public class Pheromone {
     }
 
     public void deposerPheromone(int x, int y) {
-        this.pheromones[x][y] += 3;
+        if(x >= 0 && x < this.pheromones.length && y >= 0 && y < this.pheromones[0].length) {
+            this.pheromones[x][y] += 3;
+        }
     }
 
     public void reduirePheromone(int x, int y) {
