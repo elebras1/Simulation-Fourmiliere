@@ -7,6 +7,7 @@ import org.simulation.etats.Adulte;
 import org.simulation.etats.Oeuf;
 import org.simulation.etresVivants.Fourmi;
 import org.simulation.etresVivants.Individu;
+import org.simulation.etresVivants.Sexe;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.Saisons;
 
@@ -14,14 +15,18 @@ public class Reine extends Role{
 		
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		Individu reine = contexte.getIndividu();
-		boolean individuSexueIsPresent=contexte.getFourmiliere().getPopulation().stream()
+		boolean individuSexueMaleIsPresent=
+				contexte.getFourmiliere().getPopulation().stream()
 				.map(Fourmi::getEtat)
 				.filter(etat -> etat instanceof Adulte)
 				.map(Adulte.class::cast)
 				.map(Adulte::getRole)
-				.anyMatch(role -> role instanceof IndividuSexue);
+				.filter(role -> role instanceof IndividuSexue)
+				.map(IndividuSexue.class::cast)
+				.map(IndividuSexue::getSexe)
+				.anyMatch(sexe -> sexe== Sexe.male);
 
-		if(individuSexueIsPresent){
+		if(individuSexueMaleIsPresent){
 			if(contexte.getSimulation().getSaisons().getHeure()%15==0){
 				Random rand = new Random();
 				int nb = rand.nextInt(50);
@@ -33,7 +38,7 @@ public class Reine extends Role{
 
 					// Générer un nombre aléatoire entre min et max (inclus)
 					int duree = rand.nextInt(max - min + 1) + min;
-					oeuf.setDureeDeVie(duree);
+					oeuf.setDureeDeVie(99999999);
 					contexte.getFourmiliere().ponte(oeuf);
 					contexte.getSimulation().nouvelIndividu(oeuf);
 				}

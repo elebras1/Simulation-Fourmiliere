@@ -35,9 +35,6 @@ public class Ouvriere extends Role {
 	}
 
 	public Point mouvement(int x, int y, int gradientUp, int gradientLeft, int gradientRight, int gradientDown, Action action) {
-		// 10% de chance au minimum de bouger dans une direction
-		float probMin = 0.1f;
-
 		Random random = new Random();
 		float totalGradient = gradientUp + gradientLeft + gradientRight + gradientDown;
 		// Si aucun pheromone → direction aléatoire
@@ -51,35 +48,46 @@ public class Ouvriere extends Role {
 			}
 		}
 
-		float probUp = 0, probLeft = 0, probRight = 0, probDown = 0;
-		if (action.equals(Action.SUIVRE)) {
-			probUp = probMin + (gradientUp / totalGradient);
-			probLeft = probMin + (gradientLeft / totalGradient);
-			probRight = probMin + (gradientRight / totalGradient);
-			probDown = probMin + (gradientDown / totalGradient);
-		} else if (action.equals(Action.DECOUVERTE)) {
-			probUp = (float) (probMin + ((1.0 / gradientUp) / (1.0 / totalGradient)));
-			probLeft = (float) (probMin + ((1.0 / gradientLeft) / (1.0 / totalGradient)));
-			probRight = (float) (probMin + ((1.0 / gradientRight) / (1.0 / totalGradient)));
-			probDown = (float) (probMin + ((1.0 / gradientDown) / (1.0 / totalGradient)));
-		}
+		double minBias = 10.0; // Biais minimal de 10 %
+		double maxPheromone = 255.0; // Valeur maximale des phéromones
 
-		float sum = probUp + probLeft + probRight + probDown;
-		probUp /= sum;
-		probLeft /= sum;
-		probRight /= sum;
-		probDown /= sum;
+		// Calcul des probabilités brutes en fonction de l'action
+		double probUp, probLeft, probRight, probDown;
 
-		float randomValue = random.nextFloat(1);
-
-		if (randomValue < probUp) {
-			return new Point(x, y - 1);
-		} else if (randomValue < probUp + probLeft) {
-			return new Point(x - 1, y);
-		} else if (randomValue < probUp + probLeft + probRight) {
-			return new Point(x + 1, y);
+		if (action == Action.SUIVRE) {
+			probUp = Math.max(minBias, gradientUp / maxPheromone * (100 - 4 * minBias));
+			probLeft = Math.max(minBias, gradientLeft / maxPheromone * (100 - 4 * minBias));
+			probRight = Math.max(minBias, gradientRight / maxPheromone * (100 - 4 * minBias));
+			probDown = Math.max(minBias, gradientDown / maxPheromone * (100 - 4 * minBias));
+		} else if (action == Action.DECOUVERTE) {
+			probUp = Math.max(minBias, (maxPheromone - gradientUp) / maxPheromone * (100 - 4 * minBias));
+			probLeft = Math.max(minBias, (maxPheromone - gradientLeft) / maxPheromone * (100 - 4 * minBias));
+			probRight = Math.max(minBias, (maxPheromone - gradientRight) / maxPheromone * (100 - 4 * minBias));
+			probDown = Math.max(minBias, (maxPheromone - gradientDown) / maxPheromone * (100 - 4 * minBias));
 		} else {
-			return new Point(x, y + 1);
+			// Mode CHASSE ou autre
+			probUp = probLeft = probRight = probDown = 25.0; // Égalité parfaite
 		}
+
+		// Normalisation pour que la somme fasse 100 %
+		double total = probUp + probLeft + probRight + probDown;
+
+		probUp /= total;
+		probLeft /= total;
+		probRight /= total;
+		probDown /= total;
+
+		// Génération d'un mouvement basé sur les probabilités normalisées
+		double rand = Math.random();
+		if (rand < probUp) {
+			return new Point(x, y - 1); // Haut
+		} else if (rand < probUp + probLeft) {
+			return new Point(x - 1, y); // Gauche
+		} else if (rand < probUp + probLeft + probRight) {
+			return new Point(x + 1, y); // Droite
+		} else {
+			return new Point(x, y + 1); // Bas
+		}
+
 	}
 }

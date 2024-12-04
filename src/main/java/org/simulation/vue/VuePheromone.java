@@ -27,7 +27,7 @@ public class VuePheromone extends VueElement {
         // Dessin des phéromones
         for (int x = 0; x < pheromones.length; x++) {
             for (int y = 0; y < pheromones[0].length; y++) {
-                int gradient = pheromones[x][y] * 10;
+                int gradient = pheromones[x][y];
                 if (gradient != 0) {
                     int color = (gradient << 24) | (255 << 16) | (0 << 8) | 0;
                     g2d.setColor(new Color(color, true));
