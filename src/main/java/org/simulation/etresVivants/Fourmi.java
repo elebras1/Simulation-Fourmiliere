@@ -20,11 +20,13 @@ public class Fourmi extends Individu {
 	private int dureeDeVie;
 	private Etat etat;
 	private int age;
+	private Action action;
 	
 	public Fourmi(Point point) {
 		this.setAge(0);
 		this.setEtat(new Oeuf());
 		this.setPos(point);
+		this.setAction(Action.SUIVRE);
 	}
 
 	public int getDureeDeVie() {
@@ -49,6 +51,14 @@ public class Fourmi extends Individu {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public void setAction(Action action) {
+		this.action = action;
+	}
+
+	public Action getAction() {
+		return this.action;
 	}
 	
 	public void evolution(ContexteDeSimulation contexte) {

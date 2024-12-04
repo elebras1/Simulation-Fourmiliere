@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.Random;
 
 
+import org.simulation.etresVivants.Action;
 import org.simulation.etresVivants.Fourmi;
 import org.simulation.terrain.Pheromone;
 import org.simulation.vue.ContexteDeSimulation;
@@ -15,6 +16,9 @@ public class Ouvriere extends Role {
 
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		Fourmi fourmi = (Fourmi) contexte.getIndividu();
+		if(fourmi.getAction().equals(Action.CHASSE)) {
+			return;
+		}
 		int x = fourmi.getPos().x;
 		int y = fourmi.getPos().y;
 		Pheromone pheromone = contexte.getTerrain().getPheromone();
@@ -35,7 +39,7 @@ public class Ouvriere extends Role {
 			}
 		}
 		for (int j=0;j<i;j++) {
-			Point newPosition = mouvement(x, y, gradientUp, gradientLeft, gradientRight, gradientDown);
+			Point newPosition = mouvement(x, y, gradientUp, gradientLeft, gradientRight, gradientDown, fourmi.getAction());
 			Point locale = contexte.getTerrain().convertirEnCoordonneesLocales(newPosition);
 			pheromone.deposerPheromone(locale.x, locale.y);
 			fourmi.setPos(newPosition);
@@ -43,7 +47,7 @@ public class Ouvriere extends Role {
 
 	}
 
-	public Point mouvement(int x, int y, int gradientUp, int gradientLeft, int gradientRight, int gradientDown) {
+	public Point mouvement(int x, int y, int gradientUp, int gradientLeft, int gradientRight, int gradientDown, Action action) {
 		// 10% de chance au minimum de bouger dans une direction
 		float probMin = 0.1f;
 
@@ -60,10 +64,18 @@ public class Ouvriere extends Role {
 			}
 		}
 
-		float probUp = probMin + (gradientUp / totalGradient);
-		float probLeft = probMin + (gradientLeft / totalGradient);
-		float probRight = probMin + (gradientRight / totalGradient);
-		float probDown = probMin + (gradientDown / totalGradient);
+		float probUp = 0, probLeft = 0, probRight = 0, probDown = 0;
+		if (action.equals(Action.SUIVRE)) {
+			probUp = probMin + (gradientUp / totalGradient);
+			probLeft = probMin + (gradientLeft / totalGradient);
+			probRight = probMin + (gradientRight / totalGradient);
+			probDown = probMin + (gradientDown / totalGradient);
+		} else if (action.equals(Action.DECOUVERTE)) {
+			probUp = (float) (probMin + ((1.0 / gradientUp) / (1.0 / totalGradient)));
+			probLeft = (float) (probMin + ((1.0 / gradientLeft) / (1.0 / totalGradient)));
+			probRight = (float) (probMin + ((1.0 / gradientRight) / (1.0 / totalGradient)));
+			probDown = (float) (probMin + ((1.0 / gradientDown) / (1.0 / totalGradient)));
+		}
 
 		float sum = probUp + probLeft + probRight + probDown;
 		probUp /= sum;
