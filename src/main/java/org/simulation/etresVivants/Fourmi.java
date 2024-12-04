@@ -51,7 +51,7 @@ public class Fourmi extends Individu {
 		this.age = age;
 	}
 	
-	public void evolution() {
+	public void evolution(ContexteDeSimulation contexte) {
 		this.age ++;
 		switch (this.age) {
 			case 3: 
@@ -65,7 +65,7 @@ public class Fourmi extends Individu {
 				this.setPoids(0);
 				break;
 			case 20: 
-				this.etat = new Adulte();
+				this.etat = new Adulte(contexte);
 				this.getVuObserver().notifyVu();
 				this.setPoids(2);
 				break;
@@ -85,7 +85,7 @@ public class Fourmi extends Individu {
 	
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		super.etapeDeSimulation(contexte);
-		this.evolution();
+		this.evolution(contexte);
 		this.etat.etapeDeSimulation(contexte);
 	}
 
