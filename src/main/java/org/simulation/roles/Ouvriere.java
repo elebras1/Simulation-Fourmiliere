@@ -5,6 +5,7 @@ import java.util.Random;
 
 
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.terrain.Pheromone;
 import org.simulation.vue.ContexteDeSimulation;
 
 public class Ouvriere extends Role {
@@ -16,42 +17,58 @@ public class Ouvriere extends Role {
 		Fourmi fourmi = (Fourmi) contexte.getIndividu();
 		int x = fourmi.getPos().x;
 		int y = fourmi.getPos().y;
-		int pos;
-		int i=0;
-		switch (contexte.getSimulation().getGraphicAnimationDelay()) {
-			case 100: {
-				i = 1;
-				break;
-			}
-			case 10: {
-				i = 10;
-				break;
-			}
-		}
-		for (int j=0;j<i;j++) {
+		Pheromone pheromone = contexte.getTerrain().getPheromone();
+		int gradientUp = pheromone.getPheromone(x, y - 1);
+		int gradientLeft = pheromone.getPheromone(x - 1, y);
+		int gradientRight = pheromone.getPheromone(x + 1, y);
+		int gradientDown = pheromone.getPheromone(x, y + 1);
 
-			Random rand = new Random();
-			pos = rand.nextInt(4);
-			switch (pos) {
-				case 0: {
-						y = y + 1;
-					break;
-				}
-				case 1: {
-						x = x + 1;
-					break;
-				}
-				case 2: {
-						y = y - 1;
-					break;
-				}
-				case 3: {
-						x = x - 1;
-					break;
-				}
-			}
-		}
-		fourmi.setPos(new Point(x,y));
+		Point newPosition = mouvement(x, y, gradientUp, gradientLeft, gradientRight, gradientDown);
+
+		Point locale = contexte.getTerrain().convertirEnCoordonneesLocales(newPosition);
+		pheromone.deposerPheromone(locale.x, locale.y);
+
+		fourmi.setPos(newPosition);
 	}
 
+	public Point mouvement(int x, int y, int gradientUp, int gradientLeft, int gradientRight, int gradientDown) {
+		// 10% de chance au minimum de bouger dans une direction
+		float probMin = 0.1f;
+
+		Random random = new Random();
+		float totalGradient = gradientUp + gradientLeft + gradientRight + gradientDown;
+		// Si aucun pheromone → direction aléatoire
+		if (totalGradient == 0) {
+			int direction = random.nextInt(4);
+			switch (direction) {
+				case 0: return new Point(x, y - 1);
+				case 1: return new Point(x - 1, y);
+				case 2: return new Point(x + 1, y);
+				case 3: return new Point(x, y + 1);
+			}
+		}
+
+		float probUp = probMin + (gradientUp / totalGradient);
+		float probLeft = probMin + (gradientLeft / totalGradient);
+		float probRight = probMin + (gradientRight / totalGradient);
+		float probDown = probMin + (gradientDown / totalGradient);
+
+		float sum = probUp + probLeft + probRight + probDown;
+		probUp /= sum;
+		probLeft /= sum;
+		probRight /= sum;
+		probDown /= sum;
+
+		float randomValue = random.nextFloat(1);
+
+		if (randomValue < probUp) {
+			return new Point(x, y - 1);
+		} else if (randomValue < probUp + probLeft) {
+			return new Point(x - 1, y);
+		} else if (randomValue < probUp + probLeft + probRight) {
+			return new Point(x + 1, y);
+		} else {
+			return new Point(x, y + 1);
+		}
+	}
 }

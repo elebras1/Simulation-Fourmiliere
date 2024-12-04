@@ -8,7 +8,9 @@ import javax.swing.*;
 import lib.Nicellipse.src.nicellipse.component.NiSpace;
 import org.simulation.etresVivants.Individu;
 import org.simulation.fourmiliere.Fourmiliere;
+import org.simulation.terrain.Pheromone;
 import org.simulation.terrain.Terrain;
+
 
 public class Simulation implements ActionListener {
 	private NiSpace space = new NiSpace("Simulation Fourmis", new Dimension(1000, 800));
@@ -29,29 +31,34 @@ public class Simulation implements ActionListener {
 	}
 	
 	public void nouveauTerrain(Terrain terrain) {
-		VueTerrain v = new VueTerrain(terrain);
-		this.space.add(v);
+		VueTerrain vue = new VueTerrain(terrain);
+		this.space.add(vue);
 		this.space.repaint();
 	}
 	public void nouveauParametres(Simulation simulation, NiSpace space) {
 		VuParameters v = new VuParameters(simulation, space);
 		this.space.add(v,0,0);
-
 		this.space.repaint();
 	}
 
 
 	public void nouvelleFourmiliere(Fourmiliere fourmiliere) {
-		VueFourmiliere v = new VueFourmiliere(fourmiliere);
+		VueFourmiliere vue = new VueFourmiliere(fourmiliere);
 		// Ajoute l'individu au dessus du terrain
-		this.space.add(v,1,0);
+		this.space.add(vue,1,0);
+		this.space.repaint();
+	}
+
+	public void nouveauPheromone(Pheromone pheromone) {
+		VuePheromone vue = new VuePheromone(pheromone, this.terrain.getPos());
+		this.space.add(vue, 3, 0);
 		this.space.repaint();
 	}
 	
 	public void nouvelIndividu(Individu individu) {
-		VueIndividu v = new VueIndividu(individu);
+		VueIndividu vue = new VueIndividu(individu);
 		// Ajoute l'individu au dessus de la fourmiliere
-		this.space.add(v,2,0);
+		this.space.add(vue,2,0);
 		this.space.repaint();
 	}
 	public int getGraphicAnimationDelay() {
@@ -70,6 +77,7 @@ public class Simulation implements ActionListener {
 			if (c instanceof VueElement) {
 				VueElement next = (VueElement) c;
 				next.mettreAJourVue();
+				
 			}
 		}
 		terrain.etapeDeSimulation(new ContexteDeSimulation(Simulation.this));
@@ -80,7 +88,7 @@ public class Simulation implements ActionListener {
 		timer.start();
 	}
 	
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		Simulation simulation = new Simulation();
 		simulation.start();
 	}

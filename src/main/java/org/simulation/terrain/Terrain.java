@@ -17,7 +17,7 @@ public class Terrain {
 	private Point pos;
 	private Dimension dim;
 	private Fourmiliere fourmiliere;
-
+	private Pheromone pheromone;
 	
 	public Point getPos() {
 		return this.pos;
@@ -27,10 +27,14 @@ public class Terrain {
 		return this.dim;
 	}
 
+	public Pheromone getPheromone() {
+		return this.pheromone;
+	}
 
 	public Terrain(Point pos, Dimension dim) {
 		this.pos = pos;
 		this.dim = dim;
+		this.pheromone = new Pheromone(this.dim);
 	}
 		
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
@@ -46,10 +50,10 @@ public class Terrain {
 			laReine.setPoids(2);
 			laReine.setEtat(new Adulte(new Reine()));
 			contexte.getSimulation().nouvelIndividu(laReine);
-			
-			fourmiliere.setReine(laReine);
 
-			contexte.getSimulation().nouvelleFourmiliere(fourmiliere);
+			this.fourmiliere.setReine(laReine);
+			contexte.getSimulation().nouvelleFourmiliere(this.fourmiliere);
+			contexte.getSimulation().nouveauPheromone(this.pheromone);
 
 
 			Fourmi fourmi = new Fourmi(laReine.getPos());
@@ -82,5 +86,10 @@ public class Terrain {
 
 		fourmiliere.etapeDeSimulation(contexte);
 	}
+
+	public Point convertirEnCoordonneesLocales(Point globale) {
+		return new Point(globale.x - this.pos.x, globale.y - this.pos.y);
+	}
+
 
 }
