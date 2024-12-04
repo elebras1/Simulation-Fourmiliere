@@ -17,10 +17,8 @@ public class Ouvriere extends Role {
 		int x = fourmi.getPos().x;
 		int y = fourmi.getPos().y;
 		int pos;
-		Random rand = new Random();
-		pos = rand.nextInt(4);
 		int i=0;
-		switch (contexte.getSimulation().getGraphicAnimationDelay()){
+		switch (contexte.getSimulation().getGraphicAnimationDelay()) {
 			case 100: {
 				i = 1;
 				break;
@@ -30,30 +28,27 @@ public class Ouvriere extends Role {
 				break;
 			}
 		}
-		switch (pos) {
-			case 0: {
-				for (int j=0;j<i;j++){
-					y = y + 1;
+		for (int j=0;j<i;j++) {
+
+			Random rand = new Random();
+			pos = rand.nextInt(4);
+			switch (pos) {
+				case 0: {
+						y = y + 1;
+					break;
 				}
-				break;
-			}
-			case 1: {
-				for (int j=0;j<i;j++){
-					x = x + 1;
+				case 1: {
+						x = x + 1;
+					break;
 				}
-				break;
-			}
-			case 2: {
-				for (int j=0;j<i;j++){
-					y = y - 1;
+				case 2: {
+						y = y - 1;
+					break;
 				}
-				break;
-			}
-			case 3: {
-				for (int j=0;j<i;j++){
-					x = x - 1;
+				case 3: {
+						x = x - 1;
+					break;
 				}
-				break;
 			}
 		}
 		fourmi.setPos(new Point(x,y));
