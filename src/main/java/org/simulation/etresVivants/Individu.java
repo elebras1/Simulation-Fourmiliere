@@ -9,7 +9,7 @@ import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
 
 public abstract class Individu {
-	private double poids;
+	private double poids=2;
 	protected Point pos;
 	private int dureeDeVie;
 	private VuObserver vuObserver;

@@ -16,7 +16,11 @@ public class Fourmiliere {
 	private List<Fourmi> population;
 	private Point pos;
 	private Dimension dim;
-	
+
+	public List<Fourmi> getPopulation() {
+		return population;
+	}
+
 	public Point getPos() {
 		return pos;
 	}
@@ -46,7 +50,7 @@ public class Fourmiliere {
 			fourmi.etapeDeSimulation(contexte);
 		}
 
-		this.afficherTrace();
+		//this.afficherTrace();
 	}
 
 	public void afficherTrace() {

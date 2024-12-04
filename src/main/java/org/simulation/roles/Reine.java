@@ -16,7 +16,7 @@ public class Reine extends Role{
 		int nb = rand.nextInt(5);
 		for (int i = 0; i < nb; i++) {
 			Fourmi oeuf = new Fourmi(reine.getPos());
-			int duree = rand.nextInt(500);
+			int duree = rand.nextInt(17000);
 			oeuf.setEtat(new Oeuf());
 			oeuf.setDureeDeVie(duree);
 			contexte.getFourmiliere().ponte(oeuf);
