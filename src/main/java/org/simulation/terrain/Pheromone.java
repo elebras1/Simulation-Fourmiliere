@@ -19,9 +19,11 @@ public class Pheromone {
         }
     }
 
-    public void reduirePheromone(int x, int y) {
-        if(this.pheromones[x][y] > 0) {
-            this.pheromones[x][y]--;
+    public void reduirePheromone() {
+        for(int x = 0; x < this.pheromones.length; x++) {
+            for(int y = 0; y < this.pheromones[0].length; y++) {
+                this.pheromones[x][y] = Math.max(0, this.pheromones[x][y] - 1);
+            }
         }
     }
 
