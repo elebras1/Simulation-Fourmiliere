@@ -25,7 +25,10 @@ public class Terrain {
 	private Fourmiliere fourmiliere;
 	private static final int MIN_DISTANCE_FROM_FOURMILIERE = 100;
 
-	
+	public List<Proie> getProies() {
+		return proies;
+	}
+
 	public Point getPos() {
 		return this.pos;
 	}
@@ -44,7 +47,7 @@ public class Terrain {
 		if (fourmiliere == null) {
 			Point p = new Point(this.pos.x + this.dim.width / 2 - 30, this.pos.y + this.dim.height / 2 - 30);
 			fourmiliere = new Fourmiliere(p);
-			Point posReine = new Point(p.x + 15, p.y + 15);
+			Point posReine = new Point(p.x + 40, p.y + 40);
 			Fourmi laReine = new Fourmi(posReine);
 
 			laReine.setAge(30);
@@ -57,39 +60,26 @@ public class Terrain {
 			contexte.getSimulation().nouvelleFourmiliere(fourmiliere);
 
 		}
+		fourmiliere.etapeDeSimulation(contexte);
 
 		if (proies.size() <= NOMBRE_PROIE_MAX) {
 			spawnProieAleatoire(contexte);
 		}
-		List<Proie> proiesPlusLa = new ArrayList<>();
-		for (Proie proie : proies) {
-			for (Fourmi fourmi : fourmiliere.getPopulation()) {
-				 proie.attaquerPar(fourmi);
-			}
-			if(!(proie.getEtat() instanceof ProieVivant)){
-				proiesPlusLa.add(proie);
-
-			}
-			proie.etapeDeSimulation(contexte);
+		for (int i = 0;i<this.proies.size();i++){
+			this.proies.get(i).etapeDeSimulation(contexte);
 		}
-
-		this.proies.removeAll(proiesPlusLa);
-
-
-		fourmiliere.etapeDeSimulation(contexte);
 	}
 
 	private void spawnProieAleatoire(ContexteDeSimulation contexte) {
-		int nombreProies = new Random().nextInt(2);
-		for (int i = 0; i < nombreProies; i++) {
-			Point position = generatePositionInZone();
-			while (!isPositionValide(position)) {
-				position = generatePositionInZone();
-			}
-			Proie nouvelleProie = new Proie(position);
-			proies.add(nouvelleProie);
-			contexte.getSimulation().nouvelIndividu(nouvelleProie);
+
+		Point position = generatePositionInZone();
+		while (!isPositionValide(position)) {
+			position = generatePositionInZone();
 		}
+		Proie nouvelleProie = new Proie(position);
+		proies.add(nouvelleProie);
+		contexte.getSimulation().nouvelIndividu(nouvelleProie);
+
 	}
 
 	private Point generatePositionInZone() {

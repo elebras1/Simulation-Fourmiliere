@@ -1,6 +1,7 @@
 package org.simulation.etresVivants;
 
 import org.simulation.etats.*;
+import org.simulation.terrain.*;
 import org.simulation.vue.*;
 
 import java.awt.*;
@@ -59,6 +60,7 @@ public class Proie  extends Individu {
         if (this.tempsAttente >= TEMPS_ATTENTE_MAX) {
             this.setEtat(new EnFuite());
             this.getVuObserver().notifyVu();
+
         }
     }
     public void attaquerPar(Fourmi fourmi) {
@@ -78,5 +80,20 @@ public class Proie  extends Individu {
         super.etapeDeSimulation(contexte);
         this.estAttaquer();
         this.etat.etapeDeSimulation(contexte);
+        List<Proie> proiesPlusLa = new ArrayList<>();
+        for (Proie proie : contexte.getTerrain().getProies()) {
+            for (Fourmi fourmi : contexte.getFourmiliere().getPopulation()) {
+                proie.attaquerPar(fourmi);
+            }
+            if(!(proie.getEtat() instanceof ProieVivant)){
+                proiesPlusLa.add(proie);
+                if(proie.getEtat() instanceof ProieMort){
+                  contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()+proie.getPoids());
+
+                }
+            }
+
+        }
+        contexte.getTerrain().getProies().removeAll(proiesPlusLa);
     }
 }

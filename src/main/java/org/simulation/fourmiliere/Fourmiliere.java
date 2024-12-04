@@ -16,6 +16,7 @@ public class Fourmiliere {
 	private List<Fourmi> population;
 	private Point pos;
 	private Dimension dim;
+	private double nourriture = 10000;
 
 	public List<Fourmi> getPopulation() {
 		return population;
@@ -86,5 +87,13 @@ public class Fourmiliere {
 				", nombre d'ouvrières : " + nombreOuvriere +
 				", nombre de soldats : " + nombreSoldats +
 				", nombre d'individus sexues : " + nombreIndividuSexue);
+	}
+
+	public double getNourriture() {
+		return this.nourriture;
+	}
+
+	public void setNourriture(double nourriture) {
+		this.nourriture=nourriture;
 	}
 }

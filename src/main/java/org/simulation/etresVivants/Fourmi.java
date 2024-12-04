@@ -17,9 +17,12 @@ import org.simulation.vue.VueIndividu;
 
 
 public class Fourmi extends Individu {
+	private final static int PAS_FAIM=100;
 	private int dureeDeVie;
 	private Etat etat;
 	private int age;
+	private int timetolunch =PAS_FAIM;
+
 	
 	public Fourmi(Point point) {
 		this.setAge(0);
@@ -53,7 +56,8 @@ public class Fourmi extends Individu {
 	
 	public void evolution() {
 		this.age ++;
-		switch (this.age) {
+
+	switch (this.age) {
 			case 3: 
 				this.etat = new Larve();
 				this.getVuObserver().notifyVu();
@@ -74,7 +78,30 @@ public class Fourmi extends Individu {
 		if (this.age > this.dureeDeVie) {
 			this.etat = new Mort();
 			this.getVuObserver().notifyVu();
-			this.setPoids(0);
+
+		}
+	}
+	public void gestionDeFaim(ContexteDeSimulation contexte){
+		switch (this.getEtat().getClass().getSimpleName()) {
+			case "Larve" :
+				if (contexte.getFourmiliere().getNourriture()<this.getPoids()){
+					this.etat = new Mort();
+					this.getVuObserver().notifyVu();
+				}else {
+					contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()-this.getPoids());
+				}
+			case "Adulte" :
+				Point p = contexte.getFourmiliere().getPos();
+				Point posfourmiliere = new Point(p.x + 40, p.y + 40);
+				if (contexte.getFourmiliere().getNourriture()<this.getPoids()/3 ||
+						posfourmiliere.distance(this.pos)>40){
+					this.etat = new Mort();
+					this.getVuObserver().notifyVu();
+				}else {
+					contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()-this.getPoids()/3);
+				}
+			default:
+
 		}
 	}
 	
@@ -86,6 +113,11 @@ public class Fourmi extends Individu {
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		super.etapeDeSimulation(contexte);
 		this.evolution();
+		if(this.timetolunch<=0){
+			this.gestionDeFaim(contexte);
+			this.timetolunch=PAS_FAIM;
+		}
+		this.timetolunch--;
 		this.etat.etapeDeSimulation(contexte);
 	}
 
