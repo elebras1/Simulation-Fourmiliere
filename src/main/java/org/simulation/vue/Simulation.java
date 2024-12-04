@@ -80,7 +80,11 @@ public class Simulation implements ActionListener {
 				
 			}
 		}
-		terrain.etapeDeSimulation(new ContexteDeSimulation(Simulation.this));
+		this.terrain.etapeDeSimulation(new ContexteDeSimulation(Simulation.this));
+		if(this.saisons.getHeure() % 24 == 0) {
+			this.terrain.getPheromone().evaporation();
+		}
+
 	}
 	public void start() {
 		timer = new Timer(0, this);
