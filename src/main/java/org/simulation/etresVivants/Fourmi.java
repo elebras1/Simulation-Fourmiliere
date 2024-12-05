@@ -115,6 +115,7 @@ public class Fourmi extends Individu {
 	}
 
 
+
 	public void initialise(VueIndividu vue) {
 		this.etat.initialise(vue);
 	}
