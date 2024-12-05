@@ -48,7 +48,7 @@ public class Fourmiliere {
 		for (Fourmi fourmi : mesFourmis) {
 			fourmi.etapeDeSimulation(contexte);
 		}
-		this.afficherTrace(contexte);
+		//this.afficherTrace(contexte);
 	}
 
 	public void afficherTrace(ContexteDeSimulation contexte) {
