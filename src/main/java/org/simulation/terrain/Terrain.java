@@ -14,19 +14,21 @@ import org.simulation.etresVivants.Fourmi;
 import org.simulation.etresVivants.Proie;
 import org.simulation.etresVivants.Sexe;
 import org.simulation.fourmiliere.Fourmiliere;
+import org.simulation.parameter.Parameters;
 import org.simulation.roles.IndividuSexue;
 import org.simulation.roles.Reine;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.Saisons;
 
+import static org.simulation.parameter.Parameters.NOMBRE_PROIE_MAX;
+
 
 public class Terrain {
-	private static final int NOMBRE_PROIE_MAX = 30;
 	private List<Proie> proies = new ArrayList<>();
 	private Point pos;
 	private Dimension dim;
 	private Fourmiliere fourmiliere;
-	private static final int MIN_DISTANCE_FROM_FOURMILIERE = 100;
+	private static final int MIN_DISTANCE_FROM_FOURMILIERE = 45;
 
 	public List<Proie> getProies() {
 		return proies;
@@ -103,7 +105,7 @@ public class Terrain {
 
 		fourmiliere.etapeDeSimulation(contexte);
 
-		if (proies.size() <= NOMBRE_PROIE_MAX) {
+		if (proies.size() <= Parameters.NOMBRE_PROIE_MAX) {
 			spawnProieAleatoire(contexte);
 		}
 		for (int i = 0;i<this.proies.size();i++){

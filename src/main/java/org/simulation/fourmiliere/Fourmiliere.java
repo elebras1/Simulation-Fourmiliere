@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.simulation.etats.*;
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
 
 public class Fourmiliere {
@@ -48,7 +49,9 @@ public class Fourmiliere {
 		for (Fourmi fourmi : mesFourmis) {
 			fourmi.etapeDeSimulation(contexte);
 		}
-		this.afficherTrace(contexte);
+		if(Parameters.AFFICHER_TRACE) {
+			this.afficherTrace(contexte);
+		}
 	}
 
 	public void afficherTrace(ContexteDeSimulation contexte) {
