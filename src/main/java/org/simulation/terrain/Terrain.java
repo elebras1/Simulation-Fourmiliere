@@ -6,6 +6,7 @@ import java.util.Timer;
 
 import org.simulation.etats.Adulte;
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.etresVivants.Sexe;
 import org.simulation.fourmiliere.Fourmiliere;
 import org.simulation.roles.IndividuSexue;
 import org.simulation.roles.Reine;
@@ -41,9 +42,9 @@ public class Terrain {
 		contexte.getSimulation().getSaisons().incrementeHeure();
 		if (fourmiliere == null) {
 			Point p = new Point(this.pos.x + this.dim.width/2 - 30, this.pos.y + this.dim.height/2 - 30);
-			fourmiliere = new Fourmiliere(p);
-			Point posReine = new Point(p.x + 35, p.y + 35);
-			Fourmi laReine = new Fourmi(posReine);
+			Point pt=new Point(p.x+40,p.y+40);
+			fourmiliere = new Fourmiliere(pt);
+            Fourmi laReine = new Fourmi(pt);
 
 			laReine.setAge(30);
 			laReine.setDureeDeVie(547);
@@ -60,6 +61,8 @@ public class Terrain {
 			fourmi.setEtat(new Adulte(contexte));
 			Adulte adulte = (Adulte) fourmi.getEtat();
 			adulte.setRole(new IndividuSexue());
+			IndividuSexue individuSexue = (IndividuSexue) adulte.getRole();
+			individuSexue.setSexe(Sexe.male);
 
 			fourmi.setAge(30);
 			fourmi.setDureeDeVie(547);
