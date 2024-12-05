@@ -24,6 +24,10 @@ import static org.simulation.parameter.Parameters.NOMBRE_PROIE_MAX;
 
 
 public class Terrain {
+<<<<<<< HEAD
+=======
+	private static final int NOMBRE_PROIE_MAX = 2000;
+>>>>>>> cbcd5b149b623e82a7a930d14d3fe2700ad0acde
 	private List<Proie> proies = new ArrayList<>();
 	private Point pos;
 	private Dimension dim;
@@ -105,8 +109,16 @@ public class Terrain {
 
 		fourmiliere.etapeDeSimulation(contexte);
 
+<<<<<<< HEAD
 		if (proies.size() <= Parameters.NOMBRE_PROIE_MAX) {
 			spawnProieAleatoire(contexte);
+=======
+		if (proies.size() <= NOMBRE_PROIE_MAX) {
+			for(int i = 0; i < NOMBRE_PROIE_MAX; i++){
+				spawnProieAleatoire(contexte);
+			}
+
+>>>>>>> cbcd5b149b623e82a7a930d14d3fe2700ad0acde
 		}
 		for (int i = 0;i<this.proies.size();i++){
 			this.proies.get(i).etapeDeSimulation(contexte);

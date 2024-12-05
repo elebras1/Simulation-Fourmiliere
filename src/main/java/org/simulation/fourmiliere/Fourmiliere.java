@@ -11,6 +11,7 @@ import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
 
 public class Fourmiliere {
+
 	public List<Fourmi> getPopulation() {
 		return population;
 	}
