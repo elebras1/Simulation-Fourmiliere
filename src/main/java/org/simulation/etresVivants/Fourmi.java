@@ -121,22 +121,9 @@ public class Fourmi extends Individu {
 		}
 		this.timetolunch--;
 		this.etat.etapeDeSimulation(contexte);
-		this.porteSesMort(contexte);
 		this.poseProie(contexte);
 	}
 
-	private void porteSesMort(ContexteDeSimulation contexte) {
-		List<Fourmi> fourmis= contexte.getFourmiliere().getPopulation();
-		for(int i=0;i<fourmis.size();i++){
-			if(this!=fourmis.get(i) &&
-				fourmis.get(i).getEtat().getClass().getSimpleName().contains("Mort") &&
-				fourmis.get(i).getPos().distance(this.pos)<2 &&
-				this.portProie==0){
-					this.portProie=fourmis.get(i).getPoids();
-					fourmis.get(i).setPoids(0);
-			}
-		}
-	}
 
 	private void poseProie(ContexteDeSimulation contexte) {
 		Point p = contexte.getFourmiliere().getPos();
