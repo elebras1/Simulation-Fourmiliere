@@ -9,4 +9,6 @@ public class Parameters {
   public static int AGE_NYMPHE = 10;
   public static int AGE_ADULTE = 20;
   public static double BIAIS_MINIMAL = 10.0;
+  public static int DUREE_VIE_MIN = 547;
+  public static int DUREE_VIE_MAX = 913;
 }

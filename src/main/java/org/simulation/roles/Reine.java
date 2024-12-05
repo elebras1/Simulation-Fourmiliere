@@ -8,6 +8,7 @@ import org.simulation.etats.Oeuf;
 import org.simulation.etresVivants.Fourmi;
 import org.simulation.etresVivants.Individu;
 import org.simulation.etresVivants.Sexe;
+import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.Saisons;
 
@@ -33,8 +34,8 @@ public class Reine extends Role{
 				for (int i = 0; i < nb; i++) {
 					Fourmi oeuf = new Fourmi(reine.getPos());
 					// Min et max en heures
-					int min = 547; // 1.5 années
-					int max = 913; // 2.5 années
+					int min = Parameters.DUREE_VIE_MIN; // 1.5 années
+					int max = Parameters.DUREE_VIE_MAX; // 2.5 années
 
 					// Générer un nombre aléatoire entre min et max (inclus)
 					int duree = rand.nextInt(max - min + 1) + min;

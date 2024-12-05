@@ -42,8 +42,14 @@ public class VuParameters extends VueElement {
         this.createLabel("Biais Minimal:", 500, space);
         JTextField tfBiaisMinimal = this.createTextField(String.valueOf(Parameters.BIAIS_MINIMAL), 500, space);
 
+        this.createLabel("Duree de vie min:", 550, space);
+        JTextField tfDureeVieMin = this.createTextField(String.valueOf(Parameters.DUREE_VIE_MIN), 550, space);
+
+        this.createLabel("Duree de vie max:", 600, space);
+        JTextField tfDureeVieMax = this.createTextField(String.valueOf(Parameters.DUREE_VIE_MAX), 600, space);
+
         JButton applyButton = new JButton("Appliquer");
-        applyButton.setBounds(850, 550, 120, 30);
+        applyButton.setBounds(730, 650, 120, 30);
         applyButton.addActionListener(_ -> {
             try {
                 Parameters.PROBABILITE_OUVRIERE = Integer.parseInt(tfProbabiliteOuvriere.getText());
@@ -54,6 +60,8 @@ public class VuParameters extends VueElement {
                 Parameters.AGE_NYMPHE = Integer.parseInt(tfAgeNymphe.getText());
                 Parameters.AGE_ADULTE = Integer.parseInt(tfAgeAdulte.getText());
                 Parameters.BIAIS_MINIMAL = Double.parseDouble(tfBiaisMinimal.getText());
+                Parameters.DUREE_VIE_MIN = Integer.parseInt(tfDureeVieMin.getText());
+                Parameters.DUREE_VIE_MAX = Integer.parseInt(tfDureeVieMax.getText());
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(space, "Erreur : Veuillez entrer des valeurs valides.");
             }
