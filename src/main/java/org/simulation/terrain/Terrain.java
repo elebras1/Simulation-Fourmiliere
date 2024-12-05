@@ -2,10 +2,16 @@ package org.simulation.terrain;
 
 import java.awt.Point;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 
 import org.simulation.etats.Adulte;
+import org.simulation.etats.ProieMort;
+import org.simulation.etats.ProieVivant;
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.etresVivants.Proie;
 import org.simulation.etresVivants.Sexe;
 import org.simulation.fourmiliere.Fourmiliere;
 import org.simulation.roles.IndividuSexue;
@@ -15,9 +21,17 @@ import org.simulation.vue.Saisons;
 
 
 public class Terrain {
+	private static final int NOMBRE_PROIE_MAX = 30;
+	private List<Proie> proies = new ArrayList<>();
 	private Point pos;
 	private Dimension dim;
 	private Fourmiliere fourmiliere;
+	private static final int MIN_DISTANCE_FROM_FOURMILIERE = 100;
+
+	public List<Proie> getProies() {
+		return proies;
+	}
+
 	private Pheromone pheromone;
 	
 	public Point getPos() {
@@ -88,6 +102,49 @@ public class Terrain {
 		}
 
 		fourmiliere.etapeDeSimulation(contexte);
+
+		if (proies.size() <= NOMBRE_PROIE_MAX) {
+			spawnProieAleatoire(contexte);
+		}
+		for (int i = 0;i<this.proies.size();i++){
+			this.proies.get(i).etapeDeSimulation(contexte);
+		}
+	}
+
+	private void spawnProieAleatoire(ContexteDeSimulation contexte) {
+
+		Point position = generatePositionInZone();
+		while (!isPositionValide(position)) {
+			position = generatePositionInZone();
+		}
+		Proie nouvelleProie = new Proie(position);
+		proies.add(nouvelleProie);
+		contexte.getSimulation().nouvelIndividu(nouvelleProie);
+
+	}
+
+	private Point generatePositionInZone() {
+		int zone = new Random().nextInt(4);
+		switch (zone) {
+			case 0: return generatePosition(0, 0);
+			case 1: return generatePosition(dim.width / 2, 0);
+			case 2: return generatePosition(0, dim.height / 2);
+			case 3: return generatePosition(dim.width / 2, dim.height / 2);
+			default: return new Point(0, 0);
+		}
+	}
+
+	private Point generatePosition(int xOffset, int yOffset) {
+		Random random = new Random();
+		int x = random.nextInt(dim.width / 2) + xOffset;
+		int y = random.nextInt(dim.height / 2) + yOffset;
+		return new Point(x + pos.x, y + pos.y);
+	}
+
+	private boolean isPositionValide(Point position) {
+		if (fourmiliere == null) return true;
+		Point posFourmiliere = fourmiliere.getPos();
+		return posFourmiliere.distance(position) >= MIN_DISTANCE_FROM_FOURMILIERE;
 	}
 
 	public Point convertirEnCoordonneesLocales(Point globale) {

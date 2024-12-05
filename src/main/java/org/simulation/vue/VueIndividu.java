@@ -13,6 +13,7 @@ public class VueIndividu extends VueElement implements VuObserver {
 	public VueIndividu(Individu individu) {
 		this.individu = individu;
 		this.individu.setVuObserver(this);
+		this.individu.setVue(this);
 		individu.initialise(this);
 		this.setLocation(this.individu.getPos());
 	}
@@ -26,5 +27,6 @@ public class VueIndividu extends VueElement implements VuObserver {
 	public void notifyVu() {
 		this.individu.initialise(this);
 	}
+
 }
 

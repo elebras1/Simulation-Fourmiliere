@@ -63,6 +63,10 @@ public class Simulation implements ActionListener {
 		this.space.add(vue,2,0);
 		this.space.repaint();
 	}
+	public void retirerIndividu(VueIndividu individu) {
+		this.space.remove(individu);
+		this.space.repaint();
+	}
 	public int getGraphicAnimationDelay() {
 		return graphicAnimationDelay;
 	}

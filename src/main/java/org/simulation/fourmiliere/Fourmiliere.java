@@ -17,7 +17,12 @@ public class Fourmiliere {
 	private List<Fourmi> population;
 	private Point pos;
 	private Dimension dim;
-	
+	private double nourriture = 10000;
+
+	public List<Fourmi> getPopulation() {
+		return population;
+	}
+
 	public Point getPos() {
 		return pos;
 	}
@@ -46,7 +51,6 @@ public class Fourmiliere {
 		for (Fourmi fourmi : mesFourmis) {
 			fourmi.etapeDeSimulation(contexte);
 		}
-
 		this.afficherTrace(contexte);
 	}
 
@@ -89,5 +93,13 @@ public class Fourmiliere {
 				", nombre de soldats : " + nombreSoldats +
 				", nombre d'individus sexues : " + nombreIndividuSexue+
 				", nombre de reines : " + nombreReines);
+	}
+
+	public double getNourriture() {
+		return this.nourriture;
+	}
+
+	public void setNourriture(double nourriture) {
+		this.nourriture=nourriture;
 	}
 }

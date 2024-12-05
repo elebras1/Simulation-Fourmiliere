@@ -3,6 +3,7 @@ package org.simulation.etresVivants;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.List;
 
 
 import org.simulation.etats.Adulte;
@@ -18,9 +19,12 @@ import org.simulation.vue.VueIndividu;
 
 
 public class Fourmi extends Individu {
+	private final static int PAS_FAIM=10000;
 	private int dureeDeVie;
 	private Etat etat;
 	private int age;
+	private int timetolunch =PAS_FAIM;
+	private double portProie=0;
 	private Action action;
 	
 	public Fourmi(Point point) {
@@ -54,6 +58,7 @@ public class Fourmi extends Individu {
 		this.age = age;
 	}
 
+
 	public void setAction(Action action) {
 		this.action = action;
 	}
@@ -82,7 +87,30 @@ public class Fourmi extends Individu {
 		if (this.age > this.dureeDeVie) {
 			this.etat = new Mort();
 			this.getVuObserver().notifyVu();
-			this.setPoids(0);
+
+		}
+	}
+	public void gestionDeFaim(ContexteDeSimulation contexte){
+		switch (this.getEtat().getClass().getSimpleName()) {
+			case "Larve" :
+				if (contexte.getFourmiliere().getNourriture()<this.getPoids()){
+					this.etat = new Mort();
+					this.getVuObserver().notifyVu();
+				}else {
+					contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()-this.getPoids());
+				}
+			case "Adulte" :
+				Point p = contexte.getFourmiliere().getPos();
+				Point posfourmiliere = new Point(p.x + 40, p.y + 40);
+				if (contexte.getFourmiliere().getNourriture()<this.getPoids()/3 ||
+						posfourmiliere.distance(this.pos)>40){
+					this.etat = new Mort();
+					this.getVuObserver().notifyVu();
+				}else {
+					contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()-this.getPoids()/3);
+				}
+			default:
+
 		}
 	}
 
@@ -94,8 +122,31 @@ public class Fourmi extends Individu {
 	
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		super.etapeDeSimulation(contexte);
+		if(this.timetolunch<=0){
+			this.gestionDeFaim(contexte);
+			this.timetolunch=PAS_FAIM;
+		}
+		this.timetolunch--;
 		this.evolution(contexte);
 		this.etat.etapeDeSimulation(contexte);
+		this.poseProie(contexte);
 	}
 
+
+	private void poseProie(ContexteDeSimulation contexte) {
+		Point p = contexte.getFourmiliere().getPos();
+		Point posfourmiliere = new Point(p.x + 40, p.y + 40);
+		if (this.portProie>0 && posfourmiliere.distance(this.pos)>40){
+			contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()+this.getPoids());
+			this.portProie=0;
+		}
+	}
+
+	public double getPortProie() {
+		return portProie;
+	}
+
+	public void setPortProie(double poids) {
+		this.portProie = poids;
+	}
 }
