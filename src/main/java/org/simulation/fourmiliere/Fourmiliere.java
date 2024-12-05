@@ -19,9 +19,6 @@ public class Fourmiliere {
 	private Dimension dim;
 	private double nourriture = 10000;
 
-	public List<Fourmi> getPopulation() {
-		return population;
-	}
 
 	public Point getPos() {
 		return pos;
