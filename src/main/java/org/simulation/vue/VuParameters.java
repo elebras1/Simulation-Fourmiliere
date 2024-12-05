@@ -10,37 +10,57 @@ public class VuParameters extends VueElement {
 
     public VuParameters(Simulation simulation, NiSpace space) {
         JSlider sliderWidth = this.getjSlider(simulation);
+        space.add(sliderWidth);
 
         JLabel labelHeure = this.createLabel("Heure:", 100);
         JTextField tfHeure = this.createTextField(String.valueOf(simulation.getSaisons().getHeure()), 100);
         simulation.getTimer().addActionListener(e -> tfHeure.setText(String.valueOf(simulation.getSaisons().getHeure())));
         tfHeure.setEditable(false);
+        space.add(labelHeure);
+        space.add(tfHeure);
+
 
         space.setLayout(null);
 
         JLabel labelProbabiliteOuvriere = this.createLabel("Probabilité Ouvrière:", 150);
         JTextField tfProbabiliteOuvriere = this.createTextField(String.valueOf(Parameters.PROBABILITE_OUVRIERE), 150);
+        space.add(labelProbabiliteOuvriere);
+        space.add(tfProbabiliteOuvriere);
 
         JLabel labelProbabiliteSoldat = this.createLabel("Probabilité Soldat:", 200);
         JTextField tfProbabiliteSoldat = this.createTextField(String.valueOf(Parameters.PROBABILITE_SOLDAT), 200);
+        space.add(labelProbabiliteSoldat);
+        space.add(tfProbabiliteSoldat);
 
         JLabel labelProbabiliteIndividuSexue = this.createLabel("Probabilité Individu Sexué:", 250);
         JTextField tfProbabiliteIndividuSexue = this.createTextField(String.valueOf(Parameters.PROBABILITE_INDIVIDU_SEXUE), 250);
+        space.add(labelProbabiliteIndividuSexue);
+        space.add(tfProbabiliteIndividuSexue);
 
         JLabel labelMaximumReines = this.createLabel("Maximum Reines:", 300);
         JTextField tfMaximumReines = this.createTextField(String.valueOf(Parameters.MAXIMUM_REINES), 300);
+        space.add(labelMaximumReines);
+        space.add(tfMaximumReines);
 
         JLabel labelAgeLarve = this.createLabel("Âge Larve:", 350);
         JTextField tfAgeLarve = this.createTextField(String.valueOf(Parameters.AGE_LARVE), 350);
+        space.add(labelAgeLarve);
+        space.add(tfAgeLarve);
 
         JLabel labelAgeNymphe = this.createLabel("Âge Nymphe:", 400);
         JTextField tfAgeNymphe = this.createTextField(String.valueOf(Parameters.AGE_NYMPHE), 400);
+        space.add(labelAgeNymphe);
+        space.add(tfAgeNymphe);
 
         JLabel labelAgeAdulte = this.createLabel("Âge Adulte:", 450);
         JTextField tfAgeAdulte = this.createTextField(String.valueOf(Parameters.AGE_ADULTE), 450);
+        space.add(labelAgeAdulte);
+        space.add(tfAgeAdulte);
 
         JLabel labelBiaisMinimal = this.createLabel("Biais Minimal:", 500);
         JTextField tfBiaisMinimal = this.createTextField(String.valueOf(Parameters.BIAIS_MINIMAL), 500);
+        space.add(labelBiaisMinimal);
+        space.add(tfBiaisMinimal);
 
         JButton applyButton = new JButton("Appliquer");
         applyButton.setBounds(850, 550, 120, 30);
@@ -59,26 +79,6 @@ public class VuParameters extends VueElement {
                 JOptionPane.showMessageDialog(space, "Erreur : Veuillez entrer des valeurs valides.");
             }
         });
-
-        space.add(sliderWidth);
-        space.add(labelHeure);
-        space.add(tfHeure);
-        space.add(labelProbabiliteOuvriere);
-        space.add(tfProbabiliteOuvriere);
-        space.add(labelProbabiliteSoldat);
-        space.add(tfProbabiliteSoldat);
-        space.add(labelProbabiliteIndividuSexue);
-        space.add(tfProbabiliteIndividuSexue);
-        space.add(labelMaximumReines);
-        space.add(tfMaximumReines);
-        space.add(labelAgeLarve);
-        space.add(tfAgeLarve);
-        space.add(labelAgeNymphe);
-        space.add(tfAgeNymphe);
-        space.add(labelAgeAdulte);
-        space.add(tfAgeAdulte);
-        space.add(labelBiaisMinimal);
-        space.add(tfBiaisMinimal);
         space.add(applyButton);
     }
 
