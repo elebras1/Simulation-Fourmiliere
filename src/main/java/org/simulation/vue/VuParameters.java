@@ -10,7 +10,11 @@ public class VuParameters extends VueElement {
 
     public VuParameters(Simulation simulation, NiSpace space) {
         JSlider sliderWidth = this.getjSlider(simulation);
-        space.add(sliderWidth);
+
+        JLabel labelHeure = this.createLabel("Heure:", 100);
+        JTextField tfHeure = this.createTextField(String.valueOf(simulation.getSaisons().getHeure()), 100);
+        simulation.getTimer().addActionListener(e -> tfHeure.setText(String.valueOf(simulation.getSaisons().getHeure())));
+        tfHeure.setEditable(false);
 
         space.setLayout(null);
 
@@ -56,6 +60,9 @@ public class VuParameters extends VueElement {
             }
         });
 
+        space.add(sliderWidth);
+        space.add(labelHeure);
+        space.add(tfHeure);
         space.add(labelProbabiliteOuvriere);
         space.add(tfProbabiliteOuvriere);
         space.add(labelProbabiliteSoldat);
@@ -85,7 +92,7 @@ public class VuParameters extends VueElement {
         sliderWidth.addChangeListener(_ -> {
             int value = sliderWidth.getValue();
             simulation.setGraphicAnimationDelay(value);
-            simulation.timer.setDelay(simulation.graphicAnimationDelay);
+            simulation.getTimer().setDelay(simulation.graphicAnimationDelay);
         });
         return sliderWidth;
     }
@@ -98,7 +105,7 @@ public class VuParameters extends VueElement {
 
     private JTextField createTextField(String text, int y) {
         JTextField textField = new JTextField(text);
-        textField.setBounds(850, y, 80, 30);
+        textField.setBounds(900, y, 80, 30);
         return textField;
     }
 
