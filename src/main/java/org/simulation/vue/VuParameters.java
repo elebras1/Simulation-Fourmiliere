@@ -14,32 +14,32 @@ public class VuParameters extends VueElement {
 
         space.setLayout(null);
 
-        JLabel labelProbabiliteOuvriere = this.createLabel("Probabilité Ouvrière:", 700, 50);
-        JTextField tfProbabiliteOuvriere = this.createTextField(String.valueOf(Parameters.PROBABILITE_OUVRIERE), 850, 50);
+        JLabel labelProbabiliteOuvriere = this.createLabel("Probabilité Ouvrière:", 150);
+        JTextField tfProbabiliteOuvriere = this.createTextField(String.valueOf(Parameters.PROBABILITE_OUVRIERE), 150);
 
-        JLabel labelProbabiliteSoldat = this.createLabel("Probabilité Soldat:", 700, 100);
-        JTextField tfProbabiliteSoldat = this.createTextField(String.valueOf(Parameters.PROBABILITE_SOLDAT), 850, 100);
+        JLabel labelProbabiliteSoldat = this.createLabel("Probabilité Soldat:", 200);
+        JTextField tfProbabiliteSoldat = this.createTextField(String.valueOf(Parameters.PROBABILITE_SOLDAT), 200);
 
-        JLabel labelProbabiliteIndividuSexue = this.createLabel("Probabilité Individu Sexué:", 700, 150);
-        JTextField tfProbabiliteIndividuSexue = this.createTextField(String.valueOf(Parameters.PROBABILITE_INDIVIDU_SEXUE), 850, 150);
+        JLabel labelProbabiliteIndividuSexue = this.createLabel("Probabilité Individu Sexué:", 250);
+        JTextField tfProbabiliteIndividuSexue = this.createTextField(String.valueOf(Parameters.PROBABILITE_INDIVIDU_SEXUE), 250);
 
-        JLabel labelMaximumReines = this.createLabel("Maximum Reines:", 700, 200);
-        JTextField tfMaximumReines = this.createTextField(String.valueOf(Parameters.MAXIMUM_REINES), 850, 200);
+        JLabel labelMaximumReines = this.createLabel("Maximum Reines:", 300);
+        JTextField tfMaximumReines = this.createTextField(String.valueOf(Parameters.MAXIMUM_REINES), 300);
 
-        JLabel labelAgeLarve = this.createLabel("Âge Larve:", 700, 250);
-        JTextField tfAgeLarve = this.createTextField(String.valueOf(Parameters.AGE_LARVE), 850, 250);
+        JLabel labelAgeLarve = this.createLabel("Âge Larve:", 350);
+        JTextField tfAgeLarve = this.createTextField(String.valueOf(Parameters.AGE_LARVE), 350);
 
-        JLabel labelAgeNymphe = this.createLabel("Âge Nymphe:", 700, 300);
-        JTextField tfAgeNymphe = this.createTextField(String.valueOf(Parameters.AGE_NYMPHE), 850, 300);
+        JLabel labelAgeNymphe = this.createLabel("Âge Nymphe:", 400);
+        JTextField tfAgeNymphe = this.createTextField(String.valueOf(Parameters.AGE_NYMPHE), 400);
 
-        JLabel labelAgeAdulte = this.createLabel("Âge Adulte:", 700, 350);
-        JTextField tfAgeAdulte = this.createTextField(String.valueOf(Parameters.AGE_ADULTE), 850, 350);
+        JLabel labelAgeAdulte = this.createLabel("Âge Adulte:", 450);
+        JTextField tfAgeAdulte = this.createTextField(String.valueOf(Parameters.AGE_ADULTE), 450);
 
-        JLabel labelBiaisMinimal = this.createLabel("Biais Minimal:", 700, 400);
-        JTextField tfBiaisMinimal = this.createTextField(String.valueOf(Parameters.BIAIS_MINIMAL), 850, 400);
+        JLabel labelBiaisMinimal = this.createLabel("Biais Minimal:", 500);
+        JTextField tfBiaisMinimal = this.createTextField(String.valueOf(Parameters.BIAIS_MINIMAL), 500);
 
         JButton applyButton = new JButton("Appliquer");
-        applyButton.setBounds(850, 450, 120, 30);
+        applyButton.setBounds(850, 550, 120, 30);
         applyButton.addActionListener(_ -> {
             try {
                 Parameters.PROBABILITE_OUVRIERE = Integer.parseInt(tfProbabiliteOuvriere.getText());
@@ -77,12 +77,12 @@ public class VuParameters extends VueElement {
 
     private JSlider getjSlider(Simulation simulation) {
         JSlider sliderWidth = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
-        sliderWidth.setBounds(700, 100, 200, 50);
+        sliderWidth.setBounds(730, 30, 200, 50);
         sliderWidth.setMajorTickSpacing(20);
         sliderWidth.setMinorTickSpacing(10);
         sliderWidth.setPaintTicks(true);
         sliderWidth.setPaintLabels(true);
-        sliderWidth.addChangeListener(e -> {
+        sliderWidth.addChangeListener(_ -> {
             int value = sliderWidth.getValue();
             simulation.setGraphicAnimationDelay(value);
             simulation.timer.setDelay(simulation.graphicAnimationDelay);
@@ -90,15 +90,15 @@ public class VuParameters extends VueElement {
         return sliderWidth;
     }
 
-    private JLabel createLabel(String text, int x, int y) {
+    private JLabel createLabel(String text, int y) {
         JLabel label = new JLabel(text);
-        label.setBounds(x, y, 150, 30);
+        label.setBounds(730, y, 150, 30);
         return label;
     }
 
-    private JTextField createTextField(String text, int x, int y) {
+    private JTextField createTextField(String text, int y) {
         JTextField textField = new JTextField(text);
-        textField.setBounds(x, y, 80, 30);
+        textField.setBounds(850, y, 80, 30);
         return textField;
     }
 
