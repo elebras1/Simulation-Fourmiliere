@@ -12,6 +12,7 @@ import org.simulation.etats.Mort;
 import org.simulation.etats.Nymphe;
 import org.simulation.etats.Oeuf;
 
+import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
 
@@ -60,25 +61,22 @@ public class Fourmi extends Individu {
 	public Action getAction() {
 		return this.action;
 	}
-	
+
 	public void evolution(ContexteDeSimulation contexte) {
-		this.age ++;
-		switch (this.age) {
-			case 3: 
-				this.etat = new Larve();
-				this.getVuObserver().notifyVu();
-				this.setPoids(6);
-				break;
-			case 10: 
-				this.etat = new Nymphe();
-				this.getVuObserver().notifyVu();
-				this.setPoids(0);
-				break;
-			case 20: 
-				this.etat = new Adulte(contexte);
-				this.getVuObserver().notifyVu();
-				this.setPoids(2);
-				break;
+		this.age++;
+
+		if (this.age == Parameters.AGE_LARVE) {
+			this.etat = new Larve();
+			this.getVuObserver().notifyVu();
+			this.setPoids(6);
+		} else if (this.age == Parameters.AGE_NYMPHE) {
+			this.etat = new Nymphe();
+			this.getVuObserver().notifyVu();
+			this.setPoids(0);
+		} else if (this.age == Parameters.AGE_ADULTE) {
+			this.etat = new Adulte(contexte);
+			this.getVuObserver().notifyVu();
+			this.setPoids(2);
 		}
 
 		if (this.age > this.dureeDeVie) {
@@ -87,7 +85,8 @@ public class Fourmi extends Individu {
 			this.setPoids(0);
 		}
 	}
-	
+
+
 	public void initialise(VueIndividu vue) {
 		this.etat.initialise(vue);
 	}
