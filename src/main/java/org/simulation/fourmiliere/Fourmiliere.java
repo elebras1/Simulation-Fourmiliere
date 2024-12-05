@@ -10,6 +10,7 @@ import org.simulation.etresVivants.Fourmi;
 import org.simulation.vue.ContexteDeSimulation;
 
 public class Fourmiliere {
+
 	public List<Fourmi> getPopulation() {
 		return population;
 	}

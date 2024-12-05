@@ -21,12 +21,12 @@ import org.simulation.vue.Saisons;
 
 
 public class Terrain {
-	private static final int NOMBRE_PROIE_MAX = 30;
+	private static final int NOMBRE_PROIE_MAX = 2000;
 	private List<Proie> proies = new ArrayList<>();
 	private Point pos;
 	private Dimension dim;
 	private Fourmiliere fourmiliere;
-	private static final int MIN_DISTANCE_FROM_FOURMILIERE = 100;
+	private static final int MIN_DISTANCE_FROM_FOURMILIERE = 45;
 
 	public List<Proie> getProies() {
 		return proies;
@@ -104,7 +104,10 @@ public class Terrain {
 		fourmiliere.etapeDeSimulation(contexte);
 
 		if (proies.size() <= NOMBRE_PROIE_MAX) {
-			spawnProieAleatoire(contexte);
+			for(int i = 0; i < NOMBRE_PROIE_MAX; i++){
+				spawnProieAleatoire(contexte);
+			}
+
 		}
 		for (int i = 0;i<this.proies.size();i++){
 			this.proies.get(i).etapeDeSimulation(contexte);
