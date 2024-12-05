@@ -23,7 +23,7 @@ public class VueFourmiliere extends VueElement {
 		this.fourmiliere = fourmiliere;
 		Point pos = this.fourmiliere.getPos();
 		Dimension dim = this.fourmiliere.getDimension();
-		this.setBounds(pos.x, pos.y, dim.width, dim.height);
+		this.setBounds(pos.x-40, pos.y-40, dim.width, dim.height);
 		this.setBackground((Color.orange));
 	}
 
