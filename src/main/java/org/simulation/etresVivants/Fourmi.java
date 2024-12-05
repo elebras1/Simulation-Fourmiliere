@@ -24,9 +24,10 @@ public class Fourmi extends Individu {
 	private Etat etat;
 	private int age;
 	private int timetolunch =PAS_FAIM;
-	private double portProie=0;
+	private Proie portProie=null;
 	private Action action;
-	
+	private boolean aFaim=false;
+
 	public Fourmi(Point point) {
 		this.setAge(0);
 		this.setEtat(new Oeuf());
@@ -97,6 +98,7 @@ public class Fourmi extends Individu {
 					this.etat = new Mort();
 					this.getVuObserver().notifyVu();
 				}else {
+					this.aFaim=false;
 					contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()-this.getPoids());
 				}
 			case "Adulte" :
@@ -107,6 +109,8 @@ public class Fourmi extends Individu {
 					this.etat = new Mort();
 					this.getVuObserver().notifyVu();
 				}else {
+					this.aFaim=false;
+					this.setAction(Action.DECOUVERTE);
 					contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()-this.getPoids()/3);
 				}
 			default:
@@ -115,13 +119,25 @@ public class Fourmi extends Individu {
 	}
 
 
+
 	public void initialise(VueIndividu vue) {
 		this.etat.initialise(vue);
 	}
 
-	
+	public boolean getaFaim() {
+		return aFaim;
+	}
+
+	public void setaFaim(boolean aFaim) {
+		this.aFaim = aFaim;
+	}
+
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		super.etapeDeSimulation(contexte);
+		if(this.timetolunch<=300){
+			this.aFaim=true;
+			this.setAction(Action.SUIVRE);
+		}
 		if(this.timetolunch<=0){
 			this.gestionDeFaim(contexte);
 			this.timetolunch=PAS_FAIM;
@@ -136,17 +152,20 @@ public class Fourmi extends Individu {
 	private void poseProie(ContexteDeSimulation contexte) {
 		Point p = contexte.getFourmiliere().getPos();
 		Point posfourmiliere = new Point(p.x + 40, p.y + 40);
-		if (this.portProie>0 && posfourmiliere.distance(this.pos)>40){
-			contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()+this.getPoids());
-			this.portProie=0;
+		if (this.portProie!=null && posfourmiliere.distance(this.pos)<40){
+			contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()+this.portProie.getPoids());
+			contexte.getTerrain().getProies().remove(this.portProie);
+			contexte.getSimulation().retirerIndividu(this.portProie.getVue());
+			this.setAction(Action.DECOUVERTE);
+			this.portProie=null;
 		}
 	}
 
-	public double getPortProie() {
+	public Proie getPortProie() {
 		return portProie;
 	}
 
-	public void setPortProie(double poids) {
-		this.portProie = poids;
+	public void setPortProie(Proie proie) {
+		this.portProie = proie;
 	}
 }
