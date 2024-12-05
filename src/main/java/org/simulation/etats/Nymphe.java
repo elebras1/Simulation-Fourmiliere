@@ -3,6 +3,7 @@ package org.simulation.etats;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
 
@@ -16,5 +17,10 @@ public class Nymphe extends Etat{
 		vue.setBackground(Color.pink);
 		vue.setDimension(new Dimension(5, 5));
 	}
-	
+
+	@Override
+	public void bilan(Bilan bilan) {
+		bilan.inscrire("Nymphe");
+	}
+
 }

@@ -1,11 +1,10 @@
 package org.simulation.etats;
 
-import org.simulation.etresVivants.*;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 
 public class ProieVivant extends Etat {
 
@@ -19,5 +18,10 @@ public class ProieVivant extends Etat {
         vue.setBackground(Color.GREEN);
         vue.setDimension(new Dimension(5, 5));
         vue.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+    }
+
+    @Override
+    public void bilan(Bilan bilan) {
+        bilan.inscrire("Proie vivante");
     }
 }

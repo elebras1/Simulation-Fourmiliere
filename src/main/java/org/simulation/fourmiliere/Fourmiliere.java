@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.simulation.etats.*;
 import org.simulation.etresVivants.Fourmi;
 import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
@@ -51,49 +50,16 @@ public class Fourmiliere {
 			fourmi.etapeDeSimulation(contexte);
 		}
 		if(Parameters.AFFICHER_TRACE) {
-			this.afficherTrace(contexte);
+			Bilan bilan = new Bilan();
+			this.bilan(bilan);
+			System.out.println(bilan);
 		}
 	}
 
-	public void afficherTrace(ContexteDeSimulation contexte) {
-		int nombreOeufs = 0;
-		int nombreLarves = 0;
-		int nombreNymphes = 0;
-		int nombreMorts = 0;
-		int nombreOuvriere = 0;
-		int nombreSoldats = 0;
-		int nombreIndividuSexue = 0;
-		int nombreReines = 0;
+	public void bilan(Bilan bilan) {
 		for(Fourmi fourmi : this.population) {
-			switch (fourmi.getEtat().getClass().getSimpleName()) {
-				case "Oeuf" -> nombreOeufs++;
-				case "Larve" -> nombreLarves++;
-				case "Nymphe" -> nombreNymphes++;
-				case "Mort" -> nombreMorts++;
-				case "Adulte" -> {
-					Adulte fourmiAdulte = (Adulte) fourmi.getEtat();
-					switch (fourmiAdulte.getRole().getClass().getSimpleName()) {
-						case "Ouvriere" -> nombreOuvriere++;
-						case "Soldat" -> nombreSoldats++;
-						case "IndividuSexue" -> nombreIndividuSexue++;
-						case "Reine" -> nombreReines++;
-					}
-				}
-			}
+			fourmi.bilan(bilan);
 		}
-
-		System.out.println(
-				"Saision : " + contexte.getSimulation().getSaisons() +
-				", Total fourmis : " + this.population.size() +
-				", fourmis en vie : " + (this.population.size() - nombreMorts) +
-				", nombre d'oeufs : " + nombreOeufs +
-				", nombre de larves : " + nombreLarves +
-				", nombre de nymphes : " + nombreNymphes +
-				", nombre de morts : " + nombreMorts +
-				", nombre d'ouvrières : " + nombreOuvriere +
-				", nombre de soldats : " + nombreSoldats +
-				", nombre d'individus sexues : " + nombreIndividuSexue+
-				", nombre de reines : " + nombreReines);
 	}
 
 	public double getNourriture() {

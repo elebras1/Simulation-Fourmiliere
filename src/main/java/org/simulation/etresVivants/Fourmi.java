@@ -1,10 +1,6 @@
 package org.simulation.etresVivants;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Point;
-import java.util.List;
-
 
 import org.simulation.etats.Adulte;
 import org.simulation.etats.Etat;
@@ -13,26 +9,30 @@ import org.simulation.etats.Mort;
 import org.simulation.etats.Nymphe;
 import org.simulation.etats.Oeuf;
 
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
 
 
 public class Fourmi extends Individu {
-	private final static int PAS_FAIM=10000;
+	private final static int PAS_FAIM = 10000;
 	private int dureeDeVie;
 	private Etat etat;
 	private int age;
-	private int timetolunch =PAS_FAIM;
-	private Proie portProie=null;
+	private int timetolunch;
+	private Proie portProie;
 	private Action action;
-	private boolean aFaim=false;
+	private boolean aFaim;
 
 	public Fourmi(Point point) {
 		this.setAge(0);
 		this.setEtat(new Oeuf());
 		this.setPos(point);
 		this.setAction(Action.DECOUVERTE);
+		this.timetolunch = PAS_FAIM;
+		this.portProie = null;
+		this.aFaim = false;
 	}
 
 	public int getDureeDeVie() {
@@ -118,8 +118,6 @@ public class Fourmi extends Individu {
 		}
 	}
 
-
-
 	public void initialise(VueIndividu vue) {
 		this.etat.initialise(vue);
 	}
@@ -148,7 +146,6 @@ public class Fourmi extends Individu {
 		this.poseProie(contexte);
 	}
 
-
 	private void poseProie(ContexteDeSimulation contexte) {
 		Point p = contexte.getFourmiliere().getPos();
 		Point posfourmiliere = new Point(p.x + 40, p.y + 40);
@@ -167,5 +164,10 @@ public class Fourmi extends Individu {
 
 	public void setPortProie(Proie proie) {
 		this.portProie = proie;
+	}
+
+	@Override
+	public void bilan(Bilan bilan) {
+		this.etat.bilan(bilan);
 	}
 }

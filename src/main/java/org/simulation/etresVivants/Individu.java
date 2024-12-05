@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.VuObserver;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
@@ -64,6 +65,8 @@ public abstract class Individu {
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		contexte.setIndividu(this);
 	}
+
+	public abstract void bilan(Bilan bilan);
 
 
 }

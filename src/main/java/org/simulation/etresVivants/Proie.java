@@ -1,7 +1,7 @@
 package org.simulation.etresVivants;
 
 import org.simulation.etats.*;
-import org.simulation.terrain.*;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.*;
 
 import java.awt.*;
@@ -12,17 +12,19 @@ import java.util.Random;
 public class Proie  extends Individu {
     private static final double POIDS_MIN = 2.0;
     private static final double POIDS_MAX = 10.0;
-    private Etat etat;
-    private List<Fourmi> fourmisSurProie = new ArrayList<>();
-    private int tempsAttente=0;
     private static final int TEMPS_ATTENTE_MAX = 180;
-    private Fourmi estPortePar=null;
+    private Etat etat;
+    private List<Fourmi> fourmisSurProie;
+    private int tempsAttente;
+    private Fourmi estPortePar;
 
     public Proie(Point point) {
-        this.pos=point;
-
+        this.pos = point;
         this.setPoids(genererPoids());
-        this.etat=new ProieVivant();
+        this.etat = new ProieVivant();
+        this.fourmisSurProie = new ArrayList<>();
+        this.tempsAttente = 0;
+        this.estPortePar = null;
     }
     private double genererPoids() {
         Random random = new Random();
@@ -130,6 +132,11 @@ public class Proie  extends Individu {
                 this.setPos(this.estPortePar.getPos());
             }
         }
+    }
+
+    @Override
+    public void bilan(Bilan bilan) {
+        bilan.inscrire(this.getClass().getSimpleName());
     }
 
 }

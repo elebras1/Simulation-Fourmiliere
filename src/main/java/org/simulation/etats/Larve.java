@@ -1,9 +1,9 @@
 package org.simulation.etats;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
 
@@ -18,5 +18,10 @@ public class Larve extends Etat{
 		vue.setDimension(new Dimension(5, 5));
 	}
 
-	
+	@Override
+	public void bilan(Bilan bilan) {
+		bilan.inscrire("Larve");
+	}
+
+
 }

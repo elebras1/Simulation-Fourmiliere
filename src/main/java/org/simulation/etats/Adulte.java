@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.util.Random;
 
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.parameter.Parameters;
 import org.simulation.roles.*;
 import org.simulation.vue.ContexteDeSimulation;
@@ -65,5 +66,8 @@ public class Adulte extends Etat {
 		vue.setDimension(new Dimension(3, 3));
 	}
 
-	
+	@Override
+	public void bilan(Bilan bilan) {
+		this.role.bilan(bilan);
+	}
 }
