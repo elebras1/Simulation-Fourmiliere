@@ -7,12 +7,13 @@ import java.util.List;
 
 import org.simulation.etats.*;
 import org.simulation.etresVivants.Fourmi;
-import org.simulation.roles.IndividuSexue;
-import org.simulation.roles.Ouvriere;
-import org.simulation.roles.Soldat;
 import org.simulation.vue.ContexteDeSimulation;
 
 public class Fourmiliere {
+	public List<Fourmi> getPopulation() {
+		return population;
+	}
+
 	private List<Fourmi> population;
 	private Point pos;
 	private Dimension dim;
@@ -50,11 +51,10 @@ public class Fourmiliere {
 		for (Fourmi fourmi : mesFourmis) {
 			fourmi.etapeDeSimulation(contexte);
 		}
-
-		//this.afficherTrace();
+		this.afficherTrace(contexte);
 	}
 
-	public void afficherTrace() {
+	public void afficherTrace(ContexteDeSimulation contexte) {
 		int nombreOeufs = 0;
 		int nombreLarves = 0;
 		int nombreNymphes = 0;
@@ -62,6 +62,7 @@ public class Fourmiliere {
 		int nombreOuvriere = 0;
 		int nombreSoldats = 0;
 		int nombreIndividuSexue = 0;
+		int nombreReines = 0;
 		for(Fourmi fourmi : this.population) {
 			switch (fourmi.getEtat().getClass().getSimpleName()) {
 				case "Oeuf" -> nombreOeufs++;
@@ -74,19 +75,24 @@ public class Fourmiliere {
 						case "Ouvriere" -> nombreOuvriere++;
 						case "Soldat" -> nombreSoldats++;
 						case "IndividuSexue" -> nombreIndividuSexue++;
+						case "Reine" -> nombreReines++;
 					}
 				}
 			}
 		}
 
-		System.out.println("Total fourmis : " + this.population.size() +
+		System.out.println(
+				"Saision : " + contexte.getSimulation().getSaisons() +
+				", Total fourmis : " + this.population.size() +
+				", fourmis en vie : " + (this.population.size() - nombreMorts) +
 				", nombre d'oeufs : " + nombreOeufs +
 				", nombre de larves : " + nombreLarves +
 				", nombre de nymphes : " + nombreNymphes +
 				", nombre de morts : " + nombreMorts +
 				", nombre d'ouvrières : " + nombreOuvriere +
 				", nombre de soldats : " + nombreSoldats +
-				", nombre d'individus sexues : " + nombreIndividuSexue);
+				", nombre d'individus sexues : " + nombreIndividuSexue+
+				", nombre de reines : " + nombreReines);
 	}
 
 	public double getNourriture() {

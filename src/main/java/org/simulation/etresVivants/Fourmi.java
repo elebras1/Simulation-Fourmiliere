@@ -13,6 +13,7 @@ import org.simulation.etats.Mort;
 import org.simulation.etats.Nymphe;
 import org.simulation.etats.Oeuf;
 
+import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
 
@@ -24,12 +25,13 @@ public class Fourmi extends Individu {
 	private int age;
 	private int timetolunch =PAS_FAIM;
 	private double portProie=0;
-
-
+	private Action action;
+	
 	public Fourmi(Point point) {
 		this.setAge(0);
 		this.setEtat(new Oeuf());
 		this.setPos(point);
+		this.setAction(Action.DECOUVERTE);
 	}
 
 	public int getDureeDeVie() {
@@ -55,26 +57,31 @@ public class Fourmi extends Individu {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	
-	public void evolution() {
-		this.age ++;
 
-	switch (this.age) {
-			case 3: 
-				this.etat = new Larve();
-				this.getVuObserver().notifyVu();
-				this.setPoids(6);
-				break;
-			case 10: 
-				this.etat = new Nymphe();
-				this.getVuObserver().notifyVu();
-				this.setPoids(0);
-				break;
-			case 20: 
-				this.etat = new Adulte();
-				this.getVuObserver().notifyVu();
-				this.setPoids(2);
-				break;
+
+	public void setAction(Action action) {
+		this.action = action;
+	}
+
+	public Action getAction() {
+		return this.action;
+	}
+
+	public void evolution(ContexteDeSimulation contexte) {
+		this.age++;
+
+		if (this.age == Parameters.AGE_LARVE) {
+			this.etat = new Larve();
+			this.getVuObserver().notifyVu();
+			this.setPoids(6);
+		} else if (this.age == Parameters.AGE_NYMPHE) {
+			this.etat = new Nymphe();
+			this.getVuObserver().notifyVu();
+			this.setPoids(0);
+		} else if (this.age == Parameters.AGE_ADULTE) {
+			this.etat = new Adulte(contexte);
+			this.getVuObserver().notifyVu();
+			this.setPoids(2);
 		}
 
 		if (this.age > this.dureeDeVie) {
@@ -106,7 +113,8 @@ public class Fourmi extends Individu {
 
 		}
 	}
-	
+
+
 	public void initialise(VueIndividu vue) {
 		this.etat.initialise(vue);
 	}
@@ -114,12 +122,12 @@ public class Fourmi extends Individu {
 	
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		super.etapeDeSimulation(contexte);
-		this.evolution();
 		if(this.timetolunch<=0){
 			this.gestionDeFaim(contexte);
 			this.timetolunch=PAS_FAIM;
 		}
 		this.timetolunch--;
+		this.evolution(contexte);
 		this.etat.etapeDeSimulation(contexte);
 		this.poseProie(contexte);
 	}
