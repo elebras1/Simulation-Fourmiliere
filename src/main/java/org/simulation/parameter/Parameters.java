@@ -11,4 +11,6 @@ public class Parameters {
   public static double BIAIS_MINIMAL = 10.0;
   public static int DUREE_VIE_MIN = 547;
   public static int DUREE_VIE_MAX = 913;
+  public static int NOMBRE_PROIE_MAX = 2000;
+  public static boolean AFFICHER_TRACE = false;
 }
