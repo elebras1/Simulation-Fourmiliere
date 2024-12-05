@@ -16,18 +16,20 @@ public class Simulation implements ActionListener {
 	private NiSpace space = new NiSpace("Simulation Fourmis", new Dimension(1000, 800));
 	private Terrain terrain = new Terrain(new Point(10,10), new Dimension(700,700));
 	private Saisons saisons = Saisons.AUTOMNE;
-	Timer timer;
+	private Timer timer;
 
 	public Simulation() {
-		space.setDoubleBuffered(true);
-		space.openInWindow();
-	    this.nouveauTerrain(terrain);
-		this.nouveauParametres(this,space);
+		this.space.setDoubleBuffered(true);
+		this.space.openInWindow();
+		this.nouveauTerrain(terrain);
 	}
 
-	
 	public Terrain getTerrain() {
 		return this.terrain;
+	}
+
+	public Timer getTimer() {
+		return this.timer;
 	}
 	
 	public void nouveauTerrain(Terrain terrain) {
@@ -87,9 +89,10 @@ public class Simulation implements ActionListener {
 
 	}
 	public void start() {
-		timer = new Timer(0, this);
-		timer.setDelay(this.graphicAnimationDelay);
-		timer.start();
+		this.timer = new Timer(0, this);
+		this.timer.setDelay(this.graphicAnimationDelay);
+		this.timer.start();
+		this.nouveauParametres(this,space);
 	}
 	
 	public static void main(String[] args) {

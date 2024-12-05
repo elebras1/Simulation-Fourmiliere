@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.util.Random;
 
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.parameter.Parameters;
 import org.simulation.roles.*;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
@@ -27,15 +28,19 @@ public class Adulte extends Etat {
 					.count();
 		}
 
-		if(proba < 60) {
+		int seuilOuvriere = Parameters.PROBABILITE_OUVRIERE;
+		int seuilSoldat = seuilOuvriere + Parameters.PROBABILITE_SOLDAT;
+		int seuilSexue = seuilSoldat + Parameters.PROBABILITE_INDIVIDU_SEXUE;
+
+		if (proba < seuilOuvriere) {
 			this.setRole(new Ouvriere());
-		} else if (proba < 85) {
+		} else if (proba < seuilSoldat) {
 			this.setRole(new Soldat());
-		} else if (proba < 99){
+		} else if (proba < seuilSexue) {
 			this.setRole(new IndividuSexue());
-		} else if(reineNumber<3) {
+		} else if (reineNumber < Parameters.MAXIMUM_REINES) {
 			this.setRole(new Reine());
-		}else{
+		} else {
 			this.setRole(new IndividuSexue());
 		}
 	}

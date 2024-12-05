@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.simulation.etresVivants.Action;
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.parameter.Parameters;
 import org.simulation.terrain.Pheromone;
 import org.simulation.vue.ContexteDeSimulation;
 
@@ -48,7 +49,7 @@ public class Ouvriere extends Role {
 			}
 		}
 
-		double minBias = 10.0; // Biais minimal de 10 %
+		double minBias = Parameters.BIAIS_MINIMAL; // Biais minimal de 10 %
 		double maxPheromone = 255.0; // Valeur maximale des phéromones
 
 		// Calcul des probabilités brutes en fonction de l'action
