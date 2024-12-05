@@ -9,58 +9,38 @@ public class VuParameters extends VueElement {
     private static final long serialVersionUID = -1082764164251478273L;
 
     public VuParameters(Simulation simulation, NiSpace space) {
-        JSlider sliderWidth = this.getjSlider(simulation);
+        JSlider sliderWidth = this.getjSlider(simulation, space);
         space.add(sliderWidth);
-
-        JLabel labelHeure = this.createLabel("Heure:", 100);
-        JTextField tfHeure = this.createTextField(String.valueOf(simulation.getSaisons().getHeure()), 100);
-        simulation.getTimer().addActionListener(e -> tfHeure.setText(String.valueOf(simulation.getSaisons().getHeure())));
-        tfHeure.setEditable(false);
-        space.add(labelHeure);
-        space.add(tfHeure);
-
-
         space.setLayout(null);
 
-        JLabel labelProbabiliteOuvriere = this.createLabel("Probabilité Ouvrière:", 150);
-        JTextField tfProbabiliteOuvriere = this.createTextField(String.valueOf(Parameters.PROBABILITE_OUVRIERE), 150);
-        space.add(labelProbabiliteOuvriere);
-        space.add(tfProbabiliteOuvriere);
+        JLabel labelHeure = this.createLabel("Heure:", 100, space);
+        JTextField tfHeure = this.createTextField(String.valueOf(simulation.getSaisons().getHeure()), 100, space);
+        simulation.getTimer().addActionListener(e -> tfHeure.setText(String.valueOf(simulation.getSaisons().getHeure())));
+        tfHeure.setEditable(false);
 
-        JLabel labelProbabiliteSoldat = this.createLabel("Probabilité Soldat:", 200);
-        JTextField tfProbabiliteSoldat = this.createTextField(String.valueOf(Parameters.PROBABILITE_SOLDAT), 200);
-        space.add(labelProbabiliteSoldat);
-        space.add(tfProbabiliteSoldat);
+        JLabel labelProbabiliteOuvriere = this.createLabel("Probabilité Ouvrière:", 150, space);
+        JTextField tfProbabiliteOuvriere = this.createTextField(String.valueOf(Parameters.PROBABILITE_OUVRIERE), 150, space);
 
-        JLabel labelProbabiliteIndividuSexue = this.createLabel("Probabilité Individu Sexué:", 250);
-        JTextField tfProbabiliteIndividuSexue = this.createTextField(String.valueOf(Parameters.PROBABILITE_INDIVIDU_SEXUE), 250);
-        space.add(labelProbabiliteIndividuSexue);
-        space.add(tfProbabiliteIndividuSexue);
+        JLabel labelProbabiliteSoldat = this.createLabel("Probabilité Soldat:", 200, space);
+        JTextField tfProbabiliteSoldat = this.createTextField(String.valueOf(Parameters.PROBABILITE_SOLDAT), 200, space);
 
-        JLabel labelMaximumReines = this.createLabel("Maximum Reines:", 300);
-        JTextField tfMaximumReines = this.createTextField(String.valueOf(Parameters.MAXIMUM_REINES), 300);
-        space.add(labelMaximumReines);
-        space.add(tfMaximumReines);
+        JLabel labelProbabiliteIndividuSexue = this.createLabel("Probabilité Individu Sexué:", 250, space);
+        JTextField tfProbabiliteIndividuSexue = this.createTextField(String.valueOf(Parameters.PROBABILITE_INDIVIDU_SEXUE), 250, space);
 
-        JLabel labelAgeLarve = this.createLabel("Âge Larve:", 350);
-        JTextField tfAgeLarve = this.createTextField(String.valueOf(Parameters.AGE_LARVE), 350);
-        space.add(labelAgeLarve);
-        space.add(tfAgeLarve);
+        JLabel labelMaximumReines = this.createLabel("Maximum Reines:", 300, space);
+        JTextField tfMaximumReines = this.createTextField(String.valueOf(Parameters.MAXIMUM_REINES), 300, space);
 
-        JLabel labelAgeNymphe = this.createLabel("Âge Nymphe:", 400);
-        JTextField tfAgeNymphe = this.createTextField(String.valueOf(Parameters.AGE_NYMPHE), 400);
-        space.add(labelAgeNymphe);
-        space.add(tfAgeNymphe);
+        JLabel labelAgeLarve = this.createLabel("Âge Larve:", 350, space);
+        JTextField tfAgeLarve = this.createTextField(String.valueOf(Parameters.AGE_LARVE), 350, space);
 
-        JLabel labelAgeAdulte = this.createLabel("Âge Adulte:", 450);
-        JTextField tfAgeAdulte = this.createTextField(String.valueOf(Parameters.AGE_ADULTE), 450);
-        space.add(labelAgeAdulte);
-        space.add(tfAgeAdulte);
+        JLabel labelAgeNymphe = this.createLabel("Âge Nymphe:", 400, space);
+        JTextField tfAgeNymphe = this.createTextField(String.valueOf(Parameters.AGE_NYMPHE), 400, space);
 
-        JLabel labelBiaisMinimal = this.createLabel("Biais Minimal:", 500);
-        JTextField tfBiaisMinimal = this.createTextField(String.valueOf(Parameters.BIAIS_MINIMAL), 500);
-        space.add(labelBiaisMinimal);
-        space.add(tfBiaisMinimal);
+        JLabel labelAgeAdulte = this.createLabel("Âge Adulte:", 450, space);
+        JTextField tfAgeAdulte = this.createTextField(String.valueOf(Parameters.AGE_ADULTE), 450, space);
+
+        JLabel labelBiaisMinimal = this.createLabel("Biais Minimal:", 500, space);
+        JTextField tfBiaisMinimal = this.createTextField(String.valueOf(Parameters.BIAIS_MINIMAL), 500, space);
 
         JButton applyButton = new JButton("Appliquer");
         applyButton.setBounds(850, 550, 120, 30);
@@ -82,30 +62,33 @@ public class VuParameters extends VueElement {
         space.add(applyButton);
     }
 
-    private JSlider getjSlider(Simulation simulation) {
-        JSlider sliderWidth = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
-        sliderWidth.setBounds(730, 30, 200, 50);
-        sliderWidth.setMajorTickSpacing(20);
-        sliderWidth.setMinorTickSpacing(10);
-        sliderWidth.setPaintTicks(true);
-        sliderWidth.setPaintLabels(true);
-        sliderWidth.addChangeListener(_ -> {
-            int value = sliderWidth.getValue();
+    private JSlider getjSlider(Simulation simulation, NiSpace space) {
+        JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+        slider.setBounds(730, 30, 200, 50);
+        slider.setMajorTickSpacing(20);
+        slider.setMinorTickSpacing(10);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        slider.addChangeListener(_ -> {
+            int value = slider.getValue();
             simulation.setGraphicAnimationDelay(value);
             simulation.getTimer().setDelay(simulation.graphicAnimationDelay);
         });
-        return sliderWidth;
+        space.add(slider);
+        return slider;
     }
 
-    private JLabel createLabel(String text, int y) {
+    private JLabel createLabel(String text, int y, NiSpace space) {
         JLabel label = new JLabel(text);
         label.setBounds(730, y, 150, 30);
+        space.add(label);
         return label;
     }
 
-    private JTextField createTextField(String text, int y) {
+    private JTextField createTextField(String text, int y, NiSpace space) {
         JTextField textField = new JTextField(text);
         textField.setBounds(900, y, 80, 30);
+        space.add(textField);
         return textField;
     }
 
