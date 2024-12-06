@@ -73,6 +73,9 @@ public class ProieVivant extends Etat {
             if(proie.getFourmisSurProie().get(i).getEtat() instanceof  Mort){
                 proie.getFourmisSurProie().remove(proie.getFourmisSurProie().get(i));
             }
+            if(proie.getFourmisSurProie().get(i).getaFaim()){
+                proie.getFourmisSurProie().remove(proie.getFourmisSurProie().get(i));
+            }
         }
     }
 
