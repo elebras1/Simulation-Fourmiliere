@@ -3,7 +3,8 @@ package org.simulation.etats;
 import java.awt.*;
 import java.util.Random;
 
-import org.simulation.etresVivants.*;
+import org.simulation.etresVivants.Fourmi;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.parameter.Parameters;
 import org.simulation.roles.*;
 import org.simulation.vue.ContexteDeSimulation;
@@ -85,4 +86,7 @@ public class Adulte extends Etat {
 	}
 
 
+	public void bilan(Bilan bilan) {
+		this.role.bilan(bilan);
+	}
 }

@@ -1,6 +1,6 @@
 package org.simulation.etats;
 
-import org.simulation.etresVivants.*;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.*;
 
 import javax.swing.*;
@@ -38,6 +38,11 @@ public class EstPorte extends Etat{
     @Override
     public void gestionDeFaim(ContexteDeSimulation contexte) {
 
+    }
+
+    @Override
+    public void bilan(Bilan bilan) {
+        bilan.inscrire("Est porté");
     }
 
 }

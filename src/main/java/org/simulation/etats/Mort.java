@@ -1,12 +1,11 @@
 package org.simulation.etats;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 
-import org.simulation.etresVivants.*;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
 
@@ -33,4 +32,8 @@ public class Mort extends Etat {
 	}
 
 
+	public void bilan(Bilan bilan) {
+		bilan.inscrire("Mort");
+	}
+	
 }

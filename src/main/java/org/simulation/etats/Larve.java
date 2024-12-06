@@ -1,10 +1,9 @@
 package org.simulation.etats;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 
-import org.simulation.etresVivants.*;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
 
@@ -35,6 +34,10 @@ public class Larve extends Etat{
 			fourmi.setaFaim(false);
 			contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()-fourmi.getPoids());
 		}
+	}
+	
+	public void bilan(Bilan bilan) {
+		bilan.inscrire("Larve");
 	}
 
 

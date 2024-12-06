@@ -2,6 +2,7 @@ package org.simulation.etats;
 
 import org.simulation.etresVivants.*;
 import org.simulation.etresVivants.Action;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.*;
 
 import javax.swing.*;
@@ -34,6 +35,9 @@ public class ProieMort  extends Etat {
 
     @Override
     public void gestionDeFaim(ContexteDeSimulation contexte) {
+    }
 
+    public void bilan(Bilan bilan) {
+        bilan.inscrire("Proie morte");
     }
 }

@@ -1,13 +1,10 @@
 package org.simulation.etats;
 
-import org.simulation.etresVivants.*;
-import org.simulation.etresVivants.Action;
-import org.simulation.parameter.*;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 
 public class ProieVivant extends Etat {
 
@@ -95,5 +92,10 @@ public class ProieVivant extends Etat {
     @Override
     public void gestionDeFaim(ContexteDeSimulation contexte) {
 
+    }
+
+    @Override
+    public void bilan(Bilan bilan) {
+        bilan.inscrire("Proie vivante");
     }
 }
