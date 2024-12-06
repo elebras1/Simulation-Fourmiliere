@@ -48,8 +48,11 @@ public class VuParameters extends VueElement {
         this.createLabel("Duree de vie max:", 600, space);
         JTextField tfDureeVieMax = this.createTextField(String.valueOf(Parameters.DUREE_VIE_MAX), 600, space);
 
+        this.createLabel("Nombre max de proie:", 650, space);
+        JTextField tfNombreDeProie = this.createTextField(String.valueOf(Parameters.NOMBRE_PROIE_MAX), 650, space);
+
         JButton applyButton = new JButton("Appliquer");
-        applyButton.setBounds(730, 650, 120, 30);
+        applyButton.setBounds(730, 700, 120, 30);
         applyButton.addActionListener(_ -> {
             try {
                 Parameters.PROBABILITE_OUVRIERE = Integer.parseInt(tfProbabiliteOuvriere.getText());
@@ -62,11 +65,25 @@ public class VuParameters extends VueElement {
                 Parameters.BIAIS_MINIMAL = Double.parseDouble(tfBiaisMinimal.getText());
                 Parameters.DUREE_VIE_MIN = Integer.parseInt(tfDureeVieMin.getText());
                 Parameters.DUREE_VIE_MAX = Integer.parseInt(tfDureeVieMax.getText());
+                Parameters.NOMBRE_PROIE_MAX = Integer.parseInt(tfNombreDeProie.getText());
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(space, "Erreur : Veuillez entrer des valeurs valides.");
             }
         });
         space.add(applyButton);
+
+        JButton afficheTraceButton = new JButton("Afficher Trace");
+        afficheTraceButton.setBounds(900, 700, 120, 30);
+        afficheTraceButton.addActionListener(_ -> {
+            if(!Parameters.AFFICHER_TRACE) {
+                Parameters.AFFICHER_TRACE = true;
+                afficheTraceButton.setText("Cacher Trace");
+            } else {
+                Parameters.AFFICHER_TRACE = false;
+                afficheTraceButton.setText("Afficher Trace");
+            }
+        });
+        space.add(afficheTraceButton);
     }
 
     private JSlider getjSlider(Simulation simulation, NiSpace space) {
@@ -79,17 +96,16 @@ public class VuParameters extends VueElement {
         slider.addChangeListener(_ -> {
             int value = slider.getValue();
             simulation.setGraphicAnimationDelay(value);
-            simulation.getTimer().setDelay(simulation.graphicAnimationDelay);
+            simulation.getTimer().setDelay(simulation.getGraphicAnimationDelay());
         });
         space.add(slider);
         return slider;
     }
 
-    private JLabel createLabel(String text, int y, NiSpace space) {
+    private void createLabel(String text, int y, NiSpace space) {
         JLabel label = new JLabel(text);
         label.setBounds(730, y, 150, 30);
         space.add(label);
-        return label;
     }
 
     private JTextField createTextField(String text, int y, NiSpace space) {

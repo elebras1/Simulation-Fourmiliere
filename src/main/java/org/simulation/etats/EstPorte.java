@@ -3,24 +3,30 @@ package org.simulation.etats;
 import org.simulation.etresVivants.Individu;
 import org.simulation.etresVivants.Proie;
 import org.simulation.fourmiliere.Bilan;
-import org.simulation.vue.ContexteDeSimulation;
-import org.simulation.vue.VueIndividu;
+import org.simulation.vue.*;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class EnFuite extends Etat {
+public class EstPorte extends Etat{
 
 
     @Override
     public void etapeDeSimulation(ContexteDeSimulation contexte) {
         Proie proie = (Proie) contexte.getIndividu();
-        contexte.getTerrain().getProies().remove(proie);
-        proie.getVuObserver().notifyVuSuppression(contexte.getSimulation());
+        if(!(proie.getEstPortePar().getEtat() instanceof Adulte)){
+            proie.setEtat(new ProieMort());
+            proie.getEstPortePar().setPortProie(null);
+            proie.setEstPortePar(null);
+
+
+        }else{
+            proie.setPos(proie.getEstPortePar().getPos());
+        }
     }
 
     public void initialise(VueIndividu vue ) {
-        vue.setBackground(Color.RED);
+        vue.setBackground(Color.cyan);
         vue.setDimension(new Dimension(5, 5));
         vue.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
@@ -38,9 +44,7 @@ public class EnFuite extends Etat {
 
     @Override
     public void bilan(Bilan bilan) {
-        bilan.inscrire("En fuite");
+        bilan.inscrire("Est porté");
     }
-    public boolean isAdulteSexuesMale() {
-        return false;
-    }
+
 }

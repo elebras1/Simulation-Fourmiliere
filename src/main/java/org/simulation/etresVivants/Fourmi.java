@@ -1,10 +1,6 @@
 package org.simulation.etresVivants;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Point;
-import java.util.List;
-
 
 import org.simulation.etats.Adulte;
 import org.simulation.etats.Etat;
@@ -13,25 +9,31 @@ import org.simulation.etats.Mort;
 import org.simulation.etats.Nymphe;
 import org.simulation.etats.Oeuf;
 
+import org.simulation.fourmiliere.Bilan;
+import org.simulation.fourmiliere.Fourmiliere;
 import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
 
 
 public class Fourmi extends Individu {
-	private final static int PAS_FAIM=10000;
+	private final static int PAS_FAIM = 10000;
 	private int dureeDeVie;
 	private Etat etat;
 	private int age;
-	private int timetolunch =PAS_FAIM;
-	private double portProie=0;
+	private int timetolunch;
+	private Proie portProie;
 	private Action action;
-	
+	private boolean aFaim;
+
 	public Fourmi(Point point) {
 		this.setAge(0);
 		this.setEtat(new Oeuf());
 		this.setPos(point);
 		this.setAction(Action.DECOUVERTE);
+		this.timetolunch = PAS_FAIM;
+		this.portProie = null;
+		this.aFaim = false;
 	}
 
 	public int getDureeDeVie() {
@@ -48,6 +50,7 @@ public class Fourmi extends Individu {
 
 	public void setEtat(Etat etat) {
 		this.etat = etat;
+
 	}
 
 	public int getAge() {
@@ -67,7 +70,7 @@ public class Fourmi extends Individu {
 		return this.action;
 	}
 
-	public void evolution(ContexteDeSimulation contexte) {
+	public void evolution(Fourmiliere fourmiliere) {
 		this.age++;
 
 		if (this.age == Parameters.AGE_LARVE) {
@@ -99,64 +102,58 @@ public class Fourmi extends Individu {
 		}
 	}
 
-	public void gestionDeFaim(ContexteDeSimulation contexte){
-		switch (this.getEtat().getClass().getSimpleName()) {
-			case "Larve" :
-				if (contexte.getFourmiliere().getNourriture()<this.getPoids()){
-					this.etat = new Mort();
-					this.getVuObserver().notifyVu();
-				}else {
-					contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()-this.getPoids());
-				}
-			case "Adulte" :
-				Point p = contexte.getFourmiliere().getPos();
-				Point posfourmiliere = new Point(p.x + 40, p.y + 40);
-				if (contexte.getFourmiliere().getNourriture()<this.getPoids()/3 ||
-						posfourmiliere.distance(this.pos)>40){
-					this.etat = new Mort();
-					this.getVuObserver().notifyVu();
-				}else {
-					contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()-this.getPoids()/3);
-				}
-			default:
-
-		}
-	}
-
-
 	public void initialise(VueIndividu vue) {
 		this.etat.initialise(vue);
 	}
 
+	public boolean getaFaim() {
+		return aFaim;
+	}
+
+	public void setaFaim(boolean aFaim) {
+		this.aFaim = aFaim;
+	}
 
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		super.etapeDeSimulation(contexte);
+		if(this.timetolunch<=300){
+			this.aFaim=true;
+			this.setAction(Action.SUIVRE);
+		}
 		if(this.timetolunch<=0){
-			this.gestionDeFaim(contexte);
+			this.etat.gestionDeFaim(contexte);
 			this.timetolunch=PAS_FAIM;
 		}
 		this.timetolunch--;
-		this.evolution(contexte);
+		this.evolution(contexte.getFourmiliere());
 		this.etat.etapeDeSimulation(contexte);
 		this.poseProie(contexte);
+
 	}
 
-
 	private void poseProie(ContexteDeSimulation contexte) {
-		Point p = contexte.getFourmiliere().getPos();
-		Point posfourmiliere = new Point(p.x + 40, p.y + 40);
-		if (this.portProie>0 && posfourmiliere.distance(this.pos)>40){
-			contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()+this.getPoids());
-			this.portProie=0;
+		Point posfourmiliere = contexte.getFourmiliere().getPos();
+		if (this.portProie!=null && posfourmiliere.distance(this.pos)<=40){
+			System.out.println("yes");
+			contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()+this.portProie.getPoids());
+			contexte.getTerrain().getProies().remove(this.portProie);
+			this.portProie.getVuObserver().notifyVuSuppression(contexte.getSimulation());
+			this.setAction(Action.DECOUVERTE);
+			this.portProie=null;
 		}
 	}
 
-	public double getPortProie() {
+	public Proie getPortProie() {
 		return portProie;
 	}
 
-	public void setPortProie(double poids) {
-		this.portProie = poids;
+	public void setPortProie(Proie proie) {
+		this.portProie = proie;
+	}
+
+	@Override
+	public void bilan(Bilan bilan) {
+		this.etat.bilan(bilan);
 	}
 
 }

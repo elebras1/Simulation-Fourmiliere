@@ -1,7 +1,9 @@
 package org.simulation.etresVivants;
 
 import org.simulation.etats.*;
+import org.simulation.parameter.*;
 import org.simulation.terrain.*;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.*;
 
 import java.awt.*;
@@ -13,15 +15,18 @@ public class Proie  extends Individu {
     private static final double POIDS_MIN = 2.0;
     private static final double POIDS_MAX = 10.0;
     private Etat etat;
-    private List<Fourmi> fourmisSurProie = new ArrayList<>();
-    private int tempsAttente=0;
-    private static final int TEMPS_ATTENTE_MAX = 180;
+    private List<Fourmi> fourmisSurProie;
+    private int tempsAttente;
+
+    private Fourmi estPortePar;
 
     public Proie(Point point) {
-        this.pos=point;
-
+        this.pos = point;
         this.setPoids(genererPoids());
-        this.etat=new ProieVivant();
+        this.etat = new ProieVivant();
+        this.fourmisSurProie = new ArrayList<>();
+        this.tempsAttente = 0;
+        this.estPortePar = null;
     }
     private double genererPoids() {
         Random random = new Random();
@@ -34,6 +39,7 @@ public class Proie  extends Individu {
 
     public void setEtat(Etat etat) {
         this.etat = etat;
+        this.getVuObserver().notifyVu();
     }
 
     public Boolean getNombreFourmisNecessaires() {
@@ -45,40 +51,6 @@ public class Proie  extends Individu {
         return poidsFourmi>=poidsProie;
     }
 
-    public void estAttaquer() {
-        if(this.fourmisSurProie.isEmpty()){
-            this.tempsAttente=0;
-            return;}
-        boolean fourmisNecessaires = getNombreFourmisNecessaires();
-        if (!fourmisNecessaires) {
-            attendre();
-        } else{
-            this.fourmisSurProie.get(0).setPortProie(this.getPoids());
-            this.setEtat(new ProieMort());
-            this.getVuObserver().notifyVu();
-        }
-        for(int i=0;i<this.fourmisSurProie.size();i++){
-            if(this.fourmisSurProie.get(i).getEtat().getClass().getSimpleName().contains("Mort")){
-                this.fourmisSurProie.remove(i);
-            }
-        }
-
-    }
-    public void attendre() {
-        this.tempsAttente++;
-        if (this.tempsAttente >= TEMPS_ATTENTE_MAX) {
-            this.setEtat(new EnFuite());
-            this.getVuObserver().notifyVu();
-
-        }
-    }
-    public void attaquerPar(Fourmi fourmi) {
-        if (!(this.etat instanceof ProieVivant)) {return;}
-        double distance =this.getPos().distance(fourmi.getPos());
-        if (distance<=5 && !this.fourmisSurProie.contains(fourmi) && fourmi.getPortProie()==0) {
-            this.fourmisSurProie.add(fourmi);
-        }
-    }
     @Override
     public void initialise(VueIndividu vue) {
         this.etat.initialise(vue);
@@ -87,23 +59,40 @@ public class Proie  extends Individu {
     @Override
     public void etapeDeSimulation(ContexteDeSimulation contexte) {
         super.etapeDeSimulation(contexte);
-        this.estAttaquer();
         this.etat.etapeDeSimulation(contexte);
-
-
-
         for (Fourmi fourmi : contexte.getFourmiliere().getPopulation()) {
-            this.attaquerPar(fourmi);
-        }
-        if(!(this.getEtat() instanceof ProieVivant)){
-            if(this.getEtat() instanceof ProieMort){
-
-            }else {
-                contexte.getSimulation().retirerIndividu(this.getVue());
-            }
-            contexte.getTerrain().getProies().remove(this);
-
+            this.etat.actionSiAttaquer(contexte,fourmi);
         }
 
     }
+
+
+    public Fourmi getEstPortePar() {
+        return estPortePar;
+    }
+
+    public void setEstPortePar(Fourmi estPortePar) {
+        this.estPortePar = estPortePar;
+    }
+
+    public int getTempsAttente() {
+        return tempsAttente;
+    }
+
+    public void setTempsAttente(int tempsAttente) {
+        this.tempsAttente = tempsAttente;
+    }
+
+    public List<Fourmi> getFourmisSurProie() {
+        return fourmisSurProie;
+    }
+
+    public void setFourmisSurProie(List<Fourmi> fourmisSurProie) {
+        this.fourmisSurProie = fourmisSurProie;
+    }
+    @Override
+    public void bilan(Bilan bilan) {
+        bilan.inscrire(this.getClass().getSimpleName());
+    }
+
 }

@@ -6,22 +6,18 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import org.simulation.etats.*;
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
 
 public class Fourmiliere {
-
-	public List<Fourmi> getPopulation() {
-		return population;
-	}
-
 	private List<Fourmi> population;
 	private List<Fourmi> fourmisSexueesMales;
 	private HashSet<Fourmi> fourmisReines;
 	private Point pos;
 	private Dimension dim;
 	private double nourriture = 10000;
+	private Bilan bilan;
 
 	public List<Fourmi> getFourmisSexueesMales() {
 		return fourmisSexueesMales;
@@ -30,6 +26,16 @@ public class Fourmiliere {
 	public HashSet<Fourmi> getFourmisReines() {
 		return fourmisReines;
 	}
+	public Fourmiliere(Point pos) {
+		this.population = new ArrayList<>();
+		this.pos = pos;
+		this.dim = new Dimension(80,80);
+		this.bilan = new Bilan();
+	}
+
+	public List<Fourmi> getPopulation() {
+		return population;
+	}
 
 	public Point getPos() {
 		return pos;
@@ -37,12 +43,6 @@ public class Fourmiliere {
 
 	public Dimension getDimension() {
 		return dim;
-	}
-
-	public Fourmiliere(Point pos) {
-		this.population = new ArrayList<>();
-		this.pos = pos;
-		this.dim = new Dimension(80,80);
 	}
 
 	public void ponte(Fourmi oeuf) {
@@ -59,48 +59,17 @@ public class Fourmiliere {
 		for (Fourmi fourmi : mesFourmis) {
 			fourmi.etapeDeSimulation(contexte);
 		}
-		this.afficherTrace(contexte);
+		if(Parameters.AFFICHER_TRACE) {
+			this.bilan.clear();
+			this.bilan(this.bilan);
+			System.out.println(this.bilan);
+		}
 	}
 
-	public void afficherTrace(ContexteDeSimulation contexte) {
-		int nombreOeufs = 0;
-		int nombreLarves = 0;
-		int nombreNymphes = 0;
-		int nombreMorts = 0;
-		int nombreOuvriere = 0;
-		int nombreSoldats = 0;
-		int nombreIndividuSexue = 0;
-		int nombreReines = 0;
+	public void bilan(Bilan bilan) {
 		for(Fourmi fourmi : this.population) {
-			switch (fourmi.getEtat().getClass().getSimpleName()) {
-				case "Oeuf" -> nombreOeufs++;
-				case "Larve" -> nombreLarves++;
-				case "Nymphe" -> nombreNymphes++;
-				case "Mort" -> nombreMorts++;
-				case "Adulte" -> {
-					Adulte fourmiAdulte = (Adulte) fourmi.getEtat();
-					switch (fourmiAdulte.getRole().getClass().getSimpleName()) {
-						case "Ouvriere" -> nombreOuvriere++;
-						case "Soldat" -> nombreSoldats++;
-						case "IndividuSexue" -> nombreIndividuSexue++;
-						case "Reine" -> nombreReines++;
-					}
-				}
-			}
+			fourmi.bilan(bilan);
 		}
-
-		System.out.println(
-				"Saision : " + contexte.getSimulation().getSaisons() +
-				", Total fourmis : " + this.population.size() +
-				", fourmis en vie : " + (this.population.size() - nombreMorts) +
-				", nombre d'oeufs : " + nombreOeufs +
-				", nombre de larves : " + nombreLarves +
-				", nombre de nymphes : " + nombreNymphes +
-				", nombre de morts : " + nombreMorts +
-				", nombre d'ouvrières : " + nombreOuvriere +
-				", nombre de soldats : " + nombreSoldats +
-				", nombre d'individus sexues : " + nombreIndividuSexue+
-				", nombre de reines : " + nombreReines);
 	}
 
 	public double getNourriture() {

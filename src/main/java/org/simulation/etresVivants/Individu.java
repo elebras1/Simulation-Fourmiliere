@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.VuObserver;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
@@ -13,7 +14,6 @@ public abstract class Individu {
 	protected Point pos;
 	private int dureeDeVie;
 	private VuObserver vuObserver;
-	private VueIndividu vue;
 
 
 	public int getDureeDeVie() {
@@ -26,13 +26,6 @@ public abstract class Individu {
 
 	public Point getPos() {
 		return pos;
-	}
-
-	public void setVue(VueIndividu vueIndividu) {
-		this.vue = vueIndividu;
-	}
-	public VueIndividu getVue() {
-		return vue;
 	}
 
 	public void setPos(Point pos) {
@@ -59,11 +52,12 @@ public abstract class Individu {
 		vue.setBackground(Color.gray);
 		vue.setDimension(new Dimension(3, 3));
 	}
-
 	
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		contexte.setIndividu(this);
 	}
+
+	public abstract void bilan(Bilan bilan);
 
 
 }

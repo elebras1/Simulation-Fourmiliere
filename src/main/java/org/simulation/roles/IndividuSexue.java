@@ -3,12 +3,12 @@ package org.simulation.roles;
 import java.util.Random;
 
 import org.simulation.etresVivants.Sexe;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.ContexteDeSimulation;
 
 public class IndividuSexue extends Role {
 	private Sexe sexe;
-	
-	
+
 	public IndividuSexue() {
 		super();
 		Random rand = new Random();
@@ -44,5 +44,9 @@ public class IndividuSexue extends Role {
 	@Override
 	public boolean isAdulteReine() {
 		return false;
+	}
+	@Override
+	public void bilan(Bilan bilan) {
+		bilan.inscrire("Individu sexue " + this.getSexe());
 	}
 }

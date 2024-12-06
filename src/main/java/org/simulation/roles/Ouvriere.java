@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.simulation.etresVivants.Action;
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.fourmiliere.Bilan;
 import org.simulation.parameter.Parameters;
 import org.simulation.terrain.Pheromone;
 import org.simulation.vue.ContexteDeSimulation;
@@ -34,8 +35,6 @@ public class Ouvriere extends Role {
 			pheromone.deposerPheromone(locale.x, locale.y);
 			fourmi.setPos(newPosition);
 		}
-
-
 	}
 
 	public Point mouvement(int x, int y, int gradientUp, int gradientLeft, int gradientRight, int gradientDown, Action action) {
@@ -92,7 +91,11 @@ public class Ouvriere extends Role {
 		} else {
 			return new Point(x, y + 1); // Bas
 		}
+	}
 
+	@Override
+	public void bilan(Bilan bilan) {
+		bilan.inscrire("Ouvriere");
 	}
 
 	public boolean isAdulteSexuesMale() {

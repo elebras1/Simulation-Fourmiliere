@@ -1,10 +1,13 @@
 package org.simulation.etats;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.util.Random;
 
+import org.simulation.etresVivants.Action;
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.etresVivants.Individu;
+import org.simulation.fourmiliere.Bilan;
+import org.simulation.fourmiliere.Fourmiliere;
 import org.simulation.parameter.Parameters;
 import org.simulation.roles.*;
 import org.simulation.vue.ContexteDeSimulation;
@@ -13,13 +16,13 @@ import org.simulation.vue.VueIndividu;
 public class Adulte extends Etat {
 	private Role role;
 	
-	public Adulte(ContexteDeSimulation contexte) {
+	public Adulte(Fourmiliere fourmiliere) {
 		Random rand = new Random();
 		int proba = rand.nextInt(100);
 		// 60 % d'ouvrieres, 25 % de soldats et 15 % d'individus sexu�s
 		int reineNumber= 0;
-		if(contexte.getFourmiliere()!=null) {
-			reineNumber=(int) contexte.getFourmiliere().getPopulation().stream()
+		if(fourmiliere != null) {
+			reineNumber = (int) fourmiliere.getPopulation().stream()
 					.map(Fourmi::getEtat)
 					.filter(etat -> etat instanceof Adulte)
 					.map(Adulte.class::cast)
@@ -71,4 +74,27 @@ public class Adulte extends Etat {
 		return this.role.isAdulteReine();
 	}
 	
+	@Override
+	public void actionSiAttaquer(ContexteDeSimulation contexte, Individu individu) {
+
+	}
+
+	@Override
+	public void gestionDeFaim(ContexteDeSimulation contexte) {
+		Fourmi fourmi = (Fourmi) contexte.getIndividu();
+		Point posfourmiliere = contexte.getFourmiliere().getPos();
+		if (contexte.getFourmiliere().getNourriture()<fourmi.getPoids()/3 ||
+				posfourmiliere.distance(fourmi.getPos())>40){
+			fourmi.setEtat(new Mort());
+		}else {
+			fourmi.setaFaim(false);
+			fourmi.setAction(Action.DECOUVERTE);
+			contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()-fourmi.getPoids()/3);
+		}
+	}
+
+
+	public void bilan(Bilan bilan) {
+		this.role.bilan(bilan);
+	}
 }
