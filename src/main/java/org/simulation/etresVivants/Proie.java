@@ -118,6 +118,7 @@ public class Proie  extends Individu {
 
     }
 
+
     public void estPorte(){
         if(this.etat instanceof EstPorte){
             if(this.estPortePar.getClass().getSimpleName().contains("Mort")){
