@@ -115,7 +115,7 @@ public class Fourmi extends Individu {
 
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		super.etapeDeSimulation(contexte);
-		if(this.timetolunch<=300){
+		if(this.timetolunch <= Parameters.TEMPS_AVANT_FAIM){
 			this.aFaim=true;
 			this.setAction(Action.SUIVRE);
 		}

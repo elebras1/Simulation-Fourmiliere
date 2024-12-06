@@ -19,6 +19,7 @@ public class Ouvriere extends Role {
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		Fourmi fourmi = (Fourmi) contexte.getIndividu();
 		if(fourmi.getAction().equals(Action.CHASSE)) {
+			System.out.println("je ne bouge pas");
 			return;
 		}
 		int x = fourmi.getPos().x;

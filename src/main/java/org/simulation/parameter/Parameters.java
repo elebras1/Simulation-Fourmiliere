@@ -16,10 +16,11 @@ public class Parameters {
   public static int TEMPS_ATTENTE_MAX = 180;
   public static int CHANGEMENT_SAISON = 60;
   public static int PHEROMONE_DEPOSER = 3;
-  public static int FAIM = 80;
+  public static int FAIM = 600;
   public static int POIDS_MIN_PROIE = 2;
   public static int POIDS_MAX_PROIE = 10;
   public static int NOMBRE_NAISSANCE = 50;
   public static int VITESSE_PONTE = 15;
   public static int STOCK_NOURITURE = 10000;
+  public static int TEMPS_AVANT_FAIM = 300;
 }

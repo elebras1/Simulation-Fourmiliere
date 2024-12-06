@@ -76,9 +76,8 @@ public class Adulte extends Etat {
 	public void gestionDeFaim(ContexteDeSimulation contexte) {
 		Fourmi fourmi = (Fourmi) contexte.getIndividu();
 		Point posfourmiliere = contexte.getFourmiliere().getPos();
-		if (contexte.getFourmiliere().getNourriture()<fourmi.getPoids()/3 ||
-				posfourmiliere.distance(fourmi.getPos())>40){
-			fourmi.setEtat(new Mort());
+		if (contexte.getFourmiliere().getNourriture()<fourmi.getPoids()/3 || posfourmiliere.distance(fourmi.getPos())>40){
+				fourmi.setEtat(new Mort());
 		}else {
 			fourmi.setaFaim(false);
 			fourmi.setAction(Action.DECOUVERTE);

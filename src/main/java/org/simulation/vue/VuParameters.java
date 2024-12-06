@@ -79,6 +79,8 @@ public class VuParameters extends VueElement {
         this.createLabel("Stock nourriture : ", 1000, 500, space);
         JTextField tfStockNourriture = this.createTextField(String.valueOf(Parameters.STOCK_NOURITURE),1130,  500, space);
 
+        this.createLabel("Temps avant faim : ", 1000, 550, space);
+        JTextField tfTempsAvantFaim = this.createTextField(String.valueOf(Parameters.TEMPS_AVANT_FAIM),1130,  550, space);
 
         JButton applyButton = new JButton("Appliquer");
         applyButton.setBounds(730, 700, 120, 30);
@@ -104,6 +106,7 @@ public class VuParameters extends VueElement {
                 Parameters.NOMBRE_NAISSANCE = Integer.parseInt(tfNombreNaissance.getText());
                 Parameters.VITESSE_PONTE = Integer.parseInt(tfVitessePonte.getText());
                 Parameters.STOCK_NOURITURE = Integer.parseInt(tfStockNourriture.getText());
+                Parameters.TEMPS_AVANT_FAIM = Integer.parseInt(tfTempsAvantFaim.getText());
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(space, "Erreur : Veuillez entrer des valeurs valides.");
             }
