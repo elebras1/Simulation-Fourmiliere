@@ -66,6 +66,8 @@ public class Fourmiliere {
 			this.bilan(this.bilan);
 			System.out.println(this.bilan);
 		}
+
+		System.out.println("Nourriture restante : " + this.nourriture);
 	}
 
 	public void bilan(Bilan bilan) {

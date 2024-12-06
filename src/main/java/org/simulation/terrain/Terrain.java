@@ -93,7 +93,7 @@ public class Terrain {
 	}
 
 	public void saisonSuivante(Simulation simulation) {
-		if(simulation.getSaisons().getHeure()== Parameters.CHANGEMENT_SAISON){
+		if(simulation.getSaisons().getHeure() % Parameters.CHANGEMENT_SAISON == 0){
 			switch (simulation.getSaisons()) {
 				case AUTOMNE:
 					simulation.setSaisons(Saisons.HIVER);

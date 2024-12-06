@@ -82,34 +82,32 @@ public class VuParameters extends VueElement {
 
         JButton applyButton = new JButton("Appliquer");
         applyButton.setBounds(730, 700, 120, 30);
-        for(int i = 0; i < 100; i++) {
-            applyButton.addActionListener(_ -> {
-                try {
-                    Parameters.PROBABILITE_OUVRIERE = Integer.parseInt(tfProbabiliteOuvriere.getText());
-                    Parameters.PROBABILITE_SOLDAT = Integer.parseInt(tfProbabiliteSoldat.getText());
-                    Parameters.PROBABILITE_INDIVIDU_SEXUE = Integer.parseInt(tfProbabiliteIndividuSexue.getText());
-                    Parameters.MAXIMUM_REINES = Integer.parseInt(tfMaximumReines.getText());
-                    Parameters.AGE_LARVE = Integer.parseInt(tfAgeLarve.getText());
-                    Parameters.AGE_NYMPHE = Integer.parseInt(tfAgeNymphe.getText());
-                    Parameters.AGE_ADULTE = Integer.parseInt(tfAgeAdulte.getText());
-                    Parameters.BIAIS_MINIMAL = Double.parseDouble(tfBiaisMinimal.getText());
-                    Parameters.DUREE_VIE_MIN = Integer.parseInt(tfDureeVieMin.getText());
-                    Parameters.DUREE_VIE_MAX = Integer.parseInt(tfDureeVieMax.getText());
-                    Parameters.NOMBRE_PROIE_MAX = Integer.parseInt(tfNombreDeProie.getText());
-                    Parameters.TEMPS_ATTENTE_MAX = Integer.parseInt(tfTempsAttenteMax.getText());
-                    Parameters.CHANGEMENT_SAISON = Integer.parseInt(tfChangementSaison.getText());
-                    Parameters.PHEROMONE_DEPOSER = Integer.parseInt(tfPheromoneDeposer.getText());
-                    Parameters.FAIM = Integer.parseInt(tfFaim.getText());
-                    Parameters.POIDS_MIN_PROIE = Integer.parseInt(tfPoidsMinProie.getText());
-                    Parameters.POIDS_MAX_PROIE = Integer.parseInt(tfPoidsMaxProie.getText());
-                    Parameters.NOMBRE_NAISSANCE = Integer.parseInt(tfNombreNaissance.getText());
-                    Parameters.VITESSE_PONTE = Integer.parseInt(tfVitessePonte.getText());
-                    Parameters.STOCK_NOURITURE = Integer.parseInt(tfStockNourriture.getText());
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(space, "Erreur : Veuillez entrer des valeurs valides.");
-                }
-            });
-        }
+        applyButton.addActionListener(_ -> {
+            try {
+                Parameters.PROBABILITE_OUVRIERE = Integer.parseInt(tfProbabiliteOuvriere.getText());
+                Parameters.PROBABILITE_SOLDAT = Integer.parseInt(tfProbabiliteSoldat.getText());
+                Parameters.PROBABILITE_INDIVIDU_SEXUE = Integer.parseInt(tfProbabiliteIndividuSexue.getText());
+                Parameters.MAXIMUM_REINES = Integer.parseInt(tfMaximumReines.getText());
+                Parameters.AGE_LARVE = Integer.parseInt(tfAgeLarve.getText());
+                Parameters.AGE_NYMPHE = Integer.parseInt(tfAgeNymphe.getText());
+                Parameters.AGE_ADULTE = Integer.parseInt(tfAgeAdulte.getText());
+                Parameters.BIAIS_MINIMAL = Double.parseDouble(tfBiaisMinimal.getText());
+                Parameters.DUREE_VIE_MIN = Integer.parseInt(tfDureeVieMin.getText());
+                Parameters.DUREE_VIE_MAX = Integer.parseInt(tfDureeVieMax.getText());
+                Parameters.NOMBRE_PROIE_MAX = Integer.parseInt(tfNombreDeProie.getText());
+                Parameters.TEMPS_ATTENTE_MAX = Integer.parseInt(tfTempsAttenteMax.getText());
+                Parameters.CHANGEMENT_SAISON = Integer.parseInt(tfChangementSaison.getText());
+                Parameters.PHEROMONE_DEPOSER = Integer.parseInt(tfPheromoneDeposer.getText());
+                Parameters.FAIM = Integer.parseInt(tfFaim.getText());
+                Parameters.POIDS_MIN_PROIE = Integer.parseInt(tfPoidsMinProie.getText());
+                Parameters.POIDS_MAX_PROIE = Integer.parseInt(tfPoidsMaxProie.getText());
+                Parameters.NOMBRE_NAISSANCE = Integer.parseInt(tfNombreNaissance.getText());
+                Parameters.VITESSE_PONTE = Integer.parseInt(tfVitessePonte.getText());
+                Parameters.STOCK_NOURITURE = Integer.parseInt(tfStockNourriture.getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(space, "Erreur : Veuillez entrer des valeurs valides.");
+            }
+        });
         space.add(applyButton);
 
         JButton afficheTraceButton = new JButton("Afficher Trace");
