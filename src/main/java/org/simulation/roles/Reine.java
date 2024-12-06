@@ -2,10 +2,8 @@ package org.simulation.roles;
 
 import java.util.Random;
 
-import org.simulation.etats.Adulte;
 import org.simulation.etresVivants.Fourmi;
 import org.simulation.etresVivants.Individu;
-import org.simulation.etresVivants.Sexe;
 import org.simulation.fourmiliere.Bilan;
 import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;

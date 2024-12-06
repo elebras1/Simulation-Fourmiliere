@@ -31,6 +31,8 @@ public class Fourmiliere {
 		this.pos = pos;
 		this.dim = new Dimension(80,80);
 		this.bilan = new Bilan();
+		this.fourmisReines = new HashSet<>();
+		this.fourmisSexueesMales = new ArrayList<>();
 	}
 
 	public List<Fourmi> getPopulation() {

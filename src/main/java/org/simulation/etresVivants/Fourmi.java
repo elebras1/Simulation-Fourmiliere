@@ -82,12 +82,12 @@ public class Fourmi extends Individu {
 			this.getVuObserver().notifyVu();
 			this.setPoids(0);
 		} else if (this.age == Parameters.AGE_ADULTE) {
-			this.etat = new Adulte(contexte);
+			this.etat = new Adulte(fourmiliere);
 			Adulte adulte = (Adulte) this.etat;
 			if(adulte.isAdulteSexuesMale()){
-				contexte.getFourmiliere().getFourmisSexueesMales().add(this);
+				fourmiliere.getFourmisSexueesMales().add(this);
 			}else if(adulte.isAdulteReine()){
-				contexte.getFourmiliere().getFourmisReines().add(this);
+				fourmiliere.getFourmisReines().add(this);
 			}
 			this.getVuObserver().notifyVu();
 			this.setPoids(2);
@@ -95,8 +95,8 @@ public class Fourmi extends Individu {
 
 		if (this.age > this.dureeDeVie) {
 			this.etat = new Mort();
-			contexte.getFourmiliere().getFourmisSexueesMales().remove(this);
-			contexte.getFourmiliere().getFourmisReines().remove(this);
+			fourmiliere.getFourmisSexueesMales().remove(this);
+			fourmiliere.getFourmisReines().remove(this);
 			this.getVuObserver().notifyVu();
 
 		}

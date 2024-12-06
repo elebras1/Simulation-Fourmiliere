@@ -25,12 +25,12 @@ public class Terrain {
 	private Dimension dim;
 	private Fourmiliere fourmiliere;
 	private Proies proies = new Proies();
-	private Pheromone pheromone;
+	private Pheromone pheromones;
 
 	public Terrain(Point pos, Dimension dim) {
 		this.pos = pos;
 		this.dim = dim;
-		this.pheromone = new Pheromone(this.dim);
+		this.pheromones = new Pheromone(this.dim);
 	}
 
 	public List<Proie> getProies() {

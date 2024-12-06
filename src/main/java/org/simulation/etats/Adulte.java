@@ -22,13 +22,7 @@ public class Adulte extends Etat {
 		// 60 % d'ouvrieres, 25 % de soldats et 15 % d'individus sexu�s
 		int reineNumber= 0;
 		if(fourmiliere != null) {
-			reineNumber = (int) fourmiliere.getPopulation().stream()
-					.map(Fourmi::getEtat)
-					.filter(etat -> etat instanceof Adulte)
-					.map(Adulte.class::cast)
-					.map(Adulte::getRole)
-					.filter(role -> role instanceof Reine)
-					.count();
+			reineNumber = fourmiliere.getFourmisReines().size();
 		}
 
 		int seuilOuvriere = Parameters.PROBABILITE_OUVRIERE;
