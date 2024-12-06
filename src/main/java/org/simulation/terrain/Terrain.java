@@ -5,16 +5,12 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
 
 import org.simulation.etats.Adulte;
-import org.simulation.etats.ProieMort;
-import org.simulation.etats.ProieVivant;
 import org.simulation.etresVivants.Fourmi;
 import org.simulation.etresVivants.Proie;
 import org.simulation.etresVivants.Sexe;
 import org.simulation.fourmiliere.Fourmiliere;
-import org.simulation.parameter.Parameters;
 import org.simulation.roles.IndividuSexue;
 import org.simulation.roles.Reine;
 import org.simulation.vue.ContexteDeSimulation;
@@ -25,18 +21,24 @@ import static org.simulation.parameter.Parameters.NOMBRE_PROIE_MAX;
 
 public class Terrain {
 
-	private List<Proie> proies = new ArrayList<>();
+	private static final int MIN_DISTANCE_FROM_FOURMILIERE = 45;
+	private List<Proie> proies;
 	private Point pos;
 	private Dimension dim;
 	private Fourmiliere fourmiliere;
-	private static final int MIN_DISTANCE_FROM_FOURMILIERE = 45;
+	private Pheromone pheromone;
+
+	public Terrain(Point pos, Dimension dim) {
+		this.pos = pos;
+		this.dim = dim;
+		this.pheromone = new Pheromone(this.dim);
+		this.proies = new ArrayList<>();
+	}
 
 	public List<Proie> getProies() {
 		return proies;
 	}
 
-	private Pheromone pheromone;
-	
 	public Point getPos() {
 		return this.pos;
 	}
@@ -47,12 +49,6 @@ public class Terrain {
 
 	public Pheromone getPheromone() {
 		return this.pheromone;
-	}
-
-	public Terrain(Point pos, Dimension dim) {
-		this.pos = pos;
-		this.dim = dim;
-		this.pheromone = new Pheromone(this.dim);
 	}
 		
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
@@ -75,7 +71,7 @@ public class Terrain {
 
 
 			Fourmi fourmi = new Fourmi(laReine.getPos());
-			fourmi.setEtat(new Adulte(contexte));
+			fourmi.setEtat(new Adulte(this.fourmiliere));
 			Adulte adulte = (Adulte) fourmi.getEtat();
 			adulte.setRole(new IndividuSexue());
 			IndividuSexue individuSexue = (IndividuSexue) adulte.getRole();
@@ -156,6 +152,4 @@ public class Terrain {
 	public Point convertirEnCoordonneesLocales(Point globale) {
 		return new Point(globale.x - this.pos.x, globale.y - this.pos.y);
 	}
-
-
 }

@@ -10,6 +10,7 @@ import org.simulation.etats.Nymphe;
 import org.simulation.etats.Oeuf;
 
 import org.simulation.fourmiliere.Bilan;
+import org.simulation.fourmiliere.Fourmiliere;
 import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
@@ -69,7 +70,7 @@ public class Fourmi extends Individu {
 		return this.action;
 	}
 
-	public void evolution(ContexteDeSimulation contexte) {
+	public void evolution(Fourmiliere fourmiliere) {
 		this.age++;
 
 		if (this.age == Parameters.AGE_LARVE) {
@@ -81,7 +82,7 @@ public class Fourmi extends Individu {
 			this.getVuObserver().notifyVu();
 			this.setPoids(0);
 		} else if (this.age == Parameters.AGE_ADULTE) {
-			this.etat = new Adulte(contexte);
+			this.etat = new Adulte(fourmiliere);
 			this.getVuObserver().notifyVu();
 			this.setPoids(2);
 		}
@@ -116,7 +117,7 @@ public class Fourmi extends Individu {
 			this.timetolunch=PAS_FAIM;
 		}
 		this.timetolunch--;
-		this.evolution(contexte);
+		this.evolution(contexte.getFourmiliere());
 		this.etat.etapeDeSimulation(contexte);
 		this.poseProie(contexte);
 

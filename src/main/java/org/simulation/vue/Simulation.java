@@ -17,6 +17,7 @@ public class Simulation implements ActionListener {
 	private Terrain terrain = new Terrain(new Point(10,10), new Dimension(700,700));
 	private Saisons saisons = Saisons.AUTOMNE;
 	private Timer timer;
+	private int graphicAnimationDelay = 100;
 
 	public Simulation() {
 		this.space.setDoubleBuffered(true);
@@ -37,12 +38,12 @@ public class Simulation implements ActionListener {
 		this.space.add(vue);
 		this.space.repaint();
 	}
+
 	public void nouveauParametres(Simulation simulation, NiSpace space) {
 		VuParameters v = new VuParameters(simulation, space);
 		this.space.add(v,0,0);
 		this.space.repaint();
 	}
-
 
 	public void nouvelleFourmiliere(Fourmiliere fourmiliere) {
 		VueFourmiliere vue = new VueFourmiliere(fourmiliere);
@@ -63,29 +64,28 @@ public class Simulation implements ActionListener {
 		this.space.add(vue,2,0);
 		this.space.repaint();
 	}
+
 	public void retirerIndividu(VueIndividu individu) {
 		this.space.remove(individu);
 		this.space.repaint();
 	}
+
 	public int getGraphicAnimationDelay() {
 		return graphicAnimationDelay;
 	}
+
 	public void setGraphicAnimationDelay(int graphicAnimationDelay) {
 		this.graphicAnimationDelay=graphicAnimationDelay;
 	}
 
-	int graphicAnimationDelay = 100;
-
 	public void actionPerformed(ActionEvent e) {
 		Component[] views =  Simulation.this.space.getComponents();
-		for (int i = 0; i < views.length; i++) {
-			Component c = views[i];
-			if (c instanceof VueElement) {
-				VueElement next = (VueElement) c;
-				next.mettreAJourVue();
-				
-			}
-		}
+    for (Component c : views) {
+      if (c instanceof VueElement next) {
+        next.mettreAJourVue();
+
+      }
+    }
 		this.terrain.etapeDeSimulation(new ContexteDeSimulation(Simulation.this));
 		if(this.saisons.getHeure() % 24 == 0) {
 			this.terrain.getPheromone().evaporation();
