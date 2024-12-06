@@ -33,15 +33,16 @@ public class Reine extends Role{
 		if(contexte.getFourmiliere()!=null) {
 			reineNumber=contexte.getFourmiliere().getFourmisReines().size();
 		}
-		if(reineNumber>1 && contexte.getSimulation().getSaisons() == Saisons.ETE){ {
+		if(reineNumber>1 && contexte.getSimulation().getSaisons() == Saisons.ETE){
 			contexte.getFourmiliere().getPopulation().remove((Fourmi) reine);
-			reineNumber--;
+			contexte.getFourmiliere().getFourmisReines().remove((Fourmi) reine);
 		}
 	}
-}
+
 	public boolean isAdulteSexuesMale() {
 		return false;
 	}
+
 	public boolean isAdulteReine() {
 		return true;
 	}
