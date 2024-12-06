@@ -127,7 +127,7 @@ public class Fourmi extends Individu {
 		if (this.portProie!=null && posfourmiliere.distance(this.pos)<40){
 			contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()+this.portProie.getPoids());
 			contexte.getTerrain().getProies().remove(this.portProie);
-			contexte.getSimulation().retirerIndividu(this.portProie.getVue());
+			this.portProie.getVuObserver().notifyVuSuppression(contexte.getSimulation());
 			this.setAction(Action.DECOUVERTE);
 			this.portProie=null;
 		}

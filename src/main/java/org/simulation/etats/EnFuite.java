@@ -16,7 +16,7 @@ public class EnFuite extends Etat {
     public void etapeDeSimulation(ContexteDeSimulation contexte) {
         Proie proie = (Proie) contexte.getIndividu();
         contexte.getTerrain().getProies().remove(proie);
-        contexte.getSimulation().retirerIndividu(proie.getVue());
+        proie.getVuObserver().notifyVuSuppression(contexte.getSimulation());
     }
 
     public void initialise(VueIndividu vue ) {
