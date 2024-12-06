@@ -81,6 +81,9 @@ public class Terrain {
 			fourmi.setPoids(2);
 			this.fourmiliere.ponte(fourmi);
 			contexte.getSimulation().nouvelIndividu(fourmi);
+
+			fourmiliere.getFourmisReines().add(laReine);
+			fourmiliere.getFourmisSexueesMales().add(fourmi);
 		}
 		if(contexte.getSimulation().getSaisons().getHeure()==2190){
 			switch (contexte.getSimulation().getSaisons()) {

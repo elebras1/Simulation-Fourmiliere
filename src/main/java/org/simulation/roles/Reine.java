@@ -13,7 +13,7 @@ public class Reine extends Role{
 		
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		Individu reine = contexte.getIndividu();
-		boolean individuSexueMaleIsPresent = !contexte.getFourmiliere().getFourmisReines().isEmpty();
+		boolean individuSexueMaleIsPresent = !contexte.getFourmiliere().getFourmisSexueesMales().isEmpty();
 		if(individuSexueMaleIsPresent && contexte.getSimulation().getSaisons().getHeure()%15==0){
 			Random rand = new Random();
 			int nb = rand.nextInt(50);
