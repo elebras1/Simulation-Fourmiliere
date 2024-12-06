@@ -16,4 +16,13 @@ Une fourmis a 3 actions possible : Decouverte, Suivre, Chasse
 Lorsque une ouvriere a l'action Decouverte ou Suivre un calcul avec des probabilités est fait en tenant compte des gradients avec un biais minimal afin s'orienter vers une direction. Une fourmi qui est sur Suivre se deplacera avec plus de chance sur les pheromones ayant des gradients élevés. le contraire pour Decouverte.
 Chasse -> une ouvriere ne bouge pas.
 
+Proie :
+les proie on un état :
+
+ProieVivant -> ce deplace de aléatoirement sur le terrain, si elle croise un fourmi, la Proie s'arrette (La fourmi passe en Chasse).
+si la fourmi n'a pas la capaciter de tuer la proie et que aucune fourmi vient l'aider, proie s'enfuit (passe dans l'etat EnFuite) . Si la/les fourmi(s) tue la proie (passe dans l'etat ProieMort)
+
+ProieMort -> attend q'une foumi la porte (passe en EstPorte).
+
+EstPorte -> ce deplace en fonction de la position du porteur. Si le porteur meur la proie tombe (passe en ProieMort). Si la proie porté arrive dans la Fourmiliere elle disparait et augmente la nourriture dans la Fourmiliere en fonction de son poids.
 
