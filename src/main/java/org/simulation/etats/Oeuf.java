@@ -3,6 +3,7 @@ package org.simulation.etats;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import org.simulation.etresVivants.*;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
 
@@ -16,6 +17,16 @@ public class Oeuf extends Etat{
 		vue.setBackground(Color.white);
 		vue.setDimension(new Dimension(3, 3));
 	}
-	
-	
+
+	@Override
+	public void actionSiAttaquer(ContexteDeSimulation contexte,Individu individu) {
+
+	}
+
+	@Override
+	public void gestionDeFaim(ContexteDeSimulation contexte) {
+
+	}
+
+
 }

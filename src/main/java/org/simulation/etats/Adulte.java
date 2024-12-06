@@ -1,10 +1,9 @@
 package org.simulation.etats;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.util.Random;
 
-import org.simulation.etresVivants.Fourmi;
+import org.simulation.etresVivants.*;
 import org.simulation.parameter.Parameters;
 import org.simulation.roles.*;
 import org.simulation.vue.ContexteDeSimulation;
@@ -65,5 +64,25 @@ public class Adulte extends Etat {
 		vue.setDimension(new Dimension(3, 3));
 	}
 
-	
+	@Override
+	public void actionSiAttaquer(ContexteDeSimulation contexte,Individu individu) {
+
+	}
+
+	@Override
+	public void gestionDeFaim(ContexteDeSimulation contexte) {
+		Fourmi fourmi = (Fourmi) contexte.getIndividu();
+		Point p = contexte.getFourmiliere().getPos();
+		Point posfourmiliere = new Point(p.x + 40, p.y + 40);
+		if (contexte.getFourmiliere().getNourriture()<fourmi.getPoids()/3 ||
+				posfourmiliere.distance(fourmi.getPos())>40){
+			fourmi.setEtat(new Mort());
+		}else {
+			fourmi.setaFaim(false);
+			fourmi.setAction(Action.DECOUVERTE);
+			contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()-fourmi.getPoids()/3);
+		}
+	}
+
+
 }

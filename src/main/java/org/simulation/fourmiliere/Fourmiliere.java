@@ -19,7 +19,7 @@ public class Fourmiliere {
 	private List<Fourmi> population;
 	private Point pos;
 	private Dimension dim;
-	private double nourriture = 10000;
+	private double nourriture = 1000;
 
 
 	public Point getPos() {

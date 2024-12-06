@@ -25,7 +25,6 @@ import static org.simulation.parameter.Parameters.NOMBRE_PROIE_MAX;
 
 public class Terrain {
 
-	private static final int NOMBRE_PROIE_MAX = 2000;
 	private List<Proie> proies = new ArrayList<>();
 	private Point pos;
 	private Dimension dim;
