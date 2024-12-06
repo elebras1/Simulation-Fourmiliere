@@ -35,6 +35,7 @@ public class Reine extends Role{
 		}
 		if(reineNumber>1 && contexte.getSimulation().getSaisons() == Saisons.ETE){ {
 			contexte.getFourmiliere().getPopulation().remove((Fourmi) reine);
+			reineNumber--;
 		}
 	}
 }
