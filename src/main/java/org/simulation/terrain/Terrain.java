@@ -97,15 +97,19 @@ public class Terrain {
 			switch (simulation.getSaisons()) {
 				case AUTOMNE:
 					simulation.setSaisons(Saisons.HIVER);
+					simulation.setHeure(0);
 					break;
 				case HIVER:
 					simulation.setSaisons(Saisons.PRINTEMPS);
+					simulation.setHeure(0);
 					break;
 				case PRINTEMPS:
 					simulation.setSaisons(Saisons.ETE);
+					simulation.setHeure(0);
 					break;
 				case ETE:
 					simulation.setSaisons(Saisons.AUTOMNE);
+					simulation.setHeure(0);
 					break;
 			}
 		}

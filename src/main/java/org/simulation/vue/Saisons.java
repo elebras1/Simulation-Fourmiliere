@@ -6,9 +6,6 @@ public enum Saisons {
 
     private int heure;
 
-    Saisons() {
-        heure = 0;
-    }
     public int getHeure() {
         return heure;
     }
@@ -17,4 +14,7 @@ public enum Saisons {
         this.heure++;
     }
 
+    public void setHeure(int heure) {
+        this.heure = heure;
+    }
 }

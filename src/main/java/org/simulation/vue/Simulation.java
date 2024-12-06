@@ -110,4 +110,7 @@ public class Simulation implements ActionListener {
     public void setSaisons(Saisons saisons) {
         this.saisons = saisons;
     }
+	public void setHeure(int heure) {
+		this.saisons.setHeure(heure);
+	}
 }
