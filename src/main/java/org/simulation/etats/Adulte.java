@@ -67,7 +67,13 @@ public class Adulte extends Etat {
 		vue.setBackground(Color.blue);
 		vue.setDimension(new Dimension(3, 3));
 	}
-
+	public boolean isAdulteSexuesMale() {
+		return this.role.isAdulteSexuesMale();
+	}
+	public boolean isAdulteReine() {
+		return this.role.isAdulteReine();
+	}
+	
 	@Override
 	public void actionSiAttaquer(ContexteDeSimulation contexte, Individu individu) {
 

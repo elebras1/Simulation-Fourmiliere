@@ -11,6 +11,7 @@ import org.simulation.etresVivants.Fourmi;
 import org.simulation.etresVivants.Proie;
 import org.simulation.etresVivants.Sexe;
 import org.simulation.fourmiliere.Fourmiliere;
+import org.simulation.proies.Proies;
 import org.simulation.roles.IndividuSexue;
 import org.simulation.roles.Reine;
 import org.simulation.vue.ContexteDeSimulation;
@@ -20,23 +21,20 @@ import static org.simulation.parameter.Parameters.NOMBRE_PROIE_MAX;
 
 
 public class Terrain {
-
-	private static final int MIN_DISTANCE_FROM_FOURMILIERE = 45;
-	private List<Proie> proies;
 	private Point pos;
 	private Dimension dim;
 	private Fourmiliere fourmiliere;
+	private Proies proies = new Proies();
 	private Pheromone pheromone;
 
 	public Terrain(Point pos, Dimension dim) {
 		this.pos = pos;
 		this.dim = dim;
 		this.pheromone = new Pheromone(this.dim);
-		this.proies = new ArrayList<>();
 	}
 
 	public List<Proie> getProies() {
-		return proies;
+		return proies.getProies();
 	}
 
 	public Point getPos() {
@@ -48,8 +46,9 @@ public class Terrain {
 	}
 
 	public Pheromone getPheromone() {
-		return this.pheromone;
+		return this.pheromones;
 	}
+
 		
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		contexte.getSimulation().getSaisons().incrementeHeure();
@@ -67,7 +66,7 @@ public class Terrain {
 
 			this.fourmiliere.setReine(laReine);
 			contexte.getSimulation().nouvelleFourmiliere(this.fourmiliere);
-			contexte.getSimulation().nouveauPheromone(this.pheromone);
+			contexte.getSimulation().nouveauPheromone(this.pheromones);
 
 
 			Fourmi fourmi = new Fourmi(laReine.getPos());
@@ -101,53 +100,10 @@ public class Terrain {
 		}
 
 		fourmiliere.etapeDeSimulation(contexte);
-		if (proies.size() <= NOMBRE_PROIE_MAX) {
-
-			for(int i = 0; i < NOMBRE_PROIE_MAX; i++){
-
-				spawnProieAleatoire(contexte);
-			}
-		}
-		for (int i = 0;i<this.proies.size();i++){
-			this.proies.get(i).etapeDeSimulation(contexte);
-		}
+		proies.etapeDeSimulation(contexte);
 	}
 
-	private void spawnProieAleatoire(ContexteDeSimulation contexte) {
 
-		Point position = generatePositionInZone();
-		while (!isPositionValide(position)) {
-			position = generatePositionInZone();
-		}
-		Proie nouvelleProie = new Proie(position);
-		proies.add(nouvelleProie);
-		contexte.getSimulation().nouvelIndividu(nouvelleProie);
-
-	}
-
-	private Point generatePositionInZone() {
-		int zone = new Random().nextInt(4);
-		switch (zone) {
-			case 0: return generatePosition(0, 0);
-			case 1: return generatePosition(dim.width / 2, 0);
-			case 2: return generatePosition(0, dim.height / 2);
-			case 3: return generatePosition(dim.width / 2, dim.height / 2);
-			default: return new Point(0, 0);
-		}
-	}
-
-	private Point generatePosition(int xOffset, int yOffset) {
-		Random random = new Random();
-		int x = random.nextInt(dim.width / 2) + xOffset;
-		int y = random.nextInt(dim.height / 2) + yOffset;
-		return new Point(x + pos.x, y + pos.y);
-	}
-
-	private boolean isPositionValide(Point position) {
-		if (fourmiliere == null) return true;
-		Point posFourmiliere = fourmiliere.getPos();
-		return posFourmiliere.distance(position) >= MIN_DISTANCE_FROM_FOURMILIERE;
-	}
 
 	public Point convertirEnCoordonneesLocales(Point globale) {
 		return new Point(globale.x - this.pos.x, globale.y - this.pos.y);

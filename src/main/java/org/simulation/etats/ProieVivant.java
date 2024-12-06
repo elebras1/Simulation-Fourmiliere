@@ -104,4 +104,7 @@ public class ProieVivant extends Etat {
     public void bilan(Bilan bilan) {
         bilan.inscrire("Proie vivante");
     }
+    public boolean isAdulteSexuesMale() {
+        return false;
+    }
 }

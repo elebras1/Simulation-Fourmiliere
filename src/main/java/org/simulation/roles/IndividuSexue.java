@@ -36,6 +36,15 @@ public class IndividuSexue extends Role {
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 	}
 
+
+	public boolean isAdulteSexuesMale() {
+		return this.sexe==Sexe.male;
+	}
+
+	@Override
+	public boolean isAdulteReine() {
+		return false;
+	}
 	@Override
 	public void bilan(Bilan bilan) {
 		bilan.inscrire("Individu sexue " + this.getSexe());

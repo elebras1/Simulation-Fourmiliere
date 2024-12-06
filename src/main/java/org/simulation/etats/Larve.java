@@ -21,6 +21,9 @@ public class Larve extends Etat{
 		vue.setDimension(new Dimension(5, 5));
 
 	}
+	public boolean isAdulteSexuesMale() {
+		return false;
+	}
 
 	@Override
 	public void actionSiAttaquer(ContexteDeSimulation contexte, Individu individu) {

@@ -19,6 +19,9 @@ public class Oeuf extends Etat{
 		vue.setDimension(new Dimension(3, 3));
 	}
 
+	public boolean isAdulteSexuesMale() {
+		return false;
+	}
 	@Override
 	public void actionSiAttaquer(ContexteDeSimulation contexte, Individu individu) {
 
@@ -32,6 +35,5 @@ public class Oeuf extends Etat{
 	public void bilan(Bilan bilan) {
 		bilan.inscrire("Oeuf");
 	}
-
 
 }

@@ -40,4 +40,7 @@ public class EnFuite extends Etat {
     public void bilan(Bilan bilan) {
         bilan.inscrire("En fuite");
     }
+    public boolean isAdulteSexuesMale() {
+        return false;
+    }
 }

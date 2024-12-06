@@ -97,4 +97,13 @@ public class Ouvriere extends Role {
 	public void bilan(Bilan bilan) {
 		bilan.inscrire("Ouvriere");
 	}
+
+	public boolean isAdulteSexuesMale() {
+		return false;
+	}
+
+	@Override
+	public boolean isAdulteReine() {
+		return false;
+	}
 }

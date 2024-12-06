@@ -9,6 +9,14 @@ public class Soldat extends Role{
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 	}
 
+	public boolean isAdulteSexuesMale() {
+		return false;
+	}
+
+	@Override
+	public boolean isAdulteReine() {
+		return false;
+	}
 	@Override
 	public void bilan(Bilan bilan) {
 		bilan.inscrire("Soldat");
