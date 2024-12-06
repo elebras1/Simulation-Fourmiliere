@@ -9,6 +9,7 @@ import java.util.List;
 import org.simulation.etresVivants.Fourmi;
 import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
+import org.simulation.vue.Saisons;
 
 public class Fourmiliere {
 	private List<Fourmi> population;
@@ -64,6 +65,7 @@ public class Fourmiliere {
 		if(Parameters.AFFICHER_TRACE) {
 			this.bilan.clear();
 			this.bilan(this.bilan);
+			System.out.println(contexte.getSimulation().getSaisons());
 			System.out.println(this.bilan);
 		}
 	}
