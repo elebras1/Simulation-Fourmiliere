@@ -20,6 +20,8 @@ public class Mort extends Etat {
 		vue.setDimension(new Dimension(3, 3));
 		vue.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 	}
-
+	public boolean isAdulteSexuesMale() {
+		return false;
+	}
 	
 }

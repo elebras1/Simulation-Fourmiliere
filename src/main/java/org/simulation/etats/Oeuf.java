@@ -16,6 +16,8 @@ public class Oeuf extends Etat{
 		vue.setBackground(Color.white);
 		vue.setDimension(new Dimension(3, 3));
 	}
-	
-	
+
+	public boolean isAdulteSexuesMale() {
+		return false;
+	}
 }

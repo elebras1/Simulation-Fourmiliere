@@ -16,5 +16,7 @@ public class Nymphe extends Etat{
 		vue.setBackground(Color.pink);
 		vue.setDimension(new Dimension(5, 5));
 	}
-	
+	public boolean question() {
+		return false;
+	}
 }

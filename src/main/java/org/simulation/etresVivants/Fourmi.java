@@ -80,16 +80,25 @@ public class Fourmi extends Individu {
 			this.setPoids(0);
 		} else if (this.age == Parameters.AGE_ADULTE) {
 			this.etat = new Adulte(contexte);
+			Adulte adulte = (Adulte) this.etat;
+			if(adulte.isAdulteSexuesMale()){
+				contexte.getFourmiliere().getFourmisSexueesMales().add(this);
+			}else if(adulte.isAdulteReine()){
+				contexte.getFourmiliere().getFourmisReines().add(this);
+			}
 			this.getVuObserver().notifyVu();
 			this.setPoids(2);
 		}
 
 		if (this.age > this.dureeDeVie) {
 			this.etat = new Mort();
+			contexte.getFourmiliere().getFourmisSexueesMales().remove(this);
+			contexte.getFourmiliere().getFourmisReines().remove(this);
 			this.getVuObserver().notifyVu();
 
 		}
 	}
+
 	public void gestionDeFaim(ContexteDeSimulation contexte){
 		switch (this.getEtat().getClass().getSimpleName()) {
 			case "Larve" :
@@ -119,7 +128,7 @@ public class Fourmi extends Individu {
 		this.etat.initialise(vue);
 	}
 
-	
+
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		super.etapeDeSimulation(contexte);
 		if(this.timetolunch<=0){
@@ -149,4 +158,5 @@ public class Fourmi extends Individu {
 	public void setPortProie(double poids) {
 		this.portProie = poids;
 	}
+
 }

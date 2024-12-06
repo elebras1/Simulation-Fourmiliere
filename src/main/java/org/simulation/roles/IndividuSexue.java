@@ -37,5 +37,12 @@ public class IndividuSexue extends Role {
 	}
 
 
-	
+	public boolean isAdulteSexuesMale() {
+		return this.sexe==Sexe.male;
+	}
+
+	@Override
+	public boolean isAdulteReine() {
+		return false;
+	}
 }

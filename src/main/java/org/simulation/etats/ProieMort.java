@@ -15,4 +15,7 @@ public class ProieMort  extends Etat {
         vue.setDimension(new Dimension(5, 5));
         vue.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
     }
+    public boolean isAdulteSexuesMale() {
+        return false;
+    }
 }

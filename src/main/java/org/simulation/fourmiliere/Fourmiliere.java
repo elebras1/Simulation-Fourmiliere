@@ -3,6 +3,7 @@ package org.simulation.fourmiliere;
 import java.awt.Point;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.simulation.etats.*;
@@ -16,10 +17,19 @@ public class Fourmiliere {
 	}
 
 	private List<Fourmi> population;
+	private List<Fourmi> fourmisSexueesMales;
+	private HashSet<Fourmi> fourmisReines;
 	private Point pos;
 	private Dimension dim;
 	private double nourriture = 10000;
 
+	public List<Fourmi> getFourmisSexueesMales() {
+		return fourmisSexueesMales;
+	}
+
+	public HashSet<Fourmi> getFourmisReines() {
+		return fourmisReines;
+	}
 
 	public Point getPos() {
 		return pos;

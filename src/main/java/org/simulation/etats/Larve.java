@@ -17,6 +17,8 @@ public class Larve extends Etat{
 		vue.setBackground(Color.yellow);
 		vue.setDimension(new Dimension(5, 5));
 	}
-
+	public boolean isAdulteSexuesMale() {
+		return false;
+	}
 	
 }

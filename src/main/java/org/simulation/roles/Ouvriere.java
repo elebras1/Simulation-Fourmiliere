@@ -94,4 +94,13 @@ public class Ouvriere extends Role {
 		}
 
 	}
+
+	public boolean isAdulteSexuesMale() {
+		return false;
+	}
+
+	@Override
+	public boolean isAdulteReine() {
+		return false;
+	}
 }
