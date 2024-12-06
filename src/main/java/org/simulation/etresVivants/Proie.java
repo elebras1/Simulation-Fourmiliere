@@ -61,7 +61,9 @@ public class Proie  extends Individu {
         super.etapeDeSimulation(contexte);
         this.etat.etapeDeSimulation(contexte);
         for (Fourmi fourmi : contexte.getFourmiliere().getPopulation()) {
-            this.etat.actionSiAttaquer(contexte,fourmi);
+            if(fourmi.getEtat() instanceof Adulte) {
+                this.etat.actionSiAttaquer(contexte,fourmi);
+            }
         }
 
     }
