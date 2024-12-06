@@ -16,7 +16,7 @@ public class Fourmiliere {
 	private HashSet<Fourmi> fourmisReines;
 	private Point pos;
 	private Dimension dim;
-	private double nourriture = 10000;
+	private double nourriture = Parameters.STOCK_NOURITURE;
 	private Bilan bilan;
 
 	public List<Fourmi> getFourmisSexueesMales() {

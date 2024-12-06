@@ -21,4 +21,5 @@ public class Parameters {
   public static int POIDS_MAX_PROIE = 100;
   public static int NOMBRE_NAISSANCE = 50;
   public static int VITESSE_PONTE = 15;
+  public static int STOCK_NOURITURE = 10000;
 }

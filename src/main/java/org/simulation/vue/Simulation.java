@@ -13,7 +13,7 @@ import org.simulation.terrain.Terrain;
 
 
 public class Simulation implements ActionListener {
-	private NiSpace space = new NiSpace("Simulation Fourmis", new Dimension(1000, 800));
+	private NiSpace space = new NiSpace("Simulation Fourmis", new Dimension(1500, 800));
 	private Terrain terrain = new Terrain(new Point(10,10), new Dimension(700,700));
 	private Saisons saisons = Saisons.AUTOMNE;
 	private Timer timer;
@@ -95,7 +95,6 @@ public class Simulation implements ActionListener {
 	public void start() {
 		this.timer = new Timer(0, this);
 		this.timer.setDelay(this.graphicAnimationDelay);
-		this.timer.start();
 		this.nouveauParametres(this,space);
 	}
 	
