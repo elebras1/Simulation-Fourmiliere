@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Random;
 
 public class Proie  extends Individu {
-    private static final double POIDS_MIN = 2.0;
-    private static final double POIDS_MAX = 10.0;
+    private static final double POIDS_MIN = Parameters.POIDS_MIN_PROIE;
+    private static final double POIDS_MAX = Parameters.POIDS_MAX_PROIE;
     private Etat etat;
     private List<Fourmi> fourmisSurProie;
     private int tempsAttente;

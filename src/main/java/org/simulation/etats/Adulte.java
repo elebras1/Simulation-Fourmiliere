@@ -19,7 +19,6 @@ public class Adulte extends Etat {
 	public Adulte(Fourmiliere fourmiliere) {
 		Random rand = new Random();
 		int proba = rand.nextInt(100);
-		// 60 % d'ouvrieres, 25 % de soldats et 15 % d'individus sexu�s
 		int reineNumber= 0;
 		if(fourmiliere != null) {
 			reineNumber = fourmiliere.getFourmisReines().size();

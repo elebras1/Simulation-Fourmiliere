@@ -1,5 +1,7 @@
 package org.simulation.terrain;
 
+import org.simulation.parameter.Parameters;
+
 import java.awt.*;
 
 public class Pheromone {
@@ -15,7 +17,7 @@ public class Pheromone {
 
     public void deposerPheromone(int x, int y) {
         if(x >= 0 && x < this.pheromones.length && y >= 0 && y < this.pheromones[0].length && this.pheromones[x][y] < 256) {
-            this.pheromones[x][y] = Math.min(255, this.pheromones[x][y] + 10);
+            this.pheromones[x][y] = Math.min(255, this.pheromones[x][y] + Parameters.PHEROMONE_DEPOSER);
         }
     }
 

@@ -9,6 +9,7 @@ import org.simulation.etresVivants.Fourmi;
 import org.simulation.etresVivants.Proie;
 import org.simulation.etresVivants.Sexe;
 import org.simulation.fourmiliere.Fourmiliere;
+import org.simulation.parameter.Parameters;
 import org.simulation.proies.Proies;
 import org.simulation.roles.IndividuSexue;
 import org.simulation.roles.Reine;
@@ -63,7 +64,7 @@ public class Terrain {
 			this.fourmiliere = new Fourmiliere(pt);
 			Fourmi laReine = new Fourmi(pt);
 			laReine.setAge(30);
-			laReine.setDureeDeVie(547);
+			laReine.setDureeDeVie(Parameters.DUREE_VIE_MAX);
 			laReine.setPoids(2);
 			laReine.setEtat(new Adulte(new Reine()));
 			simulation.nouvelIndividu(laReine);
@@ -81,7 +82,7 @@ public class Terrain {
 			individuSexue.setSexe(Sexe.male);
 
 			fourmi.setAge(30);
-			fourmi.setDureeDeVie(547);
+			fourmi.setDureeDeVie(Parameters.DUREE_VIE_MAX);
 			fourmi.setPoids(2);
 			this.fourmiliere.ponte(fourmi);
 			simulation.nouvelIndividu(fourmi);
@@ -92,7 +93,7 @@ public class Terrain {
 	}
 
 	public void saisonSuivante(Simulation simulation) {
-		if(simulation.getSaisons().getHeure()==2190){
+		if(simulation.getSaisons().getHeure()== Parameters.CHANGEMENT_SAISON){
 			switch (simulation.getSaisons()) {
 				case AUTOMNE:
 					simulation.setSaisons(Saisons.HIVER);

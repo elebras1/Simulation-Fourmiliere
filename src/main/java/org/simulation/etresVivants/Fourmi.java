@@ -17,7 +17,6 @@ import org.simulation.vue.VueIndividu;
 
 
 public class Fourmi extends Individu {
-	private final static int PAS_FAIM = 10000;
 	private int dureeDeVie;
 	private Etat etat;
 	private int age;
@@ -31,7 +30,7 @@ public class Fourmi extends Individu {
 		this.setEtat(new Oeuf());
 		this.setPos(point);
 		this.setAction(Action.DECOUVERTE);
-		this.timetolunch = PAS_FAIM;
+		this.timetolunch = Parameters.FAIM;
 		this.portProie = null;
 		this.aFaim = false;
 	}
@@ -122,7 +121,7 @@ public class Fourmi extends Individu {
 		}
 		if(this.timetolunch<=0){
 			this.etat.gestionDeFaim(contexte);
-			this.timetolunch=PAS_FAIM;
+			this.timetolunch=Parameters.FAIM;
 		}
 		this.timetolunch--;
 		this.evolution(contexte.getFourmiliere());

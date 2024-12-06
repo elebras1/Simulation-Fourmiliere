@@ -14,9 +14,9 @@ public class Reine extends Role{
 	public void etapeDeSimulation(ContexteDeSimulation contexte) {
 		Individu reine = contexte.getIndividu();
 		boolean individuSexueMaleIsPresent = !contexte.getFourmiliere().getFourmisSexueesMales().isEmpty();
-		if(individuSexueMaleIsPresent && contexte.getSimulation().getSaisons().getHeure()%15==0){
+			if(individuSexueMaleIsPresent && contexte.getSimulation().getSaisons().getHeure()%Parameters.VITESSE_PONTE==0){
 			Random rand = new Random();
-			int nb = rand.nextInt(50);
+			int nb = rand.nextInt(Parameters.NOMBRE_NAISSANCE);
 			for (int i = 0; i < nb; i++) {
 				Fourmi oeuf = new Fourmi(reine.getPos());
 				// Min et max en heures
