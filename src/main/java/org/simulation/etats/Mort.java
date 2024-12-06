@@ -22,6 +22,16 @@ public class Mort extends Etat {
 	}
 
 	@Override
+	public void actionSiAttaquer(ContexteDeSimulation contexte,Individu individu) {
+
+	}
+
+	@Override
+	public void gestionDeFaim(ContexteDeSimulation contexte) {
+
+	}
+
+
 	public void bilan(Bilan bilan) {
 		bilan.inscrire("Mort");
 	}

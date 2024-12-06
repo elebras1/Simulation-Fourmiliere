@@ -29,7 +29,7 @@ public class Reine extends Role{
 		if(individuSexueMaleIsPresent){
 			if(contexte.getSimulation().getSaisons().getHeure()%15==0){
 				Random rand = new Random();
-				int nb = rand.nextInt(50);
+				int nb = rand.nextInt(20);
 				for (int i = 0; i < nb; i++) {
 					Fourmi oeuf = new Fourmi(reine.getPos());
 					// Min et max en heures
