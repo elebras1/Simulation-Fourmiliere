@@ -7,6 +7,7 @@ import org.simulation.etresVivants.Action;
 import org.simulation.etresVivants.Fourmi;
 import org.simulation.etresVivants.Individu;
 import org.simulation.fourmiliere.Bilan;
+import org.simulation.fourmiliere.Fourmiliere;
 import org.simulation.parameter.Parameters;
 import org.simulation.roles.*;
 import org.simulation.vue.ContexteDeSimulation;
@@ -15,13 +16,13 @@ import org.simulation.vue.VueIndividu;
 public class Adulte extends Etat {
 	private Role role;
 	
-	public Adulte(ContexteDeSimulation contexte) {
+	public Adulte(Fourmiliere fourmiliere) {
 		Random rand = new Random();
 		int proba = rand.nextInt(100);
 		// 60 % d'ouvrieres, 25 % de soldats et 15 % d'individus sexu�s
 		int reineNumber= 0;
-		if(contexte.getFourmiliere()!=null) {
-			reineNumber=(int) contexte.getFourmiliere().getPopulation().stream()
+		if(fourmiliere != null) {
+			reineNumber = (int) fourmiliere.getPopulation().stream()
 					.map(Fourmi::getEtat)
 					.filter(etat -> etat instanceof Adulte)
 					.map(Adulte.class::cast)

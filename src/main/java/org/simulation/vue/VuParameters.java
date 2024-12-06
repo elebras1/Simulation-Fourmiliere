@@ -96,17 +96,16 @@ public class VuParameters extends VueElement {
         slider.addChangeListener(_ -> {
             int value = slider.getValue();
             simulation.setGraphicAnimationDelay(value);
-            simulation.getTimer().setDelay(simulation.graphicAnimationDelay);
+            simulation.getTimer().setDelay(simulation.getGraphicAnimationDelay());
         });
         space.add(slider);
         return slider;
     }
 
-    private JLabel createLabel(String text, int y, NiSpace space) {
+    private void createLabel(String text, int y, NiSpace space) {
         JLabel label = new JLabel(text);
         label.setBounds(730, y, 150, 30);
         space.add(label);
-        return label;
     }
 
     private JTextField createTextField(String text, int y, NiSpace space) {
