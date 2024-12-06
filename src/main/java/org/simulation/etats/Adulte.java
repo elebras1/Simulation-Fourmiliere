@@ -3,7 +3,9 @@ package org.simulation.etats;
 import java.awt.*;
 import java.util.Random;
 
+import org.simulation.etresVivants.Action;
 import org.simulation.etresVivants.Fourmi;
+import org.simulation.etresVivants.Individu;
 import org.simulation.fourmiliere.Bilan;
 import org.simulation.parameter.Parameters;
 import org.simulation.roles.*;
@@ -66,7 +68,7 @@ public class Adulte extends Etat {
 	}
 
 	@Override
-	public void actionSiAttaquer(ContexteDeSimulation contexte,Individu individu) {
+	public void actionSiAttaquer(ContexteDeSimulation contexte, Individu individu) {
 
 	}
 

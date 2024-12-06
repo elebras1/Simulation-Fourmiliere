@@ -3,6 +3,8 @@ package org.simulation.etats;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import org.simulation.etresVivants.Fourmi;
+import org.simulation.etresVivants.Individu;
 import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
@@ -21,7 +23,7 @@ public class Larve extends Etat{
 	}
 
 	@Override
-	public void actionSiAttaquer(ContexteDeSimulation contexte,Individu individu) {
+	public void actionSiAttaquer(ContexteDeSimulation contexte, Individu individu) {
 
 	}
 

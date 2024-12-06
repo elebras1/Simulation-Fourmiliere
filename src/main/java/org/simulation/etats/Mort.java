@@ -5,6 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 
+import org.simulation.etresVivants.Individu;
 import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.ContexteDeSimulation;
 import org.simulation.vue.VueIndividu;
@@ -22,7 +23,7 @@ public class Mort extends Etat {
 	}
 
 	@Override
-	public void actionSiAttaquer(ContexteDeSimulation contexte,Individu individu) {
+	public void actionSiAttaquer(ContexteDeSimulation contexte, Individu individu) {
 
 	}
 

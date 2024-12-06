@@ -1,10 +1,16 @@
 package org.simulation.etats;
 
+import org.simulation.etresVivants.Action;
+import org.simulation.etresVivants.Fourmi;
+import org.simulation.etresVivants.Individu;
+import org.simulation.etresVivants.Proie;
 import org.simulation.fourmiliere.Bilan;
+import org.simulation.parameter.Parameters;
 import org.simulation.vue.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class ProieVivant extends Etat {
 
@@ -79,7 +85,7 @@ public class ProieVivant extends Etat {
     }
 
     @Override
-    public void actionSiAttaquer(ContexteDeSimulation contexte,Individu individu) {
+    public void actionSiAttaquer(ContexteDeSimulation contexte, Individu individu) {
         Proie proie = (Proie) contexte.getIndividu();
         Fourmi fourmi= (Fourmi) individu;
         double distance = proie.getPos().distance(individu.getPos());

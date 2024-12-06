@@ -1,5 +1,7 @@
 package org.simulation.etats;
 
+import org.simulation.etresVivants.Individu;
+import org.simulation.etresVivants.Proie;
 import org.simulation.fourmiliere.Bilan;
 import org.simulation.vue.*;
 
@@ -31,7 +33,7 @@ public class EstPorte extends Etat{
     }
 
     @Override
-    public void actionSiAttaquer(ContexteDeSimulation contexte,Individu individu) {
+    public void actionSiAttaquer(ContexteDeSimulation contexte, Individu individu) {
 
     }
 
