@@ -39,6 +39,7 @@ public class Proie  extends Individu {
 
     public void setEtat(Etat etat) {
         this.etat = etat;
+        this.getVuObserver().notifyVu();
     }
 
     public Boolean getNombreFourmisNecessaires() {
@@ -62,7 +63,7 @@ public class Proie  extends Individu {
         for (Fourmi fourmi : contexte.getFourmiliere().getPopulation()) {
             this.etat.actionSiAttaquer(contexte,fourmi);
         }
-        this.getVuObserver().notifyVu();
+
     }
 
 

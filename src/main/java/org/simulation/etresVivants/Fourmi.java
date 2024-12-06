@@ -49,6 +49,7 @@ public class Fourmi extends Individu {
 
 	public void setEtat(Etat etat) {
 		this.etat = etat;
+
 	}
 
 	public int getAge() {
@@ -122,9 +123,9 @@ public class Fourmi extends Individu {
 	}
 
 	private void poseProie(ContexteDeSimulation contexte) {
-		Point p = contexte.getFourmiliere().getPos();
-		Point posfourmiliere = new Point(p.x + 40, p.y + 40);
-		if (this.portProie!=null && posfourmiliere.distance(this.pos)<40){
+		Point posfourmiliere = contexte.getFourmiliere().getPos();
+		if (this.portProie!=null && posfourmiliere.distance(this.pos)<=40){
+			System.out.println("yes");
 			contexte.getFourmiliere().setNourriture(contexte.getFourmiliere().getNourriture()+this.portProie.getPoids());
 			contexte.getTerrain().getProies().remove(this.portProie);
 			this.portProie.getVuObserver().notifyVuSuppression(contexte.getSimulation());
