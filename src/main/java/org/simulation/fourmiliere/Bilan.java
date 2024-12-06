@@ -18,6 +18,10 @@ public class Bilan {
         }
     }
 
+    public void clear() {
+        this.bilan.clear();
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

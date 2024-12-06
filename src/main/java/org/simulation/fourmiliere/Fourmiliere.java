@@ -10,16 +10,22 @@ import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
 
 public class Fourmiliere {
-
-	public List<Fourmi> getPopulation() {
-		return population;
-	}
-
 	private List<Fourmi> population;
 	private Point pos;
 	private Dimension dim;
 	private double nourriture = 10000;
+	private Bilan bilan;
 
+	public Fourmiliere(Point pos) {
+		this.population = new ArrayList<>();
+		this.pos = pos;
+		this.dim = new Dimension(80,80);
+		this.bilan = new Bilan();
+	}
+
+	public List<Fourmi> getPopulation() {
+		return population;
+	}
 
 	public Point getPos() {
 		return pos;
@@ -27,12 +33,6 @@ public class Fourmiliere {
 
 	public Dimension getDimension() {
 		return dim;
-	}
-
-	public Fourmiliere(Point pos) {
-		this.population = new ArrayList<>();
-		this.pos = pos;
-		this.dim = new Dimension(80,80);
 	}
 
 	public void ponte(Fourmi oeuf) {
@@ -50,9 +50,9 @@ public class Fourmiliere {
 			fourmi.etapeDeSimulation(contexte);
 		}
 		if(Parameters.AFFICHER_TRACE) {
-			Bilan bilan = new Bilan();
-			this.bilan(bilan);
-			System.out.println(bilan);
+			this.bilan.clear();
+			this.bilan(this.bilan);
+			System.out.println(this.bilan);
 		}
 	}
 
