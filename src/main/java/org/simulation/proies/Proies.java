@@ -2,17 +2,20 @@ package org.simulation.proies;
 
 import org.simulation.etresVivants.Proie;
 import org.simulation.fourmiliere.Fourmiliere;
+import org.simulation.parameter.Parameters;
 import org.simulation.vue.ContexteDeSimulation;
 
+import javax.security.auth.login.Configuration;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
 public class Proies {
 
     private List<Proie> proies = new ArrayList<>();
-    private static final int NOMBRE_PROIE_MAX = 500;
+    private static final int NOMBRE_PROIE_MAX = Parameters.NOMBRE_PROIE_MAX;
 
     private static final int MIN_DISTANCE_FROM_FOURMILIERE = 45;
 
@@ -27,8 +30,8 @@ public class Proies {
                 spawnProieAleatoire(contexte);
             }
         }
-        for (Proie proy : this.proies) {
-            proy.etapeDeSimulation(contexte);
+        for (int i=0;i<proies.size();i++) {
+            proies.get(i).etapeDeSimulation(contexte);
         }
     }
     private void spawnProieAleatoire(ContexteDeSimulation contexte) {
