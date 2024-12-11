@@ -49,7 +49,3 @@ Les proies possèdent différents états :
 1. **Traitement des déchets** : Gestion des déchets produits par la colonie.
 2. **Intégration d'une nouvelle fourmilière** : Ajout d'une autre colonie pour enrichir la simulation.
 3. **Amélioration du système de déplacement** : Optimisation des trajectoires et comportements des fourmis.
-
----
-
-Ce projet constitue une base solide pour l'étude et la simulation des écosystèmes, tout en offrant une représentation visuelle interactive des dynamiques de la vie en colonie. N'hésitez pas à contribuer pour enrichir les fonctionnalités et améliorer les performances !
