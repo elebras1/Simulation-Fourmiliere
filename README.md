@@ -1,28 +1,55 @@
-# Simulation d'une Fourmiliere
+[![Langage](https://img.shields.io/badge/Langage-Java-orange.svg)](https://www.java.com)
+[![Framework](https://img.shields.io/badge/Library-JavaFx-red.svg)](https://openjfx.io/)
 
-Dans ce projet, une personne peut parametrer la simulation la lancer,la stopper.
-Fait en Java,Swing.
+# Simulation de Fourmilière en Java avec Swing
 
-Parmis les fonctionalité il y as le systeme de reproduction, de gestion de nourriture avec un systeme de chasses de proie qui ce déplacement, ainsi q'un systeme de pheromone pour gerer les déplacement des fourmis.
+Ce projet est une simulation de fourmilière, réalisée en Java avec l'interface graphique Swing. Il permet de paramétrer, de lancer et de stopper la simulation.
 
-Parmis les améliorations il reste le traitement des déchets, intégration d'une nouvelle Fourmiliere, Amélioration du systeme de déplacement.
+## Fonctionnalités
 
-Pheromones : 
-Matrice ou chaque case contient un gradient de pheromone.
-la valeur de gradient maximal est 255, la valeur max de transparence.
+### Système de reproduction
 
-Deplacement :
-Une fourmis a 3 actions possible : Decouverte, Suivre, Chasse
-Lorsque une ouvriere a l'action Decouverte ou Suivre un calcul avec des probabilités est fait en tenant compte des gradients avec un biais minimal afin s'orienter vers une direction. Une fourmi qui est sur Suivre se deplacera avec plus de chance sur les pheromones ayant des gradients élevés. le contraire pour Decouverte.
-Chasse -> une ouvriere ne bouge pas.
+Les fourmis peuvent se reproduire dans la simulation, permettant une dynamique d'évolution de la colonie.
 
-Proie :
-les proie on un état :
+### Gestion de la nourriture
 
-ProieVivant -> ce deplace de aléatoirement sur le terrain, si elle croise un fourmi, la Proie s'arrette (La fourmi passe en Chasse).
-si la fourmi n'a pas la capaciter de tuer la proie et que aucune fourmi vient l'aider, proie s'enfuit (passe dans l'etat EnFuite) . Si la/les fourmi(s) tue la proie (passe dans l'etat ProieMort)
+Un système complexe permet de gérer la collecte et la consommation de nourriture, incluant :
 
-ProieMort -> attend q'une foumi la porte (passe en EstPorte).
+- **Chasse de proies** : les proies se déplacent sur le terrain, et les fourmis doivent les traquer pour assurer leur survie.
+- **Déplacement des proies** : les proies réagissent à la présence des fourmis.
 
-EstPorte -> ce deplace en fonction de la position du porteur. Si le porteur meur la proie tombe (passe en ProieMort). Si la proie porté arrive dans la Fourmiliere elle disparait et augmente la nourriture dans la Fourmiliere en fonction de son poids.
+### Système de phéromones
 
+Un système de phéromones est implémenté pour guider les déplacements des fourmis. Chaque case de la matrice contient un gradient de phéromone, avec une valeur maximale de 255 et un degré de transparence correspondant.
+
+### Déplacement des fourmis
+
+Les fourmis ont trois actions possibles :
+
+- **Découverte** : Elles explorent le terrain aléatoirement avec un biais minimal vers les zones à faible gradient de phéromone.
+- **Suivre** : Elles se dirigent vers les zones à fort gradient de phéromone.
+- **Chasse** : Elles cessent de bouger lorsqu'elles traquent une proie.
+
+### Proies
+
+Les proies possèdent différents états :
+
+- **Proie Vivante** :
+  - Se déplace aléatoirement sur le terrain.
+  - Si elle croise une fourmi, elle s'arrête et la fourmi passe en mode "Chasse".
+  - Si la fourmi ne peut pas tuer la proie et qu'aucune autre fourmi ne vient l'aider, la proie s'enfuit (passe en état **En Fuite**).
+  - Si la/les fourmi(s) tuent la proie, celle-ci passe en état **Proie Morte**.
+- **Proie Morte** : Attend qu'une fourmi la transporte (état **Est Portée**).
+- **Est Portée** : La proie suit le déplacement de son porteur.
+  - Si le porteur meurt, la proie retombe au sol (revient à l'état **Proie Morte**).
+  - Si la proie transportée arrive à la fourmilière, elle disparaît et augmente les réserves de nourriture en fonction de son poids.
+
+## Améliorations Prévues
+
+1. **Traitement des déchets** : Gestion des déchets produits par la colonie.
+2. **Intégration d'une nouvelle fourmilière** : Ajout d'une autre colonie pour enrichir la simulation.
+3. **Amélioration du système de déplacement** : Optimisation des trajectoires et comportements des fourmis.
+
+---
+
+Ce projet constitue une base solide pour l'étude et la simulation des écosystèmes, tout en offrant une représentation visuelle interactive des dynamiques de la vie en colonie. N'hésitez pas à contribuer pour enrichir les fonctionnalités et améliorer les performances !
